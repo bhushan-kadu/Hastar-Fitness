@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".diet.searchAndCustomFoodList.SearchedAndCustomFoodListActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/circular_home_button_theme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            app:contentInsetRight="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+            <androidx.appcompat.widget.SearchView
+                style="@style/Widget.AppCompat.SearchView.ActionBar"
+                android:id="@+id/search_bar"
+                android:theme="@style/whiteProgressbar"
+                app:queryHint="Search for food items"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/search_in_taskbar_background"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:iconifiedByDefault="false"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/invisibleSearch_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <com.hastarfitness.hastarfitnessapp.profile.MyViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:tabTextColor="@android:color/white"
+            app:tabTextAppearance="@style/MyCustomTextAppearance"
+            app:layout_constraintTop_toBottomOf="@id/referLayout"
+            app:tabIndicatorColor="@color/yellow"
+            app:tabIndicatorHeight="4dp" />
+    </com.hastarfitness.hastarfitnessapp.profile.MyViewPager>
+
+</LinearLayout>

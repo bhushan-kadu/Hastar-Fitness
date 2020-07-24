@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "965913102895",
+    "firebase_url": "https://hastar-fitness-72cea.firebaseio.com",
+    "project_id": "hastar-fitness-72cea",
+    "storage_bucket": "hastar-fitness-72cea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965913102895:android:9af6e15ac57a0457ebd4da",
+        "android_client_info": {
+          "package_name": "com.hastarfitness.hastarfitnessapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965913102895-hd4o2cmjd6h5livh2pjthrdbfc6ftso7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hastarfitness.hastarfitnessapp",
+            "certificate_hash": "c327d987cf1313c6684312b6bb14911aeac861e9"
+          }
+        },
+        {
+          "client_id": "965913102895-f4igqathcbtnajdv1pef6omm0qgoih4u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hastarfitness.hastarfitnessapp",
+            "certificate_hash": "ddded0147a4634bfd544900521d7272c469fae7c"
+          }
+        },
+        {
+          "client_id": "965913102895-ke5hfm1mj3kafvvjtqb4amk4lp094dmk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hastarfitness.hastarfitnessapp",
+            "certificate_hash": "bd9c1c162badb9fa49b686b56baa9148a5f1bc24"
+          }
+        },
+        {
+          "client_id": "965913102895-iap2g92tbbcutahbgvo1sjl195rjk201.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hastarfitness.hastarfitnessapp",
+            "certificate_hash": "bff9f006305bcb3e47bbfe2144cdec82f7d836ca"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsdlFYbhP3tSu35PxCI94bPm-fXJ7x9iA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965913102895-ohskq5s4j2q9naulo53guc1nnvnqgnnt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffe6f3fd"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="?actionBarSize"
+        android:background="?colorPrimary"
+        android:theme="@style/AppTheme.DarkActionBar"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="fill_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?colorPrimary"
+            android:popupTheme="@style/AppTheme.PopupOverlay"
+            android:title="Edit Plan" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="fill_parent"
+        android:layout_height="95.0dip"
+        android:layout_below="@+id/appBarLayout"
+        android:gravity="center"
+        android:padding="20.0dip"
+        android:text="This is title This is title This is title This is title"
+        android:textColor="@android:color/black"
+        android:textSize="22.0sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/playerFrame"
+        android:layout_width="fill_parent"
+        android:layout_height="200.0dip"
+        android:layout_below="@+id/title_text">
+
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/preview_imageView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_play_round"
+            android:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            style="@style/whiteProgressbar"
+            android:layout_width="60.0dip"
+            android:layout_height="60.0dip"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/descTitle_textView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/playerFrame"
+        android:paddingLeft="15.0dip"
+        android:paddingTop="15.0dip"
+        android:paddingBottom="15.0dip"
+        android:text="@string/description"
+        android:textColor="@android:color/black"
+        android:textSize="20.0sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_below="@+id/descTitle_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp">
+
+        <TextView
+            android:id="@+id/desc_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="20.0dip"
+            android:paddingRight="20.0dip"
+            android:text="@string/app_intro"
+            android:textColor="@android:color/black"
+            android:textSize="15.0sp" />
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:padding="15.0dip"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="50.0dip"
+            android:layout_height="50.0dip"
+            android:layout_marginEnd="50.0dip"
+            android:background="@drawable/ripple_drawable_circle"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_back_round" />
+
+        <ImageView
+            android:id="@+id/play_button"
+            android:layout_width="50.0dip"
+            android:layout_height="50.0dip"
+            android:background="@drawable/ripple_drawable_circle"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_play_round" />
+
+        <ImageView
+            android:id="@+id/next_button"
+            android:layout_width="50.0dip"
+            android:layout_height="50.0dip"
+            android:layout_marginStart="50.0dip"
+            android:background="@drawable/ripple_drawable_circle"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_next_round" />
+    </LinearLayout>
+</RelativeLayout>

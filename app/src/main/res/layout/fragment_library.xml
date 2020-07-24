@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="13dp"
+    android:paddingTop="5dp"
+    android:paddingRight="13dp"
+    tools:context=".appFragmentsUI.library.LibraryFragment"
+    android:fillViewport="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        tools:context=".appFragmentsUI.home.HomeFragment">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bodyWeight_cardView"
+            android:layout_width="170dp"
+            android:layout_height="240dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/ripple_drawable"
+            android:onClick="onClick"
+            android:tag="@string/body_weight"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintRight_toLeftOf="@+id/cardio_cardView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="OnClick">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxHeight="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bodyweight_card" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardio_cardView"
+            android:layout_width="170dp"
+            android:layout_height="240dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/ripple_drawable"
+            android:onClick="onClick"
+            android:tag="@string/cardio"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintLeft_toRightOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="OnClick">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cardio_card" />
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/yoga_cardView"
+            android:layout_width="170dp"
+            android:layout_height="240dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/ripple_drawable"
+            android:onClick="onClick"
+            android:tag="@string/yoga"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintRight_toLeftOf="@+id/meditation_cardView"
+            app:layout_constraintTop_toBottomOf="@+id/bodyWeight_cardView"
+            tools:ignore="OnClick">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxHeight="8dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/yoga_card" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/meditation_cardView"
+            android:layout_width="170dp"
+            android:layout_height="240dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/ripple_drawable"
+            android:onClick="onClick"
+            android:tag="meditation"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintLeft_toRightOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/cardio_cardView"
+            tools:ignore="OnClick">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/meditation_card" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

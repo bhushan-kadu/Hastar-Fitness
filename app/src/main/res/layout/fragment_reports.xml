@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scrollView"
+    tools:context=".profile.ReportsFragment">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+    <TextView
+        android:id="@+id/weight_stats_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:text="@string/progress"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/fitnessDataCardView" />
+
+
+       <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+           android:layout_marginTop="15dp"
+           android:id="@+id/calendarView"
+           android:layout_width="match_parent"
+           android:layout_height="330dp"
+           app:mcv_showOtherDates="all"
+           app:mcv_selectionColor="@color/babyBlue"
+           app:mcv_selectionMode="single"
+           app:mcv_tileWidth="50dp"
+           />
+       <LinearLayout
+           android:layout_marginBottom="15dp"
+           android:layout_marginLeft="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:padding="10dp"
+           android:gravity="center"
+           >
+           <ImageView
+               android:layout_width="20dp"
+               android:layout_height="20sp"
+               android:src="@drawable/ic_dot"/>
+           <TextView
+               android:layout_marginLeft="10dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="14sp"
+               android:textColor="@android:color/black"
+               android:text="@string/exercise_performed"/>
+       </LinearLayout>
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:paddingLeft="15dp"
+           android:paddingBottom="8dp"
+           android:text="@string/total"
+           android:textColor="@android:color/black"
+           android:textSize="20sp"
+           android:textStyle="bold"
+           app:layout_constraintTop_toBottomOf="@+id/fitnessDataCardView" />
+
+       <androidx.cardview.widget.CardView
+           android:id="@+id/fitnessDataCardView"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="12dp"
+           android:layout_marginRight="12dp"
+           app:cardCornerRadius="10dp"
+           app:cardElevation="4dp"
+           app:cardUseCompatPadding="true"
+           app:layout_constraintTop_toBottomOf="@+id/workout_text">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="20dp">
+
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:orientation="vertical"
+                   android:paddingLeft="10dp"
+                   android:paddingTop="20dp"
+                   android:paddingRight="10dp"
+                   android:paddingBottom="20dp">
+
+                   <TextView
+                       android:id="@+id/workout_no_textView"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="33"
+                       android:textColor="#4A4A4A"
+                       android:textSize="18sp"
+                       android:textStyle="bold" />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/exercise"
+                       android:textColor="#969A99"
+                       android:textSize="14sp" />
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:orientation="vertical"
+                   android:paddingLeft="10dp"
+                   android:paddingTop="20dp"
+                   android:paddingRight="10dp"
+                   android:paddingBottom="20dp">
+
+                   <TextView
+                       android:id="@+id/kcal_textView"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="1000"
+                       android:textColor="#4A4A4A"
+                       android:textSize="18sp"
+                       android:textStyle="bold" />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/kcal"
+                       android:textColor="#969A99"
+                       android:textSize="14sp" />
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:orientation="vertical"
+                   android:paddingLeft="10dp"
+                   android:paddingTop="20dp"
+                   android:paddingRight="10dp"
+                   android:paddingBottom="20dp">
+
+                   <TextView
+                       android:id="@+id/time_min_textView"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="14"
+                       android:textColor="#4A4A4A"
+                       android:textSize="18sp"
+                       android:textStyle="bold" />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/time_mins"
+                       android:textColor="#969A99"
+                       android:textSize="14sp" />
+               </LinearLayout>
+
+
+           </LinearLayout>
+       </androidx.cardview.widget.CardView>
+       <TextView
+           android:id="@+id/calories_burnt_text"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:paddingLeft="15dp"
+           android:paddingTop="15dp"
+           android:paddingBottom="20dp"
+           android:text="@string/calories_burnt"
+           android:textColor="@android:color/black"
+           android:textSize="20sp"
+           android:textStyle="bold"
+           app:layout_constraintTop_toBottomOf="@+id/fitnessDataCardView" />
+
+
+       <com.github.mikephil.charting.charts.BarChart
+           android:id="@+id/barChart"
+           android:layout_width="match_parent"
+           android:layout_height="200dp"
+           android:layout_marginBottom="250dp"/>
+
+   </LinearLayout>
+
+</ScrollView>

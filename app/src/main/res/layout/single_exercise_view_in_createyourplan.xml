@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recycler_linear_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:foreground="@drawable/ripple_drawable"
+    android:clickable="true">
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/placeholder"
+        android:padding="5dp"/>
+    <TextView
+        android:lineHeight="35dp"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="sdvsdvs"
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"/>
+
+    <ImageButton
+        android:id="@+id/remove_item_btn"
+        android:layout_gravity="center"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textColor="#ccc"
+        android:tag="@string/cardio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textAllCaps="false"
+        android:src="@drawable/ic_remove_cross"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+
+</LinearLayout>

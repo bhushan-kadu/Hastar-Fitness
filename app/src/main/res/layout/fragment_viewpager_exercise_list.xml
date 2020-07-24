@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="false"
+    android:orientation="vertical">
+
+   <ImageView
+       android:id="@+id/exercise_type_banner"
+       android:layout_width="match_parent"
+       android:layout_height="165dp"
+       android:scaleType="centerCrop"
+       android:src="@drawable/banner_light_cardio"
+       app:layout_scrollFlags="exitUntilCollapsed" />
+
+
+   <androidx.recyclerview.widget.RecyclerView
+       android:layout_height="match_parent"
+       android:layout_width="match_parent"
+       android:id="@+id/exercise_recycler_view"/>
+
+</LinearLayout>

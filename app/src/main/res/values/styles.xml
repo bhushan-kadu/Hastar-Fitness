@@ -1,0 +1,82 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+        <!-- Customize your theme here. -->
+<!--        <item name="colorPrimary">@color/babyBlue</item>-->
+        <item name="colorPrimary">#0B86E6</item>
+        <item name="colorPrimaryDark">#3C3C3C</item>
+
+        <item name="colorAccent">#0B86E6</item>
+        <item name="popupTheme">@style/AppTheme.PopupOverlay</item>
+        <item name="appBarLayoutStyle">@style/AppTheme.AppBarOverlay</item>
+        <item name="colorControlHighlight">#ccc</item>
+
+        <item name="buttonStyle">@style/buttonStyle</item>
+    </style>
+
+    <style name="buttonStyle" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="whiteProgressbar" parent="Theme.MaterialComponents.Light">
+        <item name="android:colorAccent">@android:color/white</item>
+        <item name="android:colorPrimaryDark">#727272</item>
+        <item name="android:colorPrimary">#727272</item>
+    </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:colorAccent">#FF5252</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorPrimary">@color/color_gray_66</item>
+    </style>
+
+    <style name="AppTheme.ActionBar.Transparent" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="colorPrimary">@android:color/transparent</item>
+    </style>
+
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@android:color/black</item>
+    </style>
+    <style name="WhiteTextColor" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+    <style name="AppTheme.DarkActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+    <style name="tallerBarStyle" parent="@style/Widget.AppCompat.SeekBar.Discrete">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@android:drawable/progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_horizontal</item>
+        <item name="android:minHeight">8dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="backgroundColor">@android:color/black</item>
+    </style>
+
+    <style name="TabLayoutApperance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="circular_home_button_theme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:colorAccent">@android:color/white</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_circular_back</item>
+    </style>
+
+
+</resources>

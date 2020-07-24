@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <color name="colorPrimary">#0B86E6</color>
+    <color name="colorPrimaryDark">#0B86E6</color>
+    <color name="colorAccent">#63BBFF</color>
+    <color name="myPurple">#6200ee</color>
+    <color name="color_gray_66">#666666</color>
+    <color name="gray">#969A99</color>
+    <color name="myPurpleClick">#7566dd</color>
+    <color name="pestalRed">#900048</color>
+    <color name="babyBlue">#00C58E</color>
+    <color name="color_icon">#6EDABC</color>
+    <color name="green">#115C1B</color>
+    <color name="yellow">#FBA235</color>
+    <color name="white">#fffeff</color>
+<!--    <color name="yellow">#ECEC79</color>-->
+    <color name="color_item_selected">#17C4F8</color>
+
+    <color name="button_focused_background">#074E63</color>
+    <color name="button_selected_background">#4E92A6</color>
+    <color name="button_normal_background">#3F51B5</color>
+
+    <color name="seek_bar_background">#ccc</color>
+    <color name="seek_bar_progress">@color/yellow</color>
+    <color name="orange">#F87636</color>
+    <color name="seek_bar_secondary_progress">#B0D9FA</color>
+    <color name="red">#FF0000</color>
+    <color name="light_yellow">#FFD200</color>
+    <color name="grey_seekarc_unprogress">#dfdede</color>
+</resources>

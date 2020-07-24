@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fffeff"
+    tools:context=".ActivityStartExercise">
+
+    <ImageView
+        android:id="@+id/button"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginRight="10sp"
+        android:background="@drawable/ripple_drawable_circle"
+        android:clickable="true"
+        android:src="@drawable/ic_video"
+        android:text="B"
+        android:translationZ="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="0.13" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10sp"
+        android:background="@drawable/ripple_drawable_circle"
+        android:clickable="true"
+        android:src="@drawable/ic_speaker"
+        android:text="B"
+        android:translationZ="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        app:layout_constraintVertical_bias="0.083" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginRight="10sp"
+        android:background="@drawable/ripple_drawable_circle"
+        android:clickable="true"
+        android:src="@drawable/ic_info"
+        android:text="B"
+        android:translationZ="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/remaining_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="05:00"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/end_exercise"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/end_exercise"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:translationZ="10sp"
+            android:id="@+id/seekbar_exercises_completed_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-18sp"
+            android:layout_marginRight="-18sp"
+            android:max="15"
+            android:progressDrawable="@drawable/custom_seekbar"
+            android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:thumb="@null"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tickMark="@drawable/dot_for_seekbar" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+        android:id="@+id/cpanel"
+        android:translationZ="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_bottom_border"
+        android:gravity="center"
+        android:padding="15sp">
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginEnd="50sp"
+            android:background="@drawable/ripple_drawable_circle"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_back_round" />
+
+        <ImageView
+            android:id="@+id/play_pause_button"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:background="@drawable/ripple_drawable_circle"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_pause_round" />
+
+        <ImageView
+            android:id="@+id/next_button"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginStart="50sp"
+            android:background="@drawable/ripple_drawable_circle"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_next_round" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="65sp"
+        app:layout_constraintBottom_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintTop_toBottomOf="@+id/cpanel">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fffeff"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            tools:context=".ActivityStartExercise"
+            android:layout_marginBottom="200sp">
+
+
+
+            <LinearLayout
+                android:id="@+id/titleLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100sp"
+                android:layout_marginLeft="40sp"
+                android:layout_marginRight="40sp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/next_up_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:text="Next Up: "
+                    android:textColor="@color/color_gray_66"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/title_of_exercise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100sp"
+                    android:gravity="left|center_vertical"
+                    android:text="Title of exercise"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_below="@+id/titleLinearLayout"
+                android:id="@+id/lastll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/titleLinearLayout">
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="260sp"
+                    android:layout_marginBottom="20sp">
+
+                    <ImageView
+                        android:id="@+id/exercise_bitmap"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/pushup"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/exercise_gif"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <VideoView
+                            android:id="@+id/exercise_video"
+                            android:layout_width="250sp"
+                            android:layout_height="250sp"
+                            android:layout_centerHorizontal="true" />
+
+                        <ImageView
+                            android:id="@+id/exercise_video_bitmap"
+                            android:layout_width="250sp"
+                            android:layout_height="250sp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="visible" />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_below="@+id/lastll"
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="150sp">
+                <com.triggertrap.seekarc.SeekArc
+                    android:id="@+id/circular_timer"
+                    android:layout_width="match_parent"
+                    android:layout_height="200sp"
+                    android:layout_gravity="center"
+                    android:padding="30sp"
+                    app:arcWidth="10sp"
+                    app:enabled="false"
+                    app:progress="30"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:progressColor="@color/babyBlue"
+                    app:progressWidth="10sp"
+                    app:rotation="0"
+                    app:roundEdges="true" />
+
+                <io.feeeei.circleseekbar.CircleSeekBar
+
+                    android:visibility="gone"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="200sp"
+                    android:layout_centerInParent="true"
+                    android:paddingLeft="110sp"
+                    android:paddingRight="110sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:wheel_can_touch="false"
+                    app:wheel_max_process="100"
+                    app:wheel_pointer_radius="0sp"
+                    app:wheel_reached_color="@color/babyBlue"
+                    app:wheel_reached_width="7sp"
+                    app:wheel_scroll_only_one_circle="true"
+                    app:wheel_unreached_color="#ccc"
+                    app:wheel_unreached_width="4sp" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@+id/circular_timer"
+                    app:layout_constraintTop_toTopOf="@+id/circular_timer"
+              >
+
+                    <TextView
+                        android:id="@+id/remaining_clock_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="0sp"
+                        android:text="10:00"
+                        android:textColor="@color/babyBlue"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/circular_timer_indicator_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="remaining"
+                        android:textColor="@color/babyBlue"
+                        android:textSize="15sp"
+                        tools:layout_editor_absoluteX="142sp"
+                        tools:layout_editor_absoluteY="171sp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

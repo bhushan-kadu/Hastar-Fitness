@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".appFragmentsUI.tools.ToolsFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/bmiCalculator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:foreground="?selectableItemBackground"
+        android:clickable="true"
+        android:background="@drawable/top_bottom_border">
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:id="@+id/image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_bmi"
+            android:padding="5dp"/>
+        <TextView
+            android:textColor="@android:color/black"
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="@string/bmi_calculator"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/bodyFatCalculator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:foreground="?selectableItemBackground"
+        android:clickable="true"
+        android:background="@drawable/top_bottom_border">
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_body_fat"
+            android:padding="5dp"/>
+        <TextView
+            android:lineHeight="35dp"
+            android:textColor="@android:color/black"
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="@string/body_fat_calc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/bmrCalculator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:foreground="?selectableItemBackground"
+        android:clickable="true"
+        android:background="@drawable/top_bottom_border">
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_bmr"
+            android:padding="5dp"/>
+        <TextView
+            android:lineHeight="35dp"
+            android:textColor="@android:color/black"
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="@string/bmr_calc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/macroCalculator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:foreground="?selectableItemBackground"
+        android:clickable="true"
+        android:background="@drawable/top_bottom_border">
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_macro"
+            android:padding="5dp"/>
+        <TextView
+            android:lineHeight="35dp"
+            android:textColor="@android:color/black"
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="@string/macro_calc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+</LinearLayout>

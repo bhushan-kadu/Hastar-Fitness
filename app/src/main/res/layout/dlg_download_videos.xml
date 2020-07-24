@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:weightSum="5"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+
+    <TextView
+        android:padding="10dp"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/please_download_plan_before_starting_workout"/>
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:id="@+id/progress_horizontal"
+        app:rcProgress="0"
+        app:layout_constraintTop_toBottomOf="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        app:rcProgressColor="@color/colorPrimary"
+        app:rcBackgroundColor="@color/gray"
+        android:layout_marginTop="20dp"/>
+<LinearLayout
+    android:layout_marginTop="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <Button
+        android:layout_marginRight="5dp"
+        android:id="@+id/cancel_action"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="35.0dip"
+        android:layout_gravity="center"
+        android:background="@drawable/blue_diet_button_background"
+        android:text="@string/mdtp_cancel"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:textColor="@android:color/white"
+        android:textSize="14.0sp" />
+    <Button
+        android:layout_marginLeft="5dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:id="@+id/download_button"
+        android:layout_height="35.0dip"
+        android:layout_gravity="center"
+        android:background="@drawable/blue_diet_button_background"
+        android:text="Download"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:textColor="@android:color/white"
+        android:textSize="14.0sp" />
+
+    <Button
+        android:visibility="gone"
+        android:layout_marginLeft="5dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:id="@+id/start_button"
+        android:layout_height="35.0dip"
+        android:layout_gravity="center"
+        android:background="@drawable/blue_diet_button_background"
+        android:text="Start"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:textColor="@android:color/white"
+        android:textSize="14.0sp" />
+</LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>
+
+

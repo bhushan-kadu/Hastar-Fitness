@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="com.hastarfitness.hastarfitnessapp">
+
+    <dist:module dist:instant="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="true">
+        <activity android:name=".DownloadVideos">
+
+        </activity>
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".AppStartLoadingScreen"/>
+        <activity
+            android:name=".diet.FoodSelectedActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".meditationNew.ShowMeditationTypesActivity" />
+        <activity android:name=".diet.CreateNewFoodActivity" />
+        <activity
+            android:name=".diet.foodSearch.FoodSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".diet.searchAndCustomFoodList.SearchedAndCustomFoodListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".profile.UserProfileActivity"
+            android:parentActivityName=".ActivityDashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AppSettingsActivity" />
+        <activity
+            android:name=".diet.dietStartPages.DietStartPagesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".fitnessCalculators.MacroCalculator"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".finalExerciseListBeforeStartingWorkout.FinalExerciseListActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".selectExerciseForOwnPlan.ExerciseListActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".createYourOwnPlan.CreateYourOwnPlanActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".selectPlanForDailyWorkout.SelectPlanForDailyWorkoutActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ActivityDashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".viewPlansFavAndCustom.ViewPlansActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".selectBaseWorkoutPlan.WorkoutPlansListActivity" />
+        <activity android:name=".fitnessCalculators.BMRCalculator" />
+        <activity android:name=".fitnessCalculators.BodyFatCalculator" />
+        <activity android:name=".fitnessCalculators.BMICalculator" />
+        <activity android:name=".meditation.ShowMeditationTypes" />
+        <activity android:name=".meditation.AudioActivity" />
+        <activity android:name=".videoPlaybackTesting.VideoPlaybackTestActivity" >
+
+        </activity>
+        <activity
+            android:name=".yoga.ShowYogaDescAndVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:parentActivityName=".yoga.YogaListActivity" />
+        <activity
+            android:name=".yoga.YogaListActivity"
+            android:parentActivityName=".yoga.ShowYogaTypesActivity" />
+        <activity android:name=".meditation.MeditationListActivity" />
+        <activity
+            android:name=".yoga.ShowYogaTypesActivity"
+            android:parentActivityName=".ActivityDashboard" />
+        <activity android:name=".exerciseListForCardioAndBodyWeight.ShowBodyWeightTypesActivity" />
+        <activity
+            android:name=".ActivityStartExercise"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Testingactivity" />
+        <activity android:name=".TimerActivity" />
+        <activity
+            android:name=".exerciseListForCardioAndBodyWeight.ActivityExerciseList"
+            android:parentActivityName=".ActivityDashboard" />
+        <activity
+            android:name=".TestDrawer"
+            android:label="@string/title_activity_test_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".startingPages.ActivityStartPages"
+            android:label="@string/title_activity_get_gender"
+            android:theme="@style/AppTheme.ActionBar.Transparent" />
+        <activity
+            android:name=".ActivityAlreadyHaveAcc"
+            android:label="@string/title_activity_already_acc"
+            android:theme="@android:style/Theme.Holo.Dialog" />
+        <activity android:name=".ActivityStartApp" />
+        <activity android:name=".ActivitySplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ActivityDashboard"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+    </application>
+
+</manifest>

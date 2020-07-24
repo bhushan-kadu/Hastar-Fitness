@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:weightSum="5"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:background="@drawable/top_bottom_border">
+
+    <TextView
+        android:padding="10dp"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Give Plan Information"/>
+
+
+
+ <com.google.android.material.textfield.TextInputLayout
+     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:id="@+id/planNameEditTextView"
+     android:hint="Plan name"
+     android:layout_marginBottom="10dp">
+     <com.google.android.material.textfield.TextInputEditText
+         android:id="@+id/planNameEditText"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"/>
+ </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:id="@+id/planDescEditTextView"
+        android:layout_marginBottom="5dp">
+
+        <EditText
+            android:gravity="top"
+            android:id="@+id/planDescEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:overScrollMode="always"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:lines="5" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/cancel_action"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="cancel"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"/>
+        <Button
+            android:id="@+id/ok_action"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="ok"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
+
+

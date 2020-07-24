@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15.0dip"
+            android:paddingTop="15.0dip"
+            android:paddingBottom="3.0dip"
+            android:text="Workout"
+            android:textColor="@android:color/black"
+            android:textSize="20.0sp"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12.0dip"
+            android:layout_marginRight="12.0dip"
+            app:cardCornerRadius="10.0dip"
+            app:cardElevation="8.0dip"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/orange_gradient_background"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/topHeader"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15.0dip"
+                        android:paddingTop="30.0dip"
+                        android:paddingBottom="30.0dip"
+                        android:text="Daily Plan"
+                        android:textColor="@android:color/white"
+                        android:textSize="20.0sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:paddingLeft="15.0dip"
+                    android:paddingTop="7.0dip"
+                    android:paddingRight="15.0dip"
+                    android:paddingBottom="7.0dip">
+
+                    <LinearLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/userGoal_textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="3.0dip"
+                            android:text="Weight Loss"
+                            android:textSize="14.0sp" />
+
+                        <TextView
+                            android:id="@+id/todaysBodyPart_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Full Body"
+                            android:textColor="@android:color/black"
+                            android:textSize="16.0sp" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/start_workout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35.0dip"
+                        android:layout_gravity="center"
+                        android:background="@drawable/custon_button_background"
+                        android:padding="0.0dip"
+                        android:text="start"
+                        android:textColor="@android:color/white"
+                        android:textSize="14.0sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="15.0dip"
+            android:paddingRight="22.0dip"
+            android:paddingBottom="8.0dip">
+
+            <TextView
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:paddingTop="3.0dip"
+                android:paddingBottom="3.0dip"
+                android:text="Progress"
+                android:textColor="@android:color/black"
+                android:textSize="20.0sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15.0dip"
+                android:paddingTop="3.0dip"
+                android:paddingBottom="3.0dip"
+                android:text="Streak"
+                android:textSize="20.0sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/streak_no_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5.0dip"
+                android:paddingTop="3.0dip"
+                android:paddingBottom="3.0dip"
+                android:text="0 Day"
+                android:textColor="@android:color/black"
+                android:textSize="20.0sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30.0dip"
+            android:layout_marginRight="30.0dip">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                app:cardCornerRadius="10.0dip"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/akshay_background"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="10.0dip"
+                    android:paddingTop="20.0dip"
+                    android:paddingRight="10.0dip"
+                    android:paddingBottom="20.0dip">
+
+                    <TextView
+                        android:id="@+id/workout_no_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@android:color/black"
+                        android:textSize="20.0sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exercise"
+                        android:textColor="@android:color/black"
+                        android:textSize="14.0sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                app:cardCornerRadius="10.0dip"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/akshay_background"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="10.0dip"
+                    android:paddingTop="20.0dip"
+                    android:paddingRight="10.0dip"
+                    android:paddingBottom="20.0dip">
+
+                    <TextView
+                        android:id="@+id/kcal_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@android:color/black"
+                        android:textSize="20.0sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kcal"
+                        android:textColor="@android:color/black"
+                        android:textSize="14.0sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                app:cardCornerRadius="10.0dip"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/akshay_background"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingLeft="10.0dip"
+                    android:paddingTop="20.0dip"
+                    android:paddingRight="10.0dip"
+                    android:paddingBottom="20.0dip">
+
+                    <TextView
+                        android:id="@+id/time_min_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@android:color/black"
+                        android:textSize="20.0sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/time_mins"
+                        android:textColor="@android:color/black"
+                        android:textSize="13.0sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15.0dip"
+            android:paddingTop="10.0dip"
+            android:paddingBottom="15.0dip"
+            android:text="Today's Quote"
+            android:textColor="@android:color/black"
+            android:textSize="20.0sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cinzeldecorative_regular"
+            android:gravity="center"
+            android:paddingLeft="20.0dip"
+            android:paddingRight="20.0dip"
+            android:text="@string/quote"
+            android:textColor="@android:color/black"
+            android:textSize="16.0sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15.0dip"
+            android:paddingTop="15.0dip"
+            android:paddingBottom="15.0dip"
+            android:text="My Plans"
+            android:textColor="@android:color/black"
+            android:textSize="20.0sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15.0dip"
+            android:orientation="vertical"
+            android:paddingLeft="15.0dip"
+            android:paddingTop="7.0dip"
+            android:paddingRight="15.0dip"
+            android:paddingBottom="7.0dip">
+
+            <LinearLayout
+                android:id="@+id/custom_plansBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10.0dip"
+                android:background="?selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30.0dip"
+                    android:layout_height="30.0dip"
+                    android:src="@drawable/ic_edit_orange" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10.0dip"
+                    android:text="Custom Plans"
+                    android:textColor="@android:color/black"
+                    android:textSize="16.0sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fav_plansBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30.0dip"
+                    android:layout_height="30.0dip"
+                    android:src="@drawable/ic_fav_plan_orange" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10.0dip"
+                    android:text="Favourite Plans"
+                    android:textColor="@android:color/black"
+                    android:textSize="16.0sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15.0dip"
+            android:paddingTop="15.0dip"
+            android:paddingBottom="15.0dip"
+            android:text="Also See"
+            android:textColor="@android:color/black"
+            android:textSize="20.0sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15.0dip"
+            android:layout_marginRight="15.0dip"
+            android:orientation="horizontal"
+            android:paddingBottom="10.0dip">
+
+            <LinearLayout
+                android:id="@+id/meditation_play_Btn"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:background="?selectableItemBackground"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="150.0dip"
+                    android:layout_height="150.0dip"
+                    android:src="@drawable/yoga_play" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="YOGA"
+                    android:textColor="@android:color/black"
+                    android:textSize="16.0sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/yoga_play_Btn"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:background="?selectableItemBackground"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="150.0dip"
+                    android:layout_height="150.0dip"
+                    android:src="@drawable/meditation_play" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MEDITATION"
+                    android:textColor="@android:color/black"
+                    android:textSize="16.0sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
