@@ -21,20 +21,24 @@ Customized Workout Plans            |   Yoga, Meditaion and create custom plans
 
 Diet Tracking             |  Nutritional Information 
 :-------------------------:|:-------------------------:
-<img src="https://user-images.githubusercontent.com/31090515/88481506-8229ee80-cf79-11ea-967c-909d0c2af0b2.png" width="400px" height="708px"> |<img src="https://user-images.githubusercontent.com/31090515/88481502-80602b00-cf79-11ea-8c67-472307262698.png" width="400px" height="708px">
+<img src="https://user-images.githubusercontent.com/31090515/88481506-8229ee80-cf79-11ea-967c-909d0c2af0b2.png" width="400px" height="708px"> |
 
-Profile Tracking             |  Yoga Types
+<img src="https://user-images.githubusercontent.com/31090515/88481502-80602b00-cf79-11ea-8c67-472307262698.png" width="400px" height="708px">
+
+Weight Tracking             |  Calories Tracking 
 :-------------------------:|:-------------------------:
-<img src="https://user-images.githubusercontent.com/31090515/88481535-9cfc6300-cf79-11ea-912c-40139e3f7521.png" width="400px" height="708px"> |<img src="https://user-images.githubusercontent.com/31090515/88481455-4000ad00-cf79-11ea-934a-c24d5bc2eff3.png" width="400px" height="708px">
+<img src="https://user-images.githubusercontent.com/31090515/88481535-9cfc6300-cf79-11ea-912c-40139e3f7521.png" width="400px" height="708px"> |<img src="https://user-images.githubusercontent.com/31090515/88482630-257e0200-cf80-11ea-8f20-7a09f56cbedc.png" width="400px" height="708px">
 
-  Meditation Exercise List     |Meditation Types  
+
+
+  Yoga Types      |Meditation Exercise List
 :-------------------------:|:-------------------------:
-<img src="https://user-images.githubusercontent.com/31090515/88481478-67577a00-cf79-11ea-8c4c-906990b6583e.png" width="400px" height="708px">|<img src="https://user-images.githubusercontent.com/31090515/88481469-53137d00-cf79-11ea-813e-7c15fd0d5f0b.png" width="400px" height="708px">
+<img src="https://user-images.githubusercontent.com/31090515/88481455-4000ad00-cf79-11ea-934a-c24d5bc2eff3.png" width="400px" height="708px">|<img src="https://user-images.githubusercontent.com/31090515/88481478-67577a00-cf79-11ea-8c4c-906990b6583e.png" width="400px" height="708px">
 
- Fitness Calculators           |   Yoga Exercise List
+  Meditation Types            |    Fitness Calculators  
 :-------------------------:|:-------------------------:
-<img src="https://user-images.githubusercontent.com/31090515/88481533-9bcb3600-cf79-11ea-8393-a2696b9579d9.png" width="400px" height="708px">|<img src="https://user-images.githubusercontent.com/31090515/88481464-4f7ff600-cf79-11ea-902d-a556b6cb095d.png" width="400px" height="708px">
+<img src="https://user-images.githubusercontent.com/31090515/88481469-53137d00-cf79-11ea-813e-7c15fd0d5f0b.png" width="400px" height="708px">|<img src="https://user-images.githubusercontent.com/31090515/88481533-9bcb3600-cf79-11ea-8393-a2696b9579d9.png" width="400px" height="708px">
 
-
-
+Yoga Exercise List
+<img src="https://user-images.githubusercontent.com/31090515/88481464-4f7ff600-cf79-11ea-902d-a556b6cb095d.png" width="400px" height="708px">
 
