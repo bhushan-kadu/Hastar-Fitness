@@ -8,7 +8,7 @@ Description - Hastar Fitness provide you with customized workout plans.<br/>
 
 Workout            |  Homepage
 :-------------------------:|:-------------------------:
-<img src="https://user-images.githubusercontent.com/31090515/88481494-750cff80-cf79-11ea-9ede-2ff2961afe3d.png" alt="alt text" style = "float:left;" width="350px" height="619px">  |  <img src="https://user-images.githubusercontent.com/31090515/88481497-76d6c300-cf79-11ea-83eb-16efdc422530.png"  style = "float:left;" width="350px" height="619px">
+<img src="https://user-images.githubusercontent.com/31090515/88481494-750cff80-cf79-11ea-9ede-2ff2961afe3d.png" alt="alt text" style = "float:left;" width="350px" >  |  <img src="https://user-images.githubusercontent.com/31090515/88481497-76d6c300-cf79-11ea-83eb-16efdc422530.png"  style = "float:left;" width="350px" >
 
 Body Weight Types            |  Body Weight 
 :-------------------------:|:-------------------------:
