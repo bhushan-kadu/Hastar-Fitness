@@ -2,7 +2,7 @@
 Finess App
 Website - https://hastarfitness.github.io/AppWebsite/
 
-![1](https://user-images.githubusercontent.com/31090515/88481494-750cff80-cf79-11ea-9ede-2ff2961afe3d.png)
+![1](https://user-images.githubusercontent.com/31090515/88481494-750cff80-cf79-11ea-9ede-2ff2961afe3d.png | width=100)
 ![Screenshot_20200727-192753](https://user-images.githubusercontent.com/31090515/88481497-76d6c300-cf79-11ea-83eb-16efdc422530.png)
 ![2](https://user-images.githubusercontent.com/31090515/88481508-848c4880-cf79-11ea-85ca-478bda84662d.png)
 ![3](https://user-images.githubusercontent.com/31090515/88481525-9241ce00-cf79-11ea-9894-cc455a8ca5f1.png)
