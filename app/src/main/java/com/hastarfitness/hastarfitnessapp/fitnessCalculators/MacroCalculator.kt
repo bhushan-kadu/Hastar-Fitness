@@ -29,6 +29,8 @@ import kotlin.math.round
 
 /**
  * class for macro calculator activity
+ *
+ * @author Bhushan Kadu
  */
 class MacroCalculator : AppCompatActivity(), Validator.ValidationListener {
 

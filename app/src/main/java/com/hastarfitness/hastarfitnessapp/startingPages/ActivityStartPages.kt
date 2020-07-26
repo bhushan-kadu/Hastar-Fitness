@@ -25,6 +25,8 @@ import java.util.*
 /**
  * Activity containing starting pages of the app
  * - This activity takes required info from user for app to run e.g. age, weight..etc
+ *
+ * @author Bhushan Kadu
  */
 class ActivityStartPages : AppCompatActivity() {
     var position = 0

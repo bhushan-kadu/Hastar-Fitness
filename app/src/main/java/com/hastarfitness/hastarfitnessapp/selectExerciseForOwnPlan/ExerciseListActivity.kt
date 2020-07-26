@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.activity_workoutplans_list.*
 
 /**
  * activity for selecting exercise/s to be added in custom plan exercise list
+ *
+ * @author Bhushan Kadu
  */
 class ExerciseListActivity : AppCompatActivity() {
     //code for applying itemClickListener to recyclerView

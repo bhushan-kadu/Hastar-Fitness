@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.activity_show_meditation_types.*
 
 /**
  * Activity to shown yoga type cards to user
+ *
+ * @author Bhushan Kadu
  */
 class ShowMeditationTypesActivity : AppCompatActivity(), View.OnClickListener {
 

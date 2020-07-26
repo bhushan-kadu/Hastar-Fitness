@@ -70,38 +70,73 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            app:contentInsetStart="0dp"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/remaining_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center"
                     android:text="05:00"
-                    android:textSize="30sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <Button
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/next_up_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="right"
+                        android:text="Next Up: "
+                        android:textColor="@color/color_gray_66"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/title_of_exercise"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center_vertical"
+                        android:text="Lying Side Leg Raises left Right"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <ImageButton
                     android:id="@+id/end_exercise"
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_marginRight="5dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/end_exercise"
+                    android:src="@drawable/ic_remove_cross"
                     android:textColor="@android:color/white" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
+
         <androidx.appcompat.widget.AppCompatSeekBar
-            android:translationZ="10sp"
             android:id="@+id/seekbar_exercises_completed_indicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,6 +146,7 @@
             android:progressDrawable="@drawable/custom_seekbar"
             android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
             android:thumb="@null"
+            android:translationZ="10sp"
             app:layout_constraintTop_toTopOf="parent"
             app:tickMark="@drawable/dot_for_seekbar" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -158,35 +194,29 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="65sp"
-        app:layout_constraintBottom_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintTop_toBottomOf="@+id/cpanel">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        app:layout_constraintBottom_toTopOf="@+id/cpanel"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fffeff"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            tools:context=".ActivityStartExercise"
-            android:layout_marginBottom="200sp">
-
+            tools:context=".ActivityStartExercise">
 
 
             <LinearLayout
                 android:id="@+id/titleLinearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="100sp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="40sp"
                 android:layout_marginRight="40sp"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/next_up_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -195,32 +225,32 @@
                     android:textColor="@color/color_gray_66"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/title_of_exercise"
                     android:layout_width="wrap_content"
                     android:layout_height="100sp"
                     android:gravity="left|center_vertical"
                     android:text="Title of exercise"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_below="@+id/titleLinearLayout"
+                android:layout_marginTop="15dp"
                 android:id="@+id/lastll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/titleLinearLayout"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/titleLinearLayout">
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="260sp"
-                    android:layout_marginBottom="20sp">
+                    android:layout_height="250sp">
 
                     <ImageView
                         android:id="@+id/exercise_bitmap"
@@ -236,8 +266,9 @@
                         android:visibility="gone" />
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_width="250sp"
+                        android:layout_height="250sp"
+                        android:layout_centerHorizontal="true">
 
                         <VideoView
                             android:id="@+id/exercise_video"
@@ -260,23 +291,30 @@
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_below="@+id/lastll"
+                android:layout_marginTop="15dp"
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="150sp">
+                android:layout_below="@+id/lastll"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteY="130dp">
+
                 <com.triggertrap.seekarc.SeekArc
+
                     android:id="@+id/circular_timer"
                     android:layout_width="match_parent"
-                    android:layout_height="200sp"
+                    android:layout_height="180sp"
                     android:layout_gravity="center"
                     android:padding="30sp"
                     app:arcWidth="10sp"
                     app:enabled="false"
-                    app:progress="30"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:progress="30"
                     app:progressColor="@color/babyBlue"
                     app:progressWidth="10sp"
                     app:rotation="0"
@@ -284,13 +322,13 @@
 
                 <io.feeeei.circleseekbar.CircleSeekBar
 
-                    android:visibility="gone"
-
                     android:layout_width="match_parent"
+
                     android:layout_height="200sp"
                     android:layout_centerInParent="true"
                     android:paddingLeft="110sp"
                     android:paddingRight="110sp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -309,8 +347,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="@+id/circular_timer"
-                    app:layout_constraintTop_toTopOf="@+id/circular_timer"
-              >
+                    app:layout_constraintTop_toTopOf="@+id/circular_timer">
 
                     <TextView
                         android:id="@+id/remaining_clock_time"
@@ -335,7 +372,6 @@
                         tools:layout_editor_absoluteY="171sp" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
         </RelativeLayout>

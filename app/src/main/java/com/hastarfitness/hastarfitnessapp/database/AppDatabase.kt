@@ -6,6 +6,8 @@ import androidx.room.TypeConverters
 
 /**
  * this class defines schema to be used for app's Database
+ *
+ * @author Bhushan Kadu
  */
 @Database(entities = [ExerciseDbModel::class,
     RestTimeModel::class,

@@ -39,6 +39,8 @@ import static android.util.Log.v;
 
 /**
  * Main Activity where all the App Fragments are to be shown
+ *
+ * @author Bhushan Kadu
  */
 public class ActivityDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 

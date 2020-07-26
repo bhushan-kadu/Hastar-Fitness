@@ -18,6 +18,8 @@ import kotlin.collections.ArrayList
  * @param foodList list of foods
  * @param activity activity where recycler view resides i.e. WorkoutPlansListActivity
  *
+ *
+ * @author Bhushan Kadu
  */
 
 class MyFoodSearchListAdapter(var foodList: List<Food>, val foodSearchActivity: FoodSearchActivity) : RecyclerView.Adapter<MyFoodSearchListAdapter.ViewHolder>() {

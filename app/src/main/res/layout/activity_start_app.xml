@@ -40,8 +40,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="2dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="100dp"
+        >
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
@@ -51,6 +52,7 @@
             android:padding="10dp" />
 
         <Button
+            android:visibility="gone"
             android:textColor="@color/gray"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:id="@+id/guestSignInBtn"
@@ -58,7 +60,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="80dp"
             android:padding="10dp" />
 
 

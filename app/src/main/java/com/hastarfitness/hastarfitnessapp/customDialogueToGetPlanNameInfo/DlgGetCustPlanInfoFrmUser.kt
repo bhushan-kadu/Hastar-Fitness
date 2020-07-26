@@ -25,6 +25,8 @@ import kotlinx.android.synthetic.main.dlg_get_custom_plan_info_dlg.*
 
 /**
  * custom dialogue class for getting custom plan info to save the plan from user
+ *
+ * @author Bhushan Kadu
  */
 class DlgGetCustPlanInfoFrmUser(ctx: Context) : Dialog(ctx), Validator.ValidationListener {
 

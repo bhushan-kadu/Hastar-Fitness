@@ -15,6 +15,8 @@ import kotlin.collections.ArrayList
  * Adapter to show final exercise recycler view
  * @param exercises list of exercises to be shown
  * @param activity activity where list is being showed
+ *
+ * @author Bhushan Kadu
  */
 class FinalExerciseListAdapter(private val exercises: List<ExerciseDbModel>, val activity: FinalExerciseListActivity, val dialog: DlgShowExerciseInfo) : RecyclerView.Adapter<FinalExerciseListAdapter.ViewHolder>(), Filterable {
     var exerciseFilterList = ArrayList<ExerciseDbModel>()

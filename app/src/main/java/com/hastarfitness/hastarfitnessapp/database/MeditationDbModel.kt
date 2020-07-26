@@ -10,6 +10,8 @@ import java.io.Serializable
 
 /**
  * table in database as well as a model to save meditation exercises
+ *
+ * @author Bhushan Kadu
  */
 @Entity
 data class MeditationDbModel(

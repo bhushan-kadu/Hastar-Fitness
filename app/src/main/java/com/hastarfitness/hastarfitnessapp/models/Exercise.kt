@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * Model to be used for representing exercises
+ *
+ * @author Bhushan Kadu
  */
 data class Exercise(
         @SerializedName("name_of_exercise")

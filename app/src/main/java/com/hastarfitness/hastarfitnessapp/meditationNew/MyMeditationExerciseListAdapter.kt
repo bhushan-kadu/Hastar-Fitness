@@ -19,6 +19,8 @@ import java.io.Serializable
  *
  * @param exercise list of yoga exercises to be shown
  * @param activity activity where yoga exercises will be shown
+ *
+ * @author Bhushan Kadu
  */
 class MyMeditationExerciseListAdapter(private val exercise: List<YogaExerciseDbModel>, val activity: MeditationListActivity) : RecyclerView.Adapter<MyMeditationExerciseListAdapter.ViewHolder>() {
     var i: Intent = Intent(activity, ShowMeditationDescAndVideoActivity::class.java)

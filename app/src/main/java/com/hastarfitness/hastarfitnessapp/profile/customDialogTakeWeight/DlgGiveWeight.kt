@@ -20,6 +20,8 @@ import java.util.*
 
 /**
  * Custom Dialogue for showing exercise desc to user
+ *
+ * @author Bhushan Kadu
  */
 class DlgGiveWeight(private val ctx: FitnessDataFragment) : Dialog(ctx.requireContext()), View.OnClickListener,
         Validator.ValidationListener {

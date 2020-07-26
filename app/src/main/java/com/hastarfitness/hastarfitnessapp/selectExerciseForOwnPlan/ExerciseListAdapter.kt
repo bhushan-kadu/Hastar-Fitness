@@ -17,6 +17,8 @@ import kotlin.collections.ArrayList
 
 /**
  * Adapter for exercise list
+ *
+ * @author Bhushan Kadu
  */
 class ExerciseListAdapter(private val exercise: List<ExerciseDbModel>, val activity: ExerciseListActivity, val dialog: DlgShowExerciseInfo) : RecyclerView.Adapter<ExerciseListAdapter.ViewHolder>(),Filterable {
     var i: Intent = Intent(activity, ShowYogaDescAndVideoActivity::class.java)

@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName
 /**
  * table in database as well as a model to save exercises only
  * and to show which exercise belongs to which plan
+ *
+ * @author Bhushan Kadu
  */
 @Entity(foreignKeys = [
     ForeignKey(entity = ExerciseDbModel::class,

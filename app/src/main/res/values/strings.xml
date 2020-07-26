@@ -56,9 +56,9 @@
     <string name="hiit">Hiit</string>
     <string name="light_cardio">Light Cardio</string>
     <string name="cardio">cardio</string>
-    <string name="app_intro">Hastar Fitness provide you with customized workout plans.\n\n
-                            Deliverable are Body Weight, Cardio, Yoga and Meditation. All workouts customizable according to your body specifics.\n\n
-                            This is an all-rounder app, which keeps track of your body weight, daily calories burn and a separate BMI calculator.</string>
+        <string name="app_intro">Hastar Fitness provide you with customized workout plans.\n\n
+                                Deliverable are Body Weight, Cardio, Yoga and Meditation. All workouts customizable according to your body specifics.\n\n
+                                This is an all-rounder app, which keeps track of your body weight, daily calories burn and a separate BMI calculator.</string>
     <string name="start_journey">Start My Fitness Journey</string>
     <string name="app_intro_title">App Intro</string>
     <string name="end_exercise">End</string>

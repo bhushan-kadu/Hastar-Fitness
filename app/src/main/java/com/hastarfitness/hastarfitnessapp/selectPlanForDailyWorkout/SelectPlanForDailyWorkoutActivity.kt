@@ -28,6 +28,8 @@ import kotlinx.android.synthetic.main.activity_select_plan_for_daily_workout.*
 /**
  * Activity for user to select any plan (App suggested or Predefined plans)
  * for his daily workout sessions
+ *
+ * @author Bhushan Kadu
  */
 class SelectPlanForDailyWorkoutActivity : AppCompatActivity(), View.OnClickListener {
 

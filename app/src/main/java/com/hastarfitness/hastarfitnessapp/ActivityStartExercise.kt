@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
@@ -28,13 +29,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.countDownTimerWithPause.CountDownTimerWithPause
 import com.hastarfitness.hastarfitnessapp.database.AppDatabase
-import com.hastarfitness.hastarfitnessapp.database.Converters
 import com.hastarfitness.hastarfitnessapp.database.ExerciseDbModel
 import com.hastarfitness.hastarfitnessapp.database.UserDailyDataDbModel
 import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
 import com.hastarfitness.hastarfitnessapp.selectPlanForDailyWorkout.SelectPlanForDailyWorkoutActivity
 import kotlinx.android.synthetic.main.activity_start_exercise.*
-import java.lang.Exception
+import java.io.IOException
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.*
@@ -43,6 +43,8 @@ import kotlin.collections.HashMap
 
 /**
  * this activity is for starting the workout session
+ *
+ * @author Bhushan Kadu
  */
 
 class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
@@ -622,33 +624,40 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
 
 
 
+
                     if (timeToViewOnProgress == 0.toLong()) {
 
                         timeToViewOnProgress = if (isRestTimer) {
+                            startAudio(AppConstants.WHISTLE_WAV)
                             setSeekbarExercisesCompletedIndicator()
                             restTime
                         } else {
+                            startAudio(AppConstants.LETS_GO_AAC)
                             timerInitialTime
                         }
                     }
                     if (isRestTimer) {
                         when (timeToViewOnProgress) {
+
                             1000.toLong() -> {
                                 remaining_clock_time.text = "Go!"
                                 circular_timer.progress = (timeToViewOnProgress / 1000).toInt()
                                 //set main workout clock timer
                                 setTotalWorkoutTimeText()
+                                startAudio(AppConstants.TICK_AAC)
                             }
                             2000.toLong() -> {
                                 remaining_clock_time.text = "Ready"
                                 circular_timer.progress = (timeToViewOnProgress / 1000).toInt()
                                 //set main workout clock timer
                                 setTotalWorkoutTimeText()
+                                startAudio(AppConstants.TICK_AAC)
                             }
                             3000.toLong() -> {
                                 //start the gif
                                 setGif()
                                 setTimeTextAndCircularProgressText(timeToViewOnProgress)
+                                startAudio(AppConstants.TICK_AAC)
                             }
                             else -> {
                                 setTimeTextAndCircularProgressText(timeToViewOnProgress)
@@ -657,6 +666,23 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
                     } else {
                         setTimeTextAndCircularProgressText(timeToViewOnProgress)
                         setPerExerciseTime()
+                        when (timeToViewOnProgress) {
+
+                            1000.toLong() -> {
+                                startAudio(AppConstants.TIME1_AAC)
+                            }
+                            2000.toLong() -> {
+                                startAudio(AppConstants.TIME2_AAC)
+                            }
+                            3000.toLong() -> {
+                                startAudio(AppConstants.TIME3_AAC)
+                            }
+                            10000.toLong() -> {
+                                startAudio(AppConstants.TIME10_AAC)
+                            }
+
+                        }
+
                     }
                     counter--
                     timeToViewOnProgress -= 1000
@@ -673,6 +699,20 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
 
 
     }
+
+    fun startAudio(audioName: String) {
+        val mediaPlayer = MediaPlayer();
+        val afd: AssetFileDescriptor
+        try {
+            afd = assets.openFd(audioName);
+            mediaPlayer.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (e: IOException) {
+            e.printStackTrace();
+        }
+    }
+
 
     private fun finishWorkout() {
         //set flag that user exited activity
@@ -748,7 +788,7 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
                 }
 //                setTimeTextAndCircularProgressText(time)
 
-                if(isActivityInPauseState){
+                if (isActivityInPauseState) {
                     timeToViewOnProgress = if (isRestTimer) {
                         restTime
                     } else {
@@ -885,7 +925,7 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         val seconds = timeBetweenLastStreakDateAndToday / 1000
         val minutes = seconds / 60
         val hours = minutes / 60
-        if(lastStreakDate != todayDate){
+        if (lastStreakDate != todayDate) {
             if (hours <= 24) {
                 session.streakNo += 1
                 session.streakDate = todayDate
@@ -1091,10 +1131,28 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
                     1000.toLong() -> {
                         remaining_clock_time.text = "Ready"
                         circular_timer.progress = (actualMillisUntilFinish / 1000).toInt()
+                        startAudio(AppConstants.TICK_AAC)
                     }
                     0.toLong() -> {
                         remaining_clock_time.text = "Go!"
+                        startAudio(AppConstants.LETS_GO_AAC)
                         circular_timer.progress = (actualMillisUntilFinish / 1000).toInt()
+                    }
+                    5000.toLong() -> {
+                        setInitialTimerTimeTextAndCircularProgressText(actualMillisUntilFinish)
+                        startAudio(AppConstants.TICK_AAC)
+                    }
+                    4000.toLong() -> {
+                        startAudio(AppConstants.TICK_AAC)
+                        setInitialTimerTimeTextAndCircularProgressText(actualMillisUntilFinish)
+                    }
+                    3000.toLong() -> {
+                        startAudio(AppConstants.TICK_AAC)
+                        setInitialTimerTimeTextAndCircularProgressText(actualMillisUntilFinish)
+                    }
+                    2000.toLong() -> {
+                        startAudio(AppConstants.TICK_AAC)
+                        setInitialTimerTimeTextAndCircularProgressText(actualMillisUntilFinish)
                     }
                     else -> {
                         setInitialTimerTimeTextAndCircularProgressText(actualMillisUntilFinish)
@@ -1191,14 +1249,14 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         title_of_exercise.text = workoutList[currentExercise].name
         next_up_textView.visibility = View.VISIBLE
         title_of_exercise.gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
-        title_of_exercise.textSize = 20f
+        title_of_exercise.textSize = 18f
     }
 
     private fun updateExerciseTitle() {
         next_up_textView.visibility = View.GONE
         title_of_exercise.text = workoutList[currentExercise].name
         title_of_exercise.gravity = Gravity.CENTER
-        title_of_exercise.textSize = 25f
+        title_of_exercise.textSize = 20f
     }
 
 

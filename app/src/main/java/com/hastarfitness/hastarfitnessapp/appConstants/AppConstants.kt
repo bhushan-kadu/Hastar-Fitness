@@ -4,6 +4,8 @@ import java.util.*
 
 /**
  * This class saves all app constants needed for for running the app
+ *
+ * @author Bhushan Kadu
  */
 object AppConstants {
     const val BODY_WEIGHT = "body weight"
@@ -114,6 +116,16 @@ object AppConstants {
 
 
     const val ALL_PLANS = "All Plans"
+
+    //sounds name
+
+    const val LETS_GO_AAC = "start.aac"
+    const val TICK_AAC = "tick.wav"
+    const val TIME1_AAC = "time1.aac"
+    const val TIME2_AAC = "time2.aac"
+    const val TIME3_AAC = "time3.aac"
+    const val TIME10_AAC = "time10.aac"
+    const val WHISTLE_WAV = "whistle.wav"
 
 
 

@@ -12,6 +12,8 @@ import com.hastarfitness.hastarfitnessapp.R
  * Adapter of Filter items recycler view for filtering workout plans
  *  @param workoutPlansFilterList names of filter items to be added to filter
  *  @param myWorkoutPlansListAdapter MyWorkoutPlansListAdapter adapter of intended filter recycler view
+ *
+ *  @author Bhushan Kadu
  */
 
 

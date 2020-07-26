@@ -18,6 +18,7 @@ import kotlin.collections.ArrayList
  * @param foodList list of foods
  * @param activity activity where recycler view resides i.e. WorkoutPlansListActivity
  *
+ * @author Bhushan Kadu
  */
 
 class MyFoodsListAdapter(private val foodList: List<CustomFoodsDbModel>, val fragmentMyFoods: FragmentMyFoods) : RecyclerView.Adapter<MyFoodsListAdapter.ViewHolder>() {

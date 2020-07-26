@@ -9,6 +9,8 @@ import com.hastarfitness.hastarfitnessapp.R
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
+ *
+ * @author Bhushan Kadu
  */
 class ViewPagerAdapterForDietStartPages(fa: FragmentActivity?) : FragmentStateAdapter(fa!!) {
     override fun createFragment(position: Int): Fragment {

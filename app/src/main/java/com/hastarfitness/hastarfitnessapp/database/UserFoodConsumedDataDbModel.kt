@@ -8,6 +8,8 @@ import java.util.*
 
 /**
  * model as well as view in Db for Storing users daily data
+ *
+ * @author Bhushan Kadu
  */
 @Entity
 data class UserFoodConsumedDataDbModel(

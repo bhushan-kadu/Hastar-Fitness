@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso
  * @param exercise list of workout plans
  * @param activity activity where recycler view resides i.e. WorkoutPlansListActivity
  *
+ * @author Bhushan Kadu
  */
 
 class MyWorkoutPlansListAdapter(private val exercise: List<WorkoutPlansDbModel>, val activity: WorkoutPlansListActivity) : RecyclerView.Adapter<MyWorkoutPlansListAdapter.ViewHolder>(),Filterable {

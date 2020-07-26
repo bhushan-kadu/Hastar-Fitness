@@ -17,6 +17,8 @@ import java.io.Serializable
 
 /**
  * Activity to show yoga exercise list
+ *
+ * @author Bhushan Kadu
  */
 class MeditationListActivity : AppCompatActivity() {
 

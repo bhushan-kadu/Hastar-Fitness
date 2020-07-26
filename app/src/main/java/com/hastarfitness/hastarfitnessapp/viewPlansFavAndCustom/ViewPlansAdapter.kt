@@ -19,6 +19,7 @@ import kotlin.collections.ArrayList
  * @param exercise list of workout plans
  * @param activity activity where recycler view resides i.e. WorkoutPlansListActivity
  *
+ * @author Bhushan Kadu
  */
 
 class ViewPlansAdapter(private val exercise: List<WorkoutPlansDbModel>, val activity: ViewPlansActivity) : RecyclerView.Adapter<ViewPlansAdapter.ViewHolder>(),Filterable {

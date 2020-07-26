@@ -18,6 +18,8 @@ import java.lang.Exception
 
 /**
  *  activity to select base plan
+ *
+ *  @author Bhushan Kadu
  */
 class WorkoutPlansListActivity : AppCompatActivity() {
 

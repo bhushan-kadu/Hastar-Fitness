@@ -27,6 +27,8 @@ import kotlin.collections.ArrayList
  * Adapter for workout plans list
  * @param workoutPlans workout plans to be shown to recycler view
  * @param activity activity where plans to be shown
+ *
+ * @author Bhushan Kadu
  */
 class SelectPlanForDailyWorkoutListAdapter(private val workoutPlans: List<WorkoutPlansDbModel>, val activity: SelectPlanForDailyWorkoutActivity) : RecyclerView.Adapter<SelectPlanForDailyWorkoutListAdapter.ViewHolder>(), Filterable {
     var viewModel: ViewModel = ViewModelProviders.of(activity).get(ViewModel()::class.java)

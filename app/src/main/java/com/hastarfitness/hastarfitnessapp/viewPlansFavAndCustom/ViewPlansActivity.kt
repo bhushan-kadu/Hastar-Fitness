@@ -20,6 +20,8 @@ import kotlinx.android.synthetic.main.activity_workoutplans_list.*
 
 /**
  *  activity to select base plan
+ *
+ *  @author Bhushan Kadu
  */
 val filterByNamesList = mutableListOf<String>("All Plans", "Upper Body", "Lower Body", "Core Strength", "Full Body")
 class ViewPlansActivity : AppCompatActivity() {

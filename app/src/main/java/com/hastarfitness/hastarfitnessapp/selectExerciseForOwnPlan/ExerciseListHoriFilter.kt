@@ -12,6 +12,8 @@ import com.hastarfitness.hastarfitnessapp.R
  * Adapter for filtering exercise list recycler view
  *  @param workoutPlansFilterList list of names to be added in filter
  *  @param myWorkoutPlansListAdapter adapter where filter will be applied
+ *
+ *  @author Bhushan Kadu
  */
 class ExerciseListHoriFilter(private val workoutPlansFilterList: List<String>, private val myWorkoutPlansListAdapter: ExerciseListAdapter) : RecyclerView.Adapter<ExerciseListHoriFilter.ViewHolder>() {
 

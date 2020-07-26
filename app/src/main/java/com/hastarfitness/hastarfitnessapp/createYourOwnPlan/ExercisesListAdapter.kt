@@ -15,6 +15,8 @@ import kotlin.collections.ArrayList
 
 /**
  * this is a adapter for list view with features to remove add items to and from list
+ *
+ * @author Bhushan Kadu
  */
 class ExercisesListAdapter(private val exercise: List<Exercise>, val activity: CreateYourOwnPlanActivity) : RecyclerView.Adapter<ExercisesListAdapter.ViewHolder>(), Filterable {
     var i: Intent = Intent(activity, ShowYogaDescAndVideoActivity::class.java)

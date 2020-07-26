@@ -16,6 +16,8 @@ import java.io.File
 
 /**
  * custom dialogue class for getting custom plan info to save the plan from user
+ *
+ * @author Bhushan Kadu
  */
 class DlgDownloadVideos(val ctx: Context, var exerciseNamesList: MutableList<String>) : Dialog(ctx) {
 

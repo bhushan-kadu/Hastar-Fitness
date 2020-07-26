@@ -8,6 +8,8 @@ import kotlin.math.round
 
 /**
  * Class for all fitness calculators
+ *
+ * @author Bhushan Kadu
  */
 class FitnessCalculators {
 

@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * model as well as view in Db for extracting exercise data from PlanExerciseDbModel
+ *
+ * @author Bhushan Kadu
  */
 @DatabaseView("select * from PlanExercisesDbModel join ExerciseDbModel on" +
         " PlanExercisesDbModel.exerciseId = ExerciseDbModel.id")

@@ -7,6 +7,8 @@ import java.text.DecimalFormat;
 
 /**
  * custom value formatter for pie chart values on any slice
+ *
+ * @author Bhushan Kadu
  */
 public class MyValueFormatter extends ValueFormatter {
 

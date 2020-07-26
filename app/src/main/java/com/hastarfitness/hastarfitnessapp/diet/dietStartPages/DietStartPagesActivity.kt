@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_diet_start_pages.*
 /**
  * Activity containing starting pages of the app
  * - This activity takes required info from user for app to run e.g. age, weight..etc
+ *
+ * @author Bhushan Kadu
  */
 class DietStartPagesActivity : AppCompatActivity(){
     var position = 0

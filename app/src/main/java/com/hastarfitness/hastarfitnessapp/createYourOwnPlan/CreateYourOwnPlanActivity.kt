@@ -28,6 +28,8 @@ import kotlinx.android.synthetic.main.dlg_get_custom_plan_info_dlg.*
 /**
  * this class is used for showing user a activity to customize a predefined plan or
  * to create a new custom plan
+ *
+ * @author Bhushan Kadu
  */
 class CreateYourOwnPlanActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var infoDlg: DlgGetCustPlanInfoFrmUser

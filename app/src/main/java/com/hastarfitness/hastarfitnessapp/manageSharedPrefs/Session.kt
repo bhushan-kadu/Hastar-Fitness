@@ -10,6 +10,8 @@ import java.util.*
 /**
  * class for Managing sharedPreferences within app
  *  -you can set or get any shared pref listed here
+ *
+ *  @author Bhushan Kadu
  */
 
 class Session(val activity: Activity) {

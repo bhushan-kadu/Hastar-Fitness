@@ -21,6 +21,8 @@ import kotlin.math.round
 
 /**
  *  Activity for BMI calculator
+ *
+ *  @author Bhushan Kadu
  */
 class BMICalculator : AppCompatActivity(), Validator.ValidationListener {
     private val roundingFormat = DecimalFormat("#.##")

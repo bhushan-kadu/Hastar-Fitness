@@ -9,6 +9,8 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * model as well as table to be used for exercise
+ *
+ * @author Bhushan Kadu
  */
 @Entity
 data class ExerciseDbModel(

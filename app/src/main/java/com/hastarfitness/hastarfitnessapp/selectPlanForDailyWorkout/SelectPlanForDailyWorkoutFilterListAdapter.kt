@@ -12,6 +12,8 @@ import com.hastarfitness.hastarfitnessapp.R
  * Filter adapter for WorkoutPlans recycler view
  * @param workoutPlansFilterList list of string to be added to filter
  * @param selectPlanForDailyWorkoutListAdapter adapter where filter will be applied
+ *
+ * @author Bhushan Kadu
  */
 class SelectPlanForDailyWorkoutFilterListAdapter(private val workoutPlansFilterList: List<String>, private val selectPlanForDailyWorkoutListAdapter: SelectPlanForDailyWorkoutListAdapter) : RecyclerView.Adapter<SelectPlanForDailyWorkoutFilterListAdapter.ViewHolder>() {
 

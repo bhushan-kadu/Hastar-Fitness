@@ -38,6 +38,8 @@ import kotlin.math.round
 
 /**
  *  Activity for BMI calculator
+ *
+ *  @author Bhushan Kadu
  */
 
 class BodyFatCalculator : AppCompatActivity(), Validator.ValidationListener {

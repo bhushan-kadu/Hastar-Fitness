@@ -35,6 +35,8 @@ import kotlinx.android.synthetic.main.fragment_viewpager_exercise_list.view.*
  * Activity to show list of exercises
  *  - this activity can be used to show cardio as well as body weight exercises
  *  - this activity has the support to slide between ( view pager ) different exercise categories
+ *
+ *  @author Bhushan Kadu
  */
 class ActivityExerciseList : AppCompatActivity(), View.OnClickListener {
 

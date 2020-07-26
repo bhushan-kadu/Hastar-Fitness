@@ -22,6 +22,8 @@ import kotlin.properties.Delegates
 
 /**
  * Custom Dialogue for showing exercise desc to user
+ *
+ * @author Bhushan Kadu
  */
 class DlgShowExerciseInfo(private val ctx: Context, var exerciseList: List<ExerciseDbModel>) : Dialog(ctx), View.OnClickListener {
 

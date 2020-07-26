@@ -25,6 +25,8 @@ import java.lang.Exception
 
 /**
  * activity to show final exercises to user that he is going to perform
+ *
+ * @author Bhushan Kadu
  */
 class FinalExerciseListActivity : AppCompatActivity() {
 

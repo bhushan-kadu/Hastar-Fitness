@@ -11,6 +11,8 @@ import com.google.gson.annotations.SerializedName
  * model as well as table in database for saving final exercises that user will perform
  * on daily basis
  * This table should change its values per day as well as when user customizes today's workout plan
+ *
+ * @author Bhushan Kadu
  */
 @Entity
 data class FinalBodyWeightExercisesDbModel (
