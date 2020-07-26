@@ -48,7 +48,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="100dp"
+            android:padding="10dp" />
+
+        <Button
+            android:textColor="@color/gray"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/guestSignInBtn"
+            android:text="@string/sign_in_as_a_guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="80dp"
             android:padding="10dp" />
 
 

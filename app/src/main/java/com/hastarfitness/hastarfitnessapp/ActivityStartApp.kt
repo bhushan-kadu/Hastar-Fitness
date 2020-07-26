@@ -63,6 +63,8 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
         }
 
         sign_in_button.setOnClickListener(this);
+        guestSignInBtn.setOnClickListener(this);
+
     }
 
     fun initialize() {
@@ -160,6 +162,7 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
 
         when (v.id) {
             R.id.sign_in_button -> signIn()
+            R.id.guestSignInBtn -> setUserSignedIn()
         }
     }
 

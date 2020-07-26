@@ -15,6 +15,7 @@ import com.hastarfitness.hastarfitnessapp.AppStartLoadingScreen
 import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
+import java.lang.Exception
 import java.util.*
 
 class FragmentAppInfoPage : Fragment() {
@@ -55,9 +56,18 @@ class FragmentAppInfoPage : Fragment() {
         return rootView
     }
     private fun saveUserInformation(){
-        val user = auth.currentUser!!
-        session.userName = user.displayName
-        session.photoUrl = user.photoUrl.toString()
-        session.userEmail = user.email.toString()
+
+        try {
+            val user = auth.currentUser!!
+            session.userName = user.displayName
+            session.photoUrl = user.photoUrl.toString()
+            session.userEmail = user.email.toString()
+        }catch (e:Exception){
+            session.userName = "Guest User"
+            session.userEmail = "guest"
+            val imageFilePath = "file:///android_asset/plansThumbnails/a.webp"
+            session.photoUrl = imageFilePath
+        }
+
     }
 }

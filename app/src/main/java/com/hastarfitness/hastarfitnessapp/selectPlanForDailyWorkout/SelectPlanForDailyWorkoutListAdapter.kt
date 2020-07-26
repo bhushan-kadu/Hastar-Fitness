@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.codesgood.views.JustifiedTextView
 import com.hastarfitness.hastarfitnessapp.models.Exercise
 import com.hastarfitness.hastarfitnessapp.ViewModel
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants

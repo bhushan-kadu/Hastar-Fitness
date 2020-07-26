@@ -200,6 +200,7 @@
     <string name="loading_app_for_the_first_time">Loading App for the first time</string>
     <string name="loginSuccessful">Login successful as </string>
     <string name="loginFailed">Login failed </string>
+    <string name="sign_in_as_a_guest">sign in as a guest</string>
 
 
 </resources>

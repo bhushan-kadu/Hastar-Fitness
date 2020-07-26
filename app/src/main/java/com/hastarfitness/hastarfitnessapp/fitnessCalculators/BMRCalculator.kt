@@ -58,8 +58,8 @@ class BMRCalculator : AppCompatActivity(), Validator.ValidationListener {
     lateinit var ftInput: TextInputEditText
 
     @NotEmpty
-    @DecimalMax(12.0, message = "Please Select maximum 12 in")
-    @DecimalMin(1.0, message = "Please Select minimum 1 in")
+    @DecimalMax(11.0, message = "Please Select maximum 12 in")
+    @DecimalMin(0.0, message = "Please Select minimum 1 in")
     lateinit var inInput: TextInputEditText
 
     @NotEmpty
