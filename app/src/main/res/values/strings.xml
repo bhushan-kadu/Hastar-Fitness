@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Hastar Fitness</string>
     <string name="very_little">Very Little</string>
-    <string name="oneToThree">1-3 Times a Week</string>
-    <string name="threeToFive">3-5 Times a Week</string>
-    <string name="sixToSeven">6-7 Times a Week</string>
+    <string name="oneToThree">1–3 Times a Week</string>
+    <string name="threeToFive">3–5 Times a Week</string>
+    <string name="sixToSeven">6–7 Times a Week</string>
     <string name="seven">7 Times a Week</string>
     <string name="title_activity_dashboard">ActivityDashboard</string>
     <string name="title_home">Home</string>
@@ -18,7 +18,7 @@
     <string name="title_activity_get_body_information">Body Information</string>
     <string name="title_activity_get_week_goal">Weekly goal</string>
     <string name="title_activity_start_diet">Weekly goal</string>
-    <string name="loading_text">Loading...</string>
+    <string name="loading_text">Loading…</string>
     <string name="app_close_message">Please click BACK again to exit</string>
     <string name="already_acc">I already have an account</string>
     <string name="get_started">get started</string>
@@ -56,9 +56,9 @@
     <string name="hiit">Hiit</string>
     <string name="light_cardio">Light Cardio</string>
     <string name="cardio">cardio</string>
-    <string name="app_intro">Hastar Fitness provide you with customized diet plan as well as customized workout plans. \n \n
-                            Deliverable are Body Weight,Cardio,Yoga and Meditation.All workouts customizable according to your body specifics. \n \n
-                            This is an all-rounder app,which keeps track of your body weight, daily calories burn and a separate BMI calculator.</string>
+    <string name="app_intro">Hastar Fitness provide you with customized workout plans.\n\n
+                            Deliverable are Body Weight, Cardio, Yoga and Meditation. All workouts customizable according to your body specifics.\n\n
+                            This is an all-rounder app, which keeps track of your body weight, daily calories burn and a separate BMI calculator.</string>
     <string name="start_journey">Start My Fitness Journey</string>
     <string name="app_intro_title">App Intro</string>
     <string name="end_exercise">End</string>
@@ -78,9 +78,9 @@
     <string name="get_macros">Get Macros</string>
     <string name="macro_calc">Macro Calculator</string>
     <string name="get_bmr">Get BMR</string>
-    <string name="todays_workout">Todays Workout</string>
-    <string name="todays_cardio">Todays Cardio</string>
-    <string name="todays_plan_as_per_your_goal">Todays Plans as per your goal</string>
+    <string name="todays_workout">Today\'s Workout</string>
+    <string name="todays_cardio">Today\'s Cardio</string>
+    <string name="todays_plan_as_per_your_goal">Today\'s Plans as per your goal</string>
     <string name="more_plans_you_may_like">More Plans you may like</string>
     <string name="create_your_own_plan">Create Plan</string>
     <string name="customize">Customize</string>
@@ -131,7 +131,7 @@
     <string name="next_up"><i>Next Up:</i></string>
     <string name="description">Description</string>
     <string name="bmi_info"><![CDATA[Underweight = 18.5 or less\nNormal weight = 18.5–24.9\nOverweight = 25–29.9\nObesity = BMI of 30 or greater]]></string>
-    <string name="loss_weight">Loss Weight</string>
+    <string name="loss_weight">Lose Weight</string>
     <string name="maintain_weight">Maintain Weight</string>
     <string name="gain_weight">Gain Weight</string>
     <string name="male">Male</string>
@@ -148,9 +148,9 @@
     <string name="lb">lb</string>
     <string name="weight_lower">Weight</string>
     <string name="little_or_no_exercise">Little or no exercise</string>
-    <string name="workout_3_5_days_a_week">Workout 3-5 days a week</string>
-    <string name="workout_1_3_days_a_week">Workout 1-3 days a week</string>
-    <string name="workout_6_7_days_a_week">Workout 6-7 days a week</string>
+    <string name="workout_3_5_days_a_week">Workout 3–5 days a week</string>
+    <string name="workout_1_3_days_a_week">Workout 1–3 days a week</string>
+    <string name="workout_6_7_days_a_week">Workout 6–7 days a week</string>
     <string name="feet">feet</string>
     <string name="gain_0_25kg_per_week">Gain 0.25Kg per week</string>
     <string name="gain_0_5kg_per_week">Gain 0.5Kg per week</string>

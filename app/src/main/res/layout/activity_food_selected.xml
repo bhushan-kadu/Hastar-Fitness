@@ -272,18 +272,18 @@
                     android:id="@+id/quantity_editText"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
-                    android:layout_weight="0.2"
+                    android:layout_weight="0.25"
                     android:background="@drawable/diet_unselected_faint_border"
                     android:inputType="number"
                     android:paddingLeft="15dp"
-                    android:text="100" />
+                    android:text="1000" />
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_weight="0.6"
+                    android:layout_weight="0.5"
                     android:background="@drawable/diet_unselected_faint_border">
 
                     <Spinner
@@ -298,9 +298,9 @@
                     android:textSize="16sp"
                     android:textColor="@android:color/black"
                     android:layout_width="0dp"
-                    android:layout_weight="0.2"
+                    android:layout_weight="0.25"
                     android:layout_height="wrap_content"
-                    android:text="100 gm"/>
+                    android:text="1000gm"/>
 
             </LinearLayout>
 

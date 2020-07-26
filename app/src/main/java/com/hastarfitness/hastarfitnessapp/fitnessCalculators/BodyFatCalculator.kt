@@ -19,15 +19,21 @@ import kotlinx.android.synthetic.main.activity_body_fat_calculator.toggle_ft_cm
 import com.mobsandgeeks.saripaar.Validator
 import com.mobsandgeeks.saripaar.annotation.*
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
+import kotlinx.android.synthetic.main.activity_b_m_i_calculator.*
+import kotlinx.android.synthetic.main.activity_bmr_calculator.*
+import kotlinx.android.synthetic.main.activity_bmr_calculator.cm_input
 import kotlinx.android.synthetic.main.activity_body_fat_calculator.cmInputEditText
 import kotlinx.android.synthetic.main.activity_body_fat_calculator.cmInputLayout
 import kotlinx.android.synthetic.main.activity_body_fat_calculator.feetInputEditText
 import kotlinx.android.synthetic.main.activity_body_fat_calculator.genderInputLayout
+import kotlinx.android.synthetic.main.activity_body_fat_calculator.genderInput_textView
 import kotlinx.android.synthetic.main.activity_body_fat_calculator.hipInputEditText
 import kotlinx.android.synthetic.main.activity_body_fat_calculator.hipInputLayout
 import kotlinx.android.synthetic.main.activity_body_fat_calculator.inInputEditText
 import kotlinx.android.synthetic.main.activity_body_fat_calculator.neakInputEditText
 import kotlinx.android.synthetic.main.activity_body_fat_calculator.waistInputEditText
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import kotlin.math.round
 
 /**
@@ -35,6 +41,7 @@ import kotlin.math.round
  */
 
 class BodyFatCalculator : AppCompatActivity(), Validator.ValidationListener {
+    private val roundingFormat = DecimalFormat("#.##")
     private var isCm = true
     var fitnessCalculators = FitnessCalculators()
 
@@ -51,8 +58,8 @@ class BodyFatCalculator : AppCompatActivity(), Validator.ValidationListener {
     lateinit var ftInput: TextInputEditText
 
     @NotEmpty
-    @Max(12, message = "Please Select maximum 12 in")
-    @Min(1, message = "Please Select minimum 1 in")
+    @DecimalMax(12.0, message = "Please Select maximum 12 in")
+    @DecimalMin(1.0, message = "Please Select minimum 1 in")
     lateinit var inInput: TextInputEditText
 
     @NotEmpty
@@ -118,6 +125,7 @@ class BodyFatCalculator : AppCompatActivity(), Validator.ValidationListener {
         return true
     }
     private fun initialize() {
+        roundingFormat.roundingMode = RoundingMode.CEILING
         cmInput = cmInputEditText
         ftInput = feetInputEditText
         inInput = inInputEditText
@@ -192,21 +200,25 @@ class BodyFatCalculator : AppCompatActivity(), Validator.ValidationListener {
             val ftValueString = ftInput.text.toString()
             val inValueString = inInput.text.toString()
             val ftValue = if (ftValueString == "") 0 else ftValueString.toInt()
-            val inValue = if (inValueString == "") 0 else inValueString.toInt()
+            val inValue = if (inValueString == "") 0 else inValueString
 
             cmInput.setText(fitnessCalculators.ftInToCm("$ftValue $inValue").toString())
+            cmInput.setSelection(cmInput.text!!.length)
         } else {
             var ft = 0
-            var inch = 0
+            var inch = 0.0
             val cmValueString = cmInput.text.toString()
             val cmValue = if (cmValueString == "") 0.toDouble() else cmValueString.toDouble()
             if (cmValue != 0.toDouble()) {
                 val split = fitnessCalculators.cmToftIn(cmValue).split(" ")
                 ft = split[0].toDouble().toInt()
-                inch = split[1].toDouble().toInt()
+                inch = split[1].toDouble()
             }
             ftInput.setText(ft.toString())
-            inInput.setText(inch.toString())
+            inInput.setText(roundingFormat.format(inch))
+
+            ftInput.setSelection(ftInput.text!!.length)
+            inInput.setSelection(inInput.text!!.length)
         }
     }
 

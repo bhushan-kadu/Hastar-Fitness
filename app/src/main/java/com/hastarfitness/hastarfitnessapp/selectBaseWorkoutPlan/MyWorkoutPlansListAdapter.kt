@@ -70,7 +70,7 @@ class MyWorkoutPlansListAdapter(private val exercise: List<WorkoutPlansDbModel>,
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.title)
-        val desc: JustifiedTextView = itemView.findViewById(R.id.desc_text)
+        val desc: TextView = itemView.findViewById(R.id.desc_text)
         val selectBtn: Button = itemView.findViewById(R.id.select_btn)
         val linearLayout: LinearLayout = itemView.findViewById(R.id.recycler_linear_layout)
         val thumbnailImageView: ImageView = itemView.findViewById(R.id.image)

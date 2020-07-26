@@ -9,7 +9,7 @@
 
     <TextView
         android:padding="10dp"
-        android:id="@+id/name_editText"
+        android:id="@+id/name_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/hiit"
@@ -21,19 +21,24 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
         android:layout_weight="2.3">
 
         <VideoView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:id="@+id/exercise_video"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_centerHorizontal="true" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <ImageView
-            android:id="@+id/exercise_video_bitmap"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+
+            android:src="@android:color/white"
+            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:id="@+id/exercise_video_bitmap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:visibility="visible" />
     </RelativeLayout>
 
@@ -66,7 +71,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_gravity="center">
-        <com.codesgood.views.JustifiedTextView
+        <TextView
             android:id="@+id/txt_dia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

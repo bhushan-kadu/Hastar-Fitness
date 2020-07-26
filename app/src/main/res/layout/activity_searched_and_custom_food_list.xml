@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:id="@+id/rootLinearLayout"
     tools:context=".diet.searchAndCustomFoodList.SearchedAndCustomFoodListActivity">
 
     <com.google.android.material.appbar.AppBarLayout

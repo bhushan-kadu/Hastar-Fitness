@@ -284,7 +284,7 @@ class ListFragment(val intensity: String, val workoutType: String, var dlg: DlgS
         viewModel.exercises.observe(requireActivity(), Observer { it ->
             exerciseList = it
 
-            dlg.exerciseList = exerciseList
+
             exerciseListFrmDb = exerciseList.map {
                 Exercise(
                         it.name,
@@ -310,6 +310,7 @@ class ListFragment(val intensity: String, val workoutType: String, var dlg: DlgS
                     exerciseListFrmDb = exerciseListFrmDb.filter { it.intensity.toLowerCase().contains(intensity.toLowerCase()) }
                 }
             }
+
 
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(context)

@@ -19,6 +19,7 @@ import com.hastarfitness.hastarfitnessapp.database.AppDatabase
 import com.hastarfitness.hastarfitnessapp.database.WorkoutPlansDbModel
 import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
 import com.hastarfitness.hastarfitnessapp.finalExerciseListBeforeStartingWorkout.FinalExerciseListActivity
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 import kotlin.collections.ArrayList
@@ -78,12 +79,20 @@ class SelectPlanForDailyWorkoutListAdapter(private val workoutPlans: List<Workou
             curItem.desc
         }
         holder.linearLayout.tag = curItem.id
-        val imageFilePath = "file:///android_asset/plansThumbnails/"+curItem.name+".webp"
+        val imageFilePath = "file:///android_asset/plansThumbnails/"+curItem.name.trim()+".webp"
         // Load the image into image view from assets folder
         Picasso.get()
                 .load(imageFilePath)
                 .placeholder(R.drawable.ic_placeholder_img)
-                .into(holder.thumbnailImageView)
+                .into(holder.thumbnailImageView, object :Callback{
+                    override fun onSuccess() {
+1
+                    }
+
+                    override fun onError(e: Exception?) {
+                       e
+                    }
+                })
 
         holder.linearLayout.setOnClickListener {
             recyclerView.layoutManager?.scrollToPosition(position)
@@ -126,7 +135,7 @@ class SelectPlanForDailyWorkoutListAdapter(private val workoutPlans: List<Workou
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.title)
-        val desc: JustifiedTextView = itemView.findViewById(R.id.desc_text)
+        val desc: TextView = itemView.findViewById(R.id.desc_text)
         val linearLayout: LinearLayout = itemView.findViewById(R.id.recycler_linear_layout)
         val favIcon: ImageView = itemView.findViewById(R.id.fav_icon)
         val thumbnailImageView: ImageView = itemView.findViewById(R.id.image)

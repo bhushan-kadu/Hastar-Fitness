@@ -21,7 +21,8 @@
 
         </activity>
         <activity android:name=".LoginActivity"/>
-        <activity android:name=".AppStartLoadingScreen"/>
+        <activity android:name=".AppStartLoadingScreen"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".diet.FoodSelectedActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -40,7 +41,8 @@
         <activity android:name=".AppSettingsActivity" />
         <activity
             android:name=".diet.dietStartPages.DietStartPagesActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".fitnessCalculators.MacroCalculator"
             android:launchMode="singleTop" />

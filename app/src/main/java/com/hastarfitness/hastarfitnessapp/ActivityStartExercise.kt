@@ -870,7 +870,7 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         calInstance.set(Calendar.MILLISECOND, 0)
         val todayDate = calInstance.time
         val lastStreakDate = if (session.streakDate == null) {
-            session.streakNo = 0
+            session.streakNo = 1
             session.streakDate = todayDate
             todayDate
         } else session.streakDate!!
@@ -885,34 +885,15 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         val seconds = timeBetweenLastStreakDateAndToday / 1000
         val minutes = seconds / 60
         val hours = minutes / 60
-        if (hours <= 24) {
-            session.streakNo += 1
-            session.streakDate = todayDate
-        } else {
-            session.streakNo = 1
-            session.streakDate = todayDate
+        if(lastStreakDate != todayDate){
+            if (hours <= 24) {
+                session.streakNo += 1
+                session.streakDate = todayDate
+            } else {
+                session.streakNo = 1
+                session.streakDate = todayDate
+            }
         }
-
-//        if (todayDate > streakDate) {
-//            session.streakNo += 1
-//            session.streakDate = todayDate
-////        }
-//        if (todayDate > streakDate) {
-//            val diff: Long = todayDate.time - streakDate!!.time
-//            val seconds = diff / 1000
-//            val minutes = seconds / 60
-//            val hours = minutes / 60
-//            val days = hours / 24
-//
-//            if(days<1){
-//                session.streakNo += 1
-//                session.streakDate = todayDate
-//            }else{
-//                session.streakNo = 0
-//                session.streakDate = todayDate
-//            }
-//        }
-
 
     }
 

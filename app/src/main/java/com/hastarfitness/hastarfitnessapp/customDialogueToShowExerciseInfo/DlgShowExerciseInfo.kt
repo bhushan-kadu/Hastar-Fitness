@@ -51,6 +51,9 @@ class DlgShowExerciseInfo(private val ctx: Context, var exerciseList: List<Exerc
         }
 
 
+        exercise_video.setOnErrorListener { mp, what, extra ->
+            true
+        }
     }
     var videoUri =""
     private fun playVideo(){
@@ -161,7 +164,7 @@ fun loadThumbnail(name:String){
     //set description message of exercise
     fun setMessage(desc: String, name:String) {
         txt_dia.text = desc
-        name_editText.text = name
+        name_textView.text = name
     }
 }
 

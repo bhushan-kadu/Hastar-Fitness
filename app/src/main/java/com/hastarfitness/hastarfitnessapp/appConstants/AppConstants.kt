@@ -125,10 +125,10 @@ object AppConstants {
     val dailyPlanBodyWeight = LinkedHashMap<String, String>()
     val dailyPlanCardio = LinkedHashMap<String, String>()
     init {
-        dailyPlanBodyWeight["monday"] = AppConstants.FULL_BODY
-        dailyPlanBodyWeight["tuesday"] = AppConstants.CORE_STRENGTH
-        dailyPlanBodyWeight["wednesday"] = AppConstants.UPPER_BODY
-        dailyPlanBodyWeight["thursday"] = AppConstants.LOWER_BODY
+        dailyPlanBodyWeight["monday"] = AppConstants.FULL_BODY//full
+        dailyPlanBodyWeight["tuesday"] = AppConstants.UPPER_BODY//uppper
+        dailyPlanBodyWeight["wednesday"] = AppConstants.CORE_STRENGTH//core
+        dailyPlanBodyWeight["thursday"] = AppConstants.LOWER_BODY//lower
         dailyPlanBodyWeight["friday"] = AppConstants.FULL_BODY
         dailyPlanBodyWeight["saturday"] = AppConstants.UPPER_BODY
         dailyPlanBodyWeight["sunday"] = AppConstants.CORE_STRENGTH

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.models.Exercise
 import com.hastarfitness.hastarfitnessapp.customDialogueToShowExerciseInfo.DlgShowExerciseInfo
+import com.hastarfitness.hastarfitnessapp.database.ExerciseDbModel
 import com.squareup.picasso.Picasso
 
 class ExerciseListAdapter(private val exercise: List<Exercise>, private val dialogue: DlgShowExerciseInfo) : RecyclerView.Adapter<ExerciseListAdapter.ViewHolder>() {
@@ -34,6 +35,19 @@ class ExerciseListAdapter(private val exercise: List<Exercise>, private val dial
 
         holder.itemView.setOnClickListener {
             dialogue.setMessage(exercise[position].desc, exercise[position].name)
+            dialogue.exerciseList = exercise.map {
+                ExerciseDbModel(
+                        id = it.id,
+                        name = it.name,
+                        type = it.type,
+                        desc = it.desc,
+                        img = "",
+                        intensity = it.intensity,
+                        time = it.time,
+                        mmet = it.mmet,
+                        fmet = it.fmet
+                )
+            }
             dialogue.pos = position
             dialogue.loadThumbnail(curItem.name)
             dialogue.downloadVide(curItem.name)

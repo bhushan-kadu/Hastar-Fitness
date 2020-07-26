@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
@@ -33,6 +34,9 @@ class DietStartPagesActivity : AppCompatActivity(){
         initialize()
 
         setSupportActionBar(toolbar)
+
+        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
 
         // Get a support ActionBar corresponding to this toolbar
         ab = supportActionBar

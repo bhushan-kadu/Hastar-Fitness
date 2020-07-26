@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -58,6 +59,10 @@ class FoodSelectedActivity : AppCompatActivity(), Validator.ValidationListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_selected)
         setSupportActionBar(toolbar)
+
+        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+
         quantityEditText = quantity_editText
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -73,9 +78,11 @@ class FoodSelectedActivity : AppCompatActivity(), Validator.ValidationListener {
                 if (!isCustomFood) {
                     if (position == 0) {
                         quantity_editText.setText("100")
+                        quantity_editText.setSelection(quantity_editText.text.length)
                         setPer100GmData()
                     } else {
                         quantity_editText.setText("1")
+                        quantity_editText.setSelection(quantity_editText.text.length)
                         setPerServingData()
                     }
                 }
@@ -400,10 +407,12 @@ class FoodSelectedActivity : AppCompatActivity(), Validator.ValidationListener {
             if (measurement == AppConstants.SERVINGS_MEASUREMENT) {
                 categories.add("Serving")
                 quantity_editText.setText("1")
+                quantity_editText.setSelection(quantity_editText.text.length)
                 quantity_textView.text = "$servingsOrGramValue gm"
             } else {
                 categories.add("Gram")
                 quantity_editText.setText(servingsOrGramValue.toString())
+                quantity_editText.setSelection(quantity_editText.text.length)
                 quantity_textView.text = "$servingsOrGramValue gm"
             }
 
@@ -443,6 +452,8 @@ class FoodSelectedActivity : AppCompatActivity(), Validator.ValidationListener {
             snacks_btn.setTextColor(blackColor)
             lunch_btn.setTextColor(blackColor)
             dinner_btn.setTextColor(blackColor)
+
+            mealType = AppConstants.BREAKFAST
         }
 
         snacks_btn.setOnClickListener {
@@ -455,6 +466,8 @@ class FoodSelectedActivity : AppCompatActivity(), Validator.ValidationListener {
             breakfast_btn.setTextColor(blackColor)
             lunch_btn.setTextColor(blackColor)
             dinner_btn.setTextColor(blackColor)
+
+            mealType = AppConstants.SNACKS
         }
 
         lunch_btn.setOnClickListener {
@@ -467,6 +480,8 @@ class FoodSelectedActivity : AppCompatActivity(), Validator.ValidationListener {
             snacks_btn.setTextColor(blackColor)
             breakfast_btn.setTextColor(blackColor)
             dinner_btn.setTextColor(blackColor)
+
+            mealType = AppConstants.LUNCH
         }
 
         dinner_btn.setOnClickListener {
@@ -479,6 +494,8 @@ class FoodSelectedActivity : AppCompatActivity(), Validator.ValidationListener {
             lunch_btn.setTextColor(blackColor)
             snacks_btn.setTextColor(blackColor)
             breakfast_btn.setTextColor(blackColor)
+
+            mealType = AppConstants.DINNER
         }
 
         foodName_textView.text = foodName

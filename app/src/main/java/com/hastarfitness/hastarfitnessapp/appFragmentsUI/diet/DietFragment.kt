@@ -237,7 +237,7 @@ class DietFragment : Fragment() {
                 "0"
             }
 
-            proteinLeftGmTextView.text = if (proteinLeft < 0) {
+            proteinLeftGmTextView.text = if (proteinLeft > 0) {
                 proteinLeft.toInt().toString()
             } else {
                 "0"
@@ -251,9 +251,9 @@ class DietFragment : Fragment() {
             dailyGoalKcalTextView.text = goalCalories.toInt().toString()
 
             caloriesSeekArc.progress = caloriesConsumed.toInt()
-            carbsSeekArc.progress = carbsConsumed.toInt()
-            proteinSeekArc.progress = proteinConsumed.toInt()
-            fatSeekArc.progress = fatConsumed.toInt()
+            carbsSeekArc.progress = carbsConsumedPercent.toInt()
+            proteinSeekArc.progress = proteinConsumedPercent.toInt()
+            fatSeekArc.progress = fatsConsumedPercent.toInt()
 
 
             breakfastConsumedCalTextView.text = roundingFormat.format(breakfastCalories)
@@ -304,9 +304,9 @@ class DietFragment : Fragment() {
 
 
         caloriesSeekArc.max = goalCalories.toInt()
-        proteinSeekArc.max = goalProtein.toInt()
-        carbsSeekArc.max = goalCarbs.toInt()
-        fatSeekArc.max = goalFat.toInt()
+        proteinSeekArc.max = 100
+        carbsSeekArc.max = 100
+        fatSeekArc.max = 100
 
         dailyGoalKcalTextView.text = goalCalories.toString()
         proteinLeftGmTextView.text = goalProtein.toString()

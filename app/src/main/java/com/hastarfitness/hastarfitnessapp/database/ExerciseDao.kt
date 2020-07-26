@@ -42,7 +42,7 @@ interface ExerciseDao {
     @Query("SELECT * FROM ExerciseView WHERE planId = :planId")
     fun getPlan(planId:Int): List<ExerciseView>
 
-    @Query("SELECT * FROM WorkoutPlansDbModel WHERE name like lower(:planName)")
+    @Query("SELECT * FROM WorkoutPlansDbModel WHERE lower(name) like lower(:planName)")
     suspend fun getSinglePlanByName(planName:String): WorkoutPlansDbModel
 
     @Query("SELECT * FROM WorkoutPlansDbModel WHERE id = :planId")

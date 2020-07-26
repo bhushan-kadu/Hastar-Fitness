@@ -106,6 +106,16 @@ class FitnessCalculators {
         return round(kg * 2.20462)
     }
 
+    /**
+     *  convert lb to kg
+     *
+     *  @param lb pound in Double
+     *  @return weight in kg
+     */
+    fun lbToKg(lb: Double): Double {
+        return round(lb / 2.20462)
+    }
+
 
     /**
      *  convert feet and inches to cm
@@ -130,15 +140,7 @@ class FitnessCalculators {
         return inches * 2.54
     }
 
-    /**
-     *  convert lb to kg
-     *
-     *  @param lb pound in Double
-     *  @return weight in kg
-     */
-    fun lbToKg(lb: Double): Double {
-        return round(lb * 2.20462)
-    }
+
 
     /**
      *  convert cm to feet and inches
@@ -171,7 +173,7 @@ class FitnessCalculators {
                      waistMeasure: Double,
                      hipMeasure: Double,
                      neakMeasure: Double): Double {
-        return (163.205 * log10(waistMeasure + hipMeasure - neakMeasure)) - (97.684 * log10(height)) - 78.387
+        return (163.205 * log10(waistMeasure + hipMeasure - neakMeasure)) - (97.684 * log10(height)) + 36.76
     }
 
     /**

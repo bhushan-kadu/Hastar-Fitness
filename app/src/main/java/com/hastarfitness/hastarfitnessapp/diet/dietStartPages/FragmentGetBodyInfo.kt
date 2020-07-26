@@ -16,33 +16,39 @@ import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.fitnessCalculators.FitnessCalculators
 import kotlinx.android.synthetic.main.fragment_diet_get_body_info.*
+import kotlinx.android.synthetic.main.fragment_diet_get_body_info.cm_input
+import kotlinx.android.synthetic.main.fragment_diet_get_body_info.feet_inches_view
+import kotlinx.android.synthetic.main.fragment_diet_get_body_info.ft_input
+import kotlinx.android.synthetic.main.fragment_diet_get_body_info.in_input
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
-class FragmentGetBodyInfo : Fragment(), Validator.ValidationListener  {
-
+class FragmentGetBodyInfo : Fragment(), Validator.ValidationListener {
+    private val roundingFormat = DecimalFormat("#.##")
     @NotEmpty
     @DecimalMax(450.0, message = "Please Select maximum 450 Kg")
     @DecimalMin(1.0, message = "Please Select minimum 1 Kg")
-    lateinit var wtInput:EditText
+    lateinit var wtInput: EditText
 
     @NotEmpty
     @Max(8, message = "Please Select maximum 8 ft")
     @Min(1, message = "Please Select minimum 1 ft")
-    lateinit var ftInput:EditText
+    lateinit var ftInput: EditText
 
     @NotEmpty
-    @Max(12, message = "Please Select maximum 12 in")
-    @Min(1, message = "Please Select minimum 1 in")
-    lateinit var inInput:EditText
+    @DecimalMax(12.0, message = "Please Select maximum 12 in")
+    @DecimalMin(1.0, message = "Please Select minimum 1 in")
+    lateinit var inInput: EditText
 
     @NotEmpty
     @DecimalMax(272.0, message = "Please Select maximum 272 cm")
     @DecimalMin(30.0, message = "Please Select minimum 30 cm")
-    lateinit var cmInput:EditText
+    lateinit var cmInput: EditText
 
     @NotEmpty
     @Max(100, message = "Please Select maximum 100")
     @Min(1, message = "Please Select minimum 1")
-    lateinit var ageInput:EditText
+    lateinit var ageInput: EditText
 
     lateinit var validator: Validator
 
@@ -82,47 +88,7 @@ class FragmentGetBodyInfo : Fragment(), Validator.ValidationListener  {
         val unSelectedBackGround = ContextCompat.getDrawable(requireContext(), R.drawable.diet_unselected_faint_border)
 
         weeklyActivity = AppConstants.LIGHT_EXERCISE
-        ftButton.setOnClickListener {
-            feet_inches_view.visibility = View.VISIBLE
-            cm_input.visibility = View.GONE
-            ftButton.background = selectedBackGround
-            ftButton.setTextColor(whiteColor)
-            cmButton.background = unSelectedBackGround
-            cmButton.setTextColor(blackColor)
 
-            isCm = false
-        }
-
-        cmButton.setOnClickListener {
-            feet_inches_view.visibility = View.GONE
-            cm_input.visibility = View.VISIBLE
-            cmButton.background = selectedBackGround
-            cmButton.setTextColor(whiteColor)
-            ftButton.background = unSelectedBackGround
-            ftButton.setTextColor(blackColor)
-
-            isCm = true
-        }
-
-        kgButton.setOnClickListener {
-            wtInput.hint = getString(R.string.kg)
-            kgButton.background = selectedBackGround
-            kgButton.setTextColor(whiteColor)
-            lbButton.background = unSelectedBackGround
-            lbButton.setTextColor(blackColor)
-
-            isKg = true
-        }
-
-        lbButton.setOnClickListener {
-            wtInput.hint = getString(R.string.lb)
-            lbButton.background = selectedBackGround
-            lbButton.setTextColor(whiteColor)
-            kgButton.background = unSelectedBackGround
-            kgButton.setTextColor(blackColor)
-
-            isKg = false
-        }
 
         maleButton.setOnClickListener {
             maleButton.background = selectedBackGround
@@ -222,28 +188,134 @@ class FragmentGetBodyInfo : Fragment(), Validator.ValidationListener  {
     }
 
     val fitnessCalculators = FitnessCalculators()
-    fun initialize(){
+    fun initialize() {
+        roundingFormat.roundingMode = RoundingMode.CEILING
         validator = Validator(this)
         validator.setValidationListener(this)
     }
 
-    override fun onValidationFailed(errors: MutableList<ValidationError>?) {
-        for (error in errors!!) {
-                (error.view as EditText).error = error.getCollatedErrorMessage(requireContext())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val blackColor = ContextCompat.getColor(requireContext(), R.color.gray)
+        val whiteColor = ContextCompat.getColor(requireContext(), android.R.color.white)
+        val selectedBackGround = ContextCompat.getDrawable(requireContext(), R.drawable.diet_buttons_background_selected)
+        val unSelectedBackGround = ContextCompat.getDrawable(requireContext(), R.drawable.diet_unselected_faint_border)
+
+        ft_button.setOnClickListener {
+            if(isCm){
+                toggleFtCm()
+                ft_button.background = selectedBackGround
+                ft_button.setTextColor(whiteColor)
+                cm_button.background = unSelectedBackGround
+                cm_button.setTextColor(blackColor)
+            }
+
+        }
+
+        cm_button.setOnClickListener {
+            if(!isCm){
+                toggleFtCm()
+                cm_button.background = selectedBackGround
+                cm_button.setTextColor(whiteColor)
+                ft_button.background = unSelectedBackGround
+                ft_button.setTextColor(blackColor)
+            }
+        }
+
+        kg_button.setOnClickListener {
+            if(!isKg){
+                toggleKgLb()
+                kg_button.background = selectedBackGround
+                kg_button.setTextColor(whiteColor)
+                lb_button.background = unSelectedBackGround
+                lb_button.setTextColor(blackColor)
+            }
+        }
+
+        lb_button.setOnClickListener {
+            if(isKg){
+                toggleKgLb()
+                lb_button.background = selectedBackGround
+                lb_button.setTextColor(whiteColor)
+                kg_button.background = unSelectedBackGround
+                kg_button.setTextColor(blackColor)
+            }
+        }
+
+    }
+
+    private fun toggleFtCm() {
+        toggleFtCmEditTextValues()
+        isCm = !isCm
+        if (isCm) {
+            cm_input.visibility = View.VISIBLE
+            feet_inches_view.visibility = View.GONE
+        } else {
+            feet_inches_view.visibility = View.VISIBLE
+            cm_input.visibility = View.GONE
+        }
+
+    }
+
+    private fun toggleFtCmEditTextValues() {
+
+        if (!isCm) {
+            val ftValueString = ftInput.text.toString()
+            val inValueString = inInput.text.toString()
+            val ftValue = if (ftValueString == "") 0 else ftValueString.toInt()
+            val inValue = if (inValueString == "") 0 else inValueString
+
+            cm_input.setText(fitnessCalculators.ftInToCm("$ftValue $inValue").toString())
+        } else {
+            val cmValueString = cmInput.text.toString()
+            val cmValue = if (cmValueString == "") 0.toDouble() else cmValueString.toDouble()
+
+            val split = fitnessCalculators.cmToftIn(cmValue).split(" ")
+            val ft = split[0].toDouble().toInt()
+            val inch = split[1].toDouble()
+            ft_input.setText(ft.toString())
+            in_input.setText(roundingFormat.format(inch))
         }
     }
+
+    private fun toggleKgLb() {
+        togglekgLbEditTextValues()
+        isKg = !isKg
+
+        if (isKg) {
+            wt_input.hint = "kg"
+        } else {
+            wt_input.hint = "lb"
+        }
+    }
+    private fun togglekgLbEditTextValues() {
+        val valueString = wt_input.text.toString()
+        val value =  if(valueString == "") 0.toDouble() else valueString.toDouble()
+
+        if (!isKg) {
+            wt_input.setText(fitnessCalculators.lbToKg(value).toString())
+        } else {
+            wt_input.setText(fitnessCalculators.kgToLb(value).toString())
+        }
+    }
+    override fun onValidationFailed(errors: MutableList<ValidationError>?) {
+        for (error in errors!!) {
+            (error.view as EditText).error = error.getCollatedErrorMessage(requireContext())
+        }
+    }
+
     private var isCm = false
     private var isKg = true
     private var isMale = true
     override fun onValidationSucceeded() {
-        val height = if(isCm){
+        val height = if (isCm) {
             cmInput.text.toString().toDouble()
-        }else{
-            fitnessCalculators.ftInToCm("${inInput.text.toString().toDouble()} ${ftInput.text.toString().toDouble()}")
+        } else {
+            fitnessCalculators.ftInToCm("${ftInput.text.toString().toDouble()} ${inInput.text.toString().toDouble()}")
         }
-        val weight = if(isKg){
+        val weight = if (isKg) {
             wtInput.text.toString().toDouble()
-        }else{
+        } else {
             fitnessCalculators.lbToKg(wtInput.text.toString().toDouble())
         }
 

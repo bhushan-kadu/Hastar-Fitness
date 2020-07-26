@@ -13,6 +13,7 @@ import com.mobsandgeeks.saripaar.annotation.*
 import com.hastarfitness.hastarfitnessapp.R
 import com.xw.repo.BubbleSeekBar.CustomSectionTextArray
 import kotlinx.android.synthetic.main.activity_b_m_i_calculator.*
+import kotlinx.android.synthetic.main.activity_food_selected.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import kotlin.math.floor
@@ -39,8 +40,8 @@ class BMICalculator : AppCompatActivity(), Validator.ValidationListener {
     lateinit var ftInput: TextInputEditText
 
     @NotEmpty
-    @Max(12, message = "Please Select maximum 12 in")
-    @Min(1, message = "Please Select minimum 1 in")
+    @DecimalMax(12.0, message = "Please Select maximum 12 in")
+    @DecimalMin(1.0, message = "Please Select minimum 1 in")
     lateinit var inInput: TextInputEditText
 
     @NotEmpty
@@ -171,29 +172,35 @@ class BMICalculator : AppCompatActivity(), Validator.ValidationListener {
             val ftValueString = ftInput.text.toString()
             val inValueString = inInput.text.toString()
             val ftValue =  if(ftValueString == "") 0 else ftValueString.toInt()
-            val inValue =  if(inValueString == "") 0 else inValueString.toInt()
+            val inValue =  if(inValueString == "") 0 else inValueString
 
             cm_input.setText(fitnessCalculators.ftInToCm("$ftValue $inValue").toString())
+            cm_input.setSelection(cm_input.text!!.length)
         } else {
             val cmValueString = cmInput.text.toString()
             val cmValue =  if(cmValueString == "") 0.toDouble() else cmValueString.toDouble()
 
             val split = fitnessCalculators.cmToftIn(cmValue).split(" ")
             val ft = split[0].toDouble().toInt()
-            val inch = split[1].toDouble().toInt()
+            val inch = split[1].toDouble()
             ft_input.setText(ft.toString())
-            in_input.setText(inch.toString())
+            in_input.setText(roundingFormat.format(inch))
+
+            ft_input.setSelection(ft_input.text!!.length)
+            in_input.setSelection(in_input.text!!.length)
         }
     }
 
-    private fun togglekgLbEditTextValues() {
+    private fun toggleKgLbEditTextValues() {
         val valueString = kg_lb_input.text.toString()
         val value =  if(valueString == "") 0.toDouble() else valueString.toDouble()
 
         if (!iskg) {
             kg_lb_input.setText(fitnessCalculators.lbToKg(value).toString())
+            kg_lb_input.setSelection(kg_lb_input.text!!.length)
         } else {
             kg_lb_input.setText(fitnessCalculators.kgToLb(value).toString())
+            kg_lb_input.setSelection(kg_lb_input.text!!.length)
         }
     }
 
@@ -258,7 +265,7 @@ class BMICalculator : AppCompatActivity(), Validator.ValidationListener {
     }
 
     private fun toggleKgLb() {
-        togglekgLbEditTextValues()
+        toggleKgLbEditTextValues()
         iskg = !iskg
 
         if (iskg) {

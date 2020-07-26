@@ -15,19 +15,28 @@ import com.mobsandgeeks.saripaar.Validator
 import com.mobsandgeeks.saripaar.annotation.*
 import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
+import kotlinx.android.synthetic.main.activity_b_m_i_calculator.*
 import kotlinx.android.synthetic.main.activity_bmr_calculator.*
 import kotlinx.android.synthetic.main.activity_bmr_calculator.age_input
+import kotlinx.android.synthetic.main.activity_bmr_calculator.cm_input
+import kotlinx.android.synthetic.main.activity_bmr_calculator.cm_view
 import kotlinx.android.synthetic.main.activity_bmr_calculator.feet_inches_view
+import kotlinx.android.synthetic.main.activity_bmr_calculator.ft_input
 import kotlinx.android.synthetic.main.activity_bmr_calculator.genderInputLayout
+import kotlinx.android.synthetic.main.activity_bmr_calculator.in_input
 import kotlinx.android.synthetic.main.activity_bmr_calculator.kg_lb_input
 import kotlinx.android.synthetic.main.activity_bmr_calculator.toggle_ft_cm
 import kotlinx.android.synthetic.main.activity_bmr_calculator.toggle_kg_lb
 import kotlinx.android.synthetic.main.activity_bmr_calculator.weight_input
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import kotlin.math.round
 
 /**
  *  Activity for BMI calculator
  */
 class BMRCalculator : AppCompatActivity(), Validator.ValidationListener {
+    private val roundingFormat = DecimalFormat("#.##")
     private var isCm = true
     private var iskg = true
     val fitnessCalculators = FitnessCalculators()
@@ -49,8 +58,8 @@ class BMRCalculator : AppCompatActivity(), Validator.ValidationListener {
     lateinit var ftInput: TextInputEditText
 
     @NotEmpty
-    @Max(12, message = "Please Select maximum 12 in")
-    @Min(1, message = "Please Select minimum 1 in")
+    @DecimalMax(12.0, message = "Please Select maximum 12 in")
+    @DecimalMin(1.0, message = "Please Select minimum 1 in")
     lateinit var inInput: TextInputEditText
 
     @NotEmpty
@@ -98,6 +107,7 @@ class BMRCalculator : AppCompatActivity(), Validator.ValidationListener {
     }
 
     private fun initialize(){
+        roundingFormat.roundingMode = RoundingMode.CEILING
         activityInput = activity_Input
         activity_Input.inputType = InputType.TYPE_NULL
         genderInput = genderInput_textView
@@ -170,21 +180,25 @@ class BMRCalculator : AppCompatActivity(), Validator.ValidationListener {
             val ftValueString = ft_input.text.toString()
             val inValueString = in_input.text.toString()
             val ftValue = if (ftValueString == "") 0 else ftValueString.toInt()
-            val inValue = if (inValueString == "") 0 else inValueString.toInt()
+            val inValue = if (inValueString == "") 0 else inValueString
 
             cm_input.setText(fitnessCalculators.ftInToCm("$ftValue $inValue").toString())
+            cm_input.setSelection(cm_input.text!!.length)
         } else {
             var ft = 0
-            var inch = 0
+            var inch = 0.0
             val cmValueString = cm_input.text.toString()
             val cmValue = if (cmValueString == "") 0.toDouble() else cmValueString.toDouble()
             if (cmValue != 0.toDouble()) {
                 val split = fitnessCalculators.cmToftIn(cmValue).split(" ")
                 ft = split[0].toDouble().toInt()
-                inch = split[1].toDouble().toInt()
+                inch = split[1].toDouble()
             }
             ft_input.setText(ft.toString())
-            in_input.setText(inch.toString())
+            in_input.setText(roundingFormat.format(inch))
+
+            ft_input.setSelection(ft_input.text!!.length)
+            in_input.setSelection(in_input.text!!.length)
         }
     }
 
@@ -194,8 +208,10 @@ class BMRCalculator : AppCompatActivity(), Validator.ValidationListener {
 
         if (!iskg) {
             kg_lb_input.setText(fitnessCalculators.lbToKg(value).toString())
+            kg_lb_input.setSelection(kg_lb_input.text!!.length)
         } else {
             kg_lb_input.setText(fitnessCalculators.kgToLb(value).toString())
+            kg_lb_input.setSelection(kg_lb_input.text!!.length)
         }
     }
 
@@ -215,7 +231,11 @@ class BMRCalculator : AppCompatActivity(), Validator.ValidationListener {
         val height = if(isCm){
             cmInput.text.toString().toDouble()
         }else{
-            fitnessCalculators.ftInToCm("$inInput $ftInput")
+            val ftValueString = ftInput.text.toString()
+            val inValueString = inInput.text.toString()
+            val ftValue = if (ftValueString == "") 0.toDouble() else ftValueString.toDouble()
+            val inValue = if (inValueString == "") 0.toDouble() else inValueString.toDouble()
+            fitnessCalculators.ftInToCm("$ftValue $inValue")
         }
         val weight = if(iskg){
             kgInput.text.toString().toDouble()
@@ -227,8 +247,8 @@ class BMRCalculator : AppCompatActivity(), Validator.ValidationListener {
         val bmr = fitnessCalculators.calculateBMRMetric(height, weight, age, isMale)
         val tdee = fitnessCalculators.calculateTDEE(bmr, activityInput.text.toString())
 
-        bmr_result_textView.text = "Your BMR is $bmr"
-        tdee_result_textView.text = "Your TDEE is $tdee"
+        bmr_result_textView.text = "Your BMR is ${round(bmr)}"
+        tdee_result_textView.text = "Your TDEE is ${round(tdee)}"
     }
 
 }
