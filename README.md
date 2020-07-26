@@ -21,9 +21,7 @@ Customized Workout Plans            |   Yoga, Meditaion and create custom plans
 
 Diet Tracking             |  Nutritional Information 
 :-------------------------:|:-------------------------:
-<img src="https://user-images.githubusercontent.com/31090515/88481506-8229ee80-cf79-11ea-967c-909d0c2af0b2.png" width="400px" height="708px"> |
-
-<img src="https://user-images.githubusercontent.com/31090515/88481502-80602b00-cf79-11ea-8c67-472307262698.png" width="400px" height="708px">
+<img src="https://user-images.githubusercontent.com/31090515/88481506-8229ee80-cf79-11ea-967c-909d0c2af0b2.png" width="400px" height="708px"> |<img src="https://user-images.githubusercontent.com/31090515/88481502-80602b00-cf79-11ea-8c67-472307262698.png" width="400px" height="708px">
 
 Weight Tracking             |  Calories Tracking 
 :-------------------------:|:-------------------------:
@@ -40,5 +38,6 @@ Weight Tracking             |  Calories Tracking
 <img src="https://user-images.githubusercontent.com/31090515/88481469-53137d00-cf79-11ea-813e-7c15fd0d5f0b.png" width="400px" height="708px">|<img src="https://user-images.githubusercontent.com/31090515/88481533-9bcb3600-cf79-11ea-8393-a2696b9579d9.png" width="400px" height="708px">
 
 Yoga Exercise List
+:-------------------------:|
 <img src="https://user-images.githubusercontent.com/31090515/88481464-4f7ff600-cf79-11ea-902d-a556b6cb095d.png" width="400px" height="708px">
 
