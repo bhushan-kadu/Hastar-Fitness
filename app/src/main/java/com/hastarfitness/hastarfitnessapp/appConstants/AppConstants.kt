@@ -116,16 +116,26 @@ object AppConstants {
 
 
     const val ALL_PLANS = "All Plans"
+    const val IS_CALLED_FROM_HOME = "is_called_from_home"
 
     //sounds name
 
-    const val LETS_GO_AAC = "start.aac"
+    const val LETS_GO_AAC = "start.wav"
     const val TICK_AAC = "tick.wav"
-    const val TIME1_AAC = "time1.aac"
-    const val TIME2_AAC = "time2.aac"
-    const val TIME3_AAC = "time3.aac"
-    const val TIME10_AAC = "time10.aac"
+    const val TIME1_AAC = "time1.wav"
+    const val TIME2_AAC = "time2.wav"
+    const val TIME3_AAC = "time3.wav"
+    const val TIME10_AAC = "time10.wav"
     const val WHISTLE_WAV = "whistle.wav"
+
+    const val MONDAY = "monday"
+    const val TUESDAY = "tuesday"
+    const val WEDNESDAY = "wednesday"
+    const val THURSDAY = "thursday"
+    const val FRIDAY = "friday"
+    const val SATURDAY = "saturday"
+    const val SUNDAY = "sunday"
+
 
 
 

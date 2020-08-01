@@ -62,8 +62,8 @@ class FitnessDataFragment : Fragment() {
                 mChart.clear()
                 val entry = mDialog.entry!!
                 val date = mDialog.date!!
-                insertWeightInTableWithDate(entry.y.toDouble(), date)
-                drawChartFromDb(entry)
+                insertWeightInTableWithDate(entry.y.toDouble(), date, entry)
+
 
                 //reset the value for future
                 mDialog.isValueChanged = false
@@ -143,10 +143,11 @@ class FitnessDataFragment : Fragment() {
         }
     }
 
-    private fun insertWeightInTableWithDate(weight: Double, date: Date) {
+    private fun insertWeightInTableWithDate(weight: Double, date: Date, entry: Entry) {
         viewModel.insertWeightWithDate(db, weight, date)
         viewModel.insertedRowLong.observe(requireActivity(), Observer {
             it
+            drawChartFromDb(entry)
         })
 
     }

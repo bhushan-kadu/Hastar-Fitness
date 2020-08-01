@@ -8,7 +8,6 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
-import kotlinx.android.synthetic.main.fragment_get_gender.*
 
 class FragmentGetGender : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -18,7 +17,6 @@ class FragmentGetGender : Fragment() {
 
         val maleButton = rootView.findViewById<Button>(R.id.maleBtn)
         val femaleButton = rootView.findViewById<Button>(R.id.femaleBtn)
-        val otherButton = rootView.findViewById<Button>(R.id.maleBtn)
 
         val parentActivity = activity as ActivityStartPages
 
@@ -30,10 +28,10 @@ class FragmentGetGender : Fragment() {
             parentActivity.gender = AppConstants.FEMALE
             parentActivity.viewPager.setCurrentItem(parentActivity.viewPager.currentItem + 1, true)
         }
-        otherButton.setOnClickListener {
-            parentActivity.gender = AppConstants.OTHER_GENDER
-            parentActivity.viewPager.setCurrentItem(parentActivity.viewPager.currentItem + 1, true)
-        }
+//        otherButton.setOnClickListener {
+//            parentActivity.gender = AppConstants.OTHER_GENDER
+//            parentActivity.viewPager.setCurrentItem(parentActivity.viewPager.currentItem + 1, true)
+//        }
 
         return rootView
     }

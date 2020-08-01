@@ -40,6 +40,7 @@ class FragmentGetAge : Fragment(), DatePickerDialog.OnDateSetListener {
             val age = Calendar.getInstance()[Calendar.YEAR] - year
             val parentActivity = activity as ActivityStartPages
             parentActivity.age = age
+            parentActivity.dob = "$dayOfMonth-$monthOfYear-$year"
             parentActivity.viewPager.currentItem = parentActivity.viewPager.currentItem + 1
         }else{
             Toast.makeText(context, "Minimum age limit is five years", Toast.LENGTH_LONG).show()

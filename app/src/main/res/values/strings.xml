@@ -201,6 +201,13 @@
     <string name="loginSuccessful">Login successful as </string>
     <string name="loginFailed">Login failed </string>
     <string name="sign_in_as_a_guest">sign in as a guest</string>
+    <string name="if_you_do_not_have_minimum_age_requirement_for_google_account_click_on_below_button">If You do not have minimum age requirement for google account, use child login below</string>
+    <string name="What_is_weekly_diet_goal">Whs is your weekly diet Goal?</string>
+    <string name="no_custom_plans_created_yet">No custom plans created yet</string>
+    <string name="create_plan">create plan</string>
+    <string name="you_don_t_have_any_favourite_plans_yet">You Don\'t have any favourite plans yet</string>
+    <string name="share">Share</string>
+    <string name="rate">Rate</string>
 
 
 </resources>

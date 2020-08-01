@@ -34,6 +34,8 @@ import kotlinx.android.synthetic.main.dlg_give_body_data.toggle_ft_cm
 import kotlinx.android.synthetic.main.dlg_give_body_data.waistInputEditText
 import kotlinx.android.synthetic.main.dlg_give_weight.cancel_btn
 import kotlinx.android.synthetic.main.dlg_give_weight.save_btn
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.*
 
 
@@ -56,46 +58,46 @@ class DlgGiveBodyData(private val ctx: FitnessDataFragment) : Dialog(ctx.require
     private var iskg = true
 
     @NotEmpty
-    @Max(100)
-    @Min(1)
+    @Max(100, message = "Please select maximum 100")
+    @Min(1, message = "Please select minimum 1")
     lateinit var ageInput: TextInputEditText
 
     @NotEmpty
-    @DecimalMax(450.0)
-    @DecimalMin(1.0)
+    @DecimalMax(450.0, message = "Please select maximum 450 kg")
+    @DecimalMin(5.0, message = "Please select minimum 5 kg")
     lateinit var kgInput: TextInputEditText
 
     @NotEmpty
-    @DecimalMax(272.0)
-    @DecimalMin(30.0)
+    @DecimalMax(272.0, message = "Please select maximum 272 cm")
+    @DecimalMin(30.0, message = "Please select minimum 30 cm")
     lateinit var cmInput: TextInputEditText
 
     @NotEmpty
-    @Max(8)
-    @Min(1)
+    @Max(8, message = "Please select maximum 8 feet")
+    @Min(1, message = "Please select minimum 1 feet")
     lateinit var ftInput: TextInputEditText
 
     @NotEmpty
-    @Max(12)
-    @Min(1)
+    @DecimalMax(11.0, message = "Please select maximum 12 inch")
+    @DecimalMin(0.0, message = "Please select minimum 1 inch")
     lateinit var inInput: TextInputEditText
 
     @NotEmpty
     lateinit var genderInput: AutoCompleteTextView
 
     @NotEmpty
-    @DecimalMax(100.0)
-    @DecimalMin(6.0)
+    @DecimalMax(100.0, message = "Please select maximum 100 inch")
+    @DecimalMin(6.0, message = "Please select minimum 6 inch")
     lateinit var waistInput: TextInputEditText
 
     @NotEmpty
-    @DecimalMax(150.0)
-    @DecimalMin(30.0)
+    @DecimalMax(150.0, message = "Please select maximum 150 inch")
+    @DecimalMin(20.0, message = "Please select minimum 20 inch")
     lateinit var hipInput: TextInputEditText
 
     @NotEmpty
-    @DecimalMax(20.0)
-    @DecimalMin(5.0)
+    @DecimalMax(20.0, message = "Please select maximum 20 inch")
+    @DecimalMin(5.0, message = "Please select minimum 5 inch")
     lateinit var neckInput: TextInputEditText
 
     val fitnessCalculators = FitnessCalculators()
@@ -112,6 +114,8 @@ class DlgGiveBodyData(private val ctx: FitnessDataFragment) : Dialog(ctx.require
 
     private fun initialize() {
 
+        roundingFormat.roundingMode = RoundingMode.CEILING
+
         //setup session
         session = Session(ctx.requireActivity())
 
@@ -125,6 +129,16 @@ class DlgGiveBodyData(private val ctx: FitnessDataFragment) : Dialog(ctx.require
         waistInput = waistInputEditText
         hipInput = hipInputEditText
         neckInput = neakInputEditText
+
+        ageInput.setText(session.age.toString())
+        kgInput.setText(session.weightInKg.toString())
+        cmInput.setText(session.heightCm.toString())
+        if(session.gender == AppConstants.MALE){
+            genderInput.setText(AppConstants.MALE, false)
+        }else{
+            genderInput.setText(AppConstants.FEMALE, false)
+        }
+
 
 
         val items = listOf(AppConstants.FEMALE, AppConstants.MALE)
@@ -182,6 +196,7 @@ class DlgGiveBodyData(private val ctx: FitnessDataFragment) : Dialog(ctx.require
         }
 
     }
+    private val roundingFormat = DecimalFormat("#.##")
     private fun toggleFtCmEditTextValues() {
 
         if (!isCm) {
@@ -192,17 +207,17 @@ class DlgGiveBodyData(private val ctx: FitnessDataFragment) : Dialog(ctx.require
 
             cmInput.setText(fitnessCalculators.ftInToCm("$ftValue $inValue").toString())
         } else {
-            var ft = 0.0
+            var ft = 0
             var inch = 0.0
             val cmValueString = cmInput.text.toString()
             val cmValue = if (cmValueString == "") 0.toDouble() else cmValueString.toDouble()
             if (cmValue != 0.toDouble()) {
                 val split = fitnessCalculators.cmToftIn(cmValue).split(" ")
-                ft = split[0].toDouble()
+                ft = split[0].toInt()
                 inch = split[1].toDouble()
             }
             ftInput.setText(ft.toString())
-            inInput.setText(inch.toString())
+            inInput.setText(roundingFormat.format(inch))
         }
     }
 

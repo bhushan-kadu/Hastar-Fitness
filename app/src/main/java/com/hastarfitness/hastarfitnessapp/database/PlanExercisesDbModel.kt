@@ -3,6 +3,7 @@ package com.hastarfitness.hastarfitnessapp.database
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.*
+import androidx.room.ForeignKey.CASCADE
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -14,10 +15,12 @@ import com.google.gson.annotations.SerializedName
 @Entity(foreignKeys = [
     ForeignKey(entity = ExerciseDbModel::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("exerciseId")),
+            childColumns = arrayOf("exerciseId"),
+            onDelete = CASCADE),
     ForeignKey(entity = WorkoutPlansDbModel::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("planId"))])
+            childColumns = arrayOf("planId"),
+            onDelete = CASCADE)])
 
 
 data class PlanExercisesDbModel(

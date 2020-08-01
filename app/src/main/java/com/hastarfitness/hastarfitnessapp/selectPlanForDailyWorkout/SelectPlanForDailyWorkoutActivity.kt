@@ -109,7 +109,7 @@ class SelectPlanForDailyWorkoutActivity : AppCompatActivity(), View.OnClickListe
         }
 
     }
-    fun selectSingleRadio(checkedId:Int){
+    private fun selectSingleRadio(checkedId:Int){
         lightCardio_radio.isChecked = false
         hiit_radio.isChecked = false
         plyometrics_radio.isChecked = false
@@ -123,7 +123,16 @@ class SelectPlanForDailyWorkoutActivity : AppCompatActivity(), View.OnClickListe
         try {
             //this applies if activity is called from homeFragment
             day = session.day!!
-            session.todaysWorkoutType = AppConstants.dailyPlanBodyWeight[day]
+            session.todaysWorkoutType = when (day) {
+                AppConstants.MONDAY -> session.mondayBodyWeight
+                AppConstants.TUESDAY -> session.tuesdayBodyWeight
+                AppConstants.WEDNESDAY -> session.wednesdayBodyWeight
+                AppConstants.THURSDAY -> session.thursdayBodyWeight
+                AppConstants.FRIDAY -> session.fridayBodyWeight
+                AppConstants.SATURDAY -> session.saturdayBodyWeight
+                AppConstants.SUNDAY -> session.sundayBodyWeight
+                else -> ""
+            }
             workoutType = session.todaysWorkoutType!!
             intensity = session.intensity!!
             isCardioEnabled = session.isCardioEnabled!!
@@ -173,7 +182,17 @@ class SelectPlanForDailyWorkoutActivity : AppCompatActivity(), View.OnClickListe
     //populate a temporary table which would have today's exercises to be performed
     private fun generateFinalExerciseTable() {
         var exerciseList: ArrayList<ExerciseDbModel>
-        val workoutSubType = AppConstants.dailyPlanBodyWeight[day]
+        val workoutSubType = when (day) {
+            AppConstants.MONDAY -> session.mondayBodyWeight
+            AppConstants.TUESDAY -> session.tuesdayBodyWeight
+            AppConstants.WEDNESDAY -> session.wednesdayBodyWeight
+            AppConstants.THURSDAY -> session.thursdayBodyWeight
+            AppConstants.FRIDAY -> session.fridayBodyWeight
+            AppConstants.SATURDAY -> session.saturdayBodyWeight
+            AppConstants.SUNDAY -> session.sundayBodyWeight
+            else -> ""
+        }
+//                AppConstants.dailyPlanBodyWeight[day]
         viewModel.getAll(db)//this is for if db is not populated early in Dashboard Activity
         viewModel.getSinglePlanByName(db, "${intensity}_${workoutSubType!!.toLowerCase().split(" ").joinToString("")}", true)
         viewModel.singleBodyWeightPlan.observe(this, Observer { it ->

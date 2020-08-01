@@ -10,6 +10,7 @@ import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.createYourOwnPlan.CreateYourOwnPlanActivity
 import com.hastarfitness.hastarfitnessapp.database.WorkoutPlansDbModel
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 /**
@@ -49,12 +50,20 @@ class MyWorkoutPlansListAdapter(private val exercise: List<WorkoutPlansDbModel>,
         holder.selectBtn
         holder.linearLayout.tag = curItem.id
 
-        val imageFilePath = "file:///android_asset/plansThumbnails/"+curItem.name+".webp"
+        val imageFilePath = "file:///android_asset/plansThumbnails/"+curItem.name.trim()+".webp"
         // Load the image into image view from assets folder
         Picasso.get()
                 .load(imageFilePath)
-                .placeholder(R.drawable.ic_placeholder_img)
-                .into(holder.thumbnailImageView)
+                .placeholder(R.drawable.ic_user_plan)
+                .into(holder.thumbnailImageView, object : Callback {
+                    override fun onSuccess() {
+                        1
+                    }
+
+                    override fun onError(e: java.lang.Exception?) {
+                        e
+                    }
+                })
 
         val context = holder.linearLayout.context
         holder.linearLayout.setOnClickListener{
@@ -63,7 +72,9 @@ class MyWorkoutPlansListAdapter(private val exercise: List<WorkoutPlansDbModel>,
         holder.linearLayout.setOnClickListener{
             val i = Intent(activity, CreateYourOwnPlanActivity::class.java)
             i.putExtra(AppConstants.WORKOUT_PLAN_ID, curItem.id)
+            val isCalledFromHome = activity.isCalledFromHome
             i.putExtra(AppConstants.WORKOUT_TYPE, curItem.type)
+            i.putExtra(AppConstants.IS_CALLED_FROM_HOME, isCalledFromHome)
             it.context.startActivity(i)
         }
     }

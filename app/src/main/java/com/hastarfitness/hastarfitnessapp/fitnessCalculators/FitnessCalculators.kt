@@ -175,7 +175,7 @@ class FitnessCalculators {
                      waistMeasure: Double,
                      hipMeasure: Double,
                      neakMeasure: Double): Double {
-        return (163.205 * log10(waistMeasure + hipMeasure - neakMeasure)) - (97.684 * log10(height)) + 36.76
+        return 163.205 * log10(waistMeasure + hipMeasure - neakMeasure) - 97.684 * log10(height) + 36.76
     }
 
     /**
@@ -189,7 +189,7 @@ class FitnessCalculators {
     fun bodyFatMen(height: Double,
                    waistMeasure: Double,
                    neakMeasure: Double): Double {
-        return ((86.010 * log10(waistMeasure - neakMeasure)) - (70.041 * log10(height)) + 36.76)
+        return (86.010 * log10(waistMeasure - neakMeasure) - 70.041 * log10(height) + 36.76)
     }
 
     /**

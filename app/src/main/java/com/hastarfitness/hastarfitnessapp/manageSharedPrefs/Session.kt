@@ -16,10 +16,26 @@ import java.util.*
 
 class Session(val activity: Activity) {
 
+    var isUserLoggedOut: Boolean
+        get() = prefs!!.getBoolean("isUserLoggedOut", false)
+        set(isUserLoggedOut) {
+            prefs!!.edit().putBoolean("isUserLoggedOut", isUserLoggedOut).apply()
+        }
+
+    var isChildLoggedIn: Boolean
+        get() = prefs!!.getBoolean("isChildLoggedIn", false)
+        set(isChildLoggedIn) {
+            prefs!!.edit().putBoolean("isChildLoggedIn", isChildLoggedIn).apply()
+        }
+
     private var prefs: SharedPreferences? = null
 
     init {
         prefs = activity.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+    }
+
+    fun getStringByName(name:String){
+
     }
 
     var areStartPagesShown: Boolean?
@@ -134,6 +150,12 @@ class Session(val activity: Activity) {
             prefs!!.edit().putInt("age", age!!).apply()
         }
 
+    var dateOfBirth: String?
+        get() = prefs!!.getString("dateOfBirth", "not set")
+        set(dateOfBirth) {
+            prefs!!.edit().putString("dateOfBirth", dateOfBirth!!).apply()
+        }
+
     var gender: String?
         get() = prefs!!.getString("gender", AppConstants.MALE)
         set(gender) {
@@ -235,4 +257,54 @@ class Session(val activity: Activity) {
         set(dietPreference) {
             prefs!!.edit().putString("dietPreference", dietPreference).apply()
         }
+
+    var dietWeeklyGoal: String?
+        get() = prefs!!.getString("dietWeeklyGoal", "")
+        set(dietWeeklyGoal) {
+            prefs!!.edit().putString("dietWeeklyGoal", dietWeeklyGoal).apply()
+        }
+
+    //plans per day
+    var mondayBodyWeight: String?
+        get() = prefs!!.getString("mondayBodyWeight", AppConstants.dailyPlanBodyWeight[AppConstants.MONDAY])
+        set(mondayBodyWeight) {
+            prefs!!.edit().putString("mondayBodyWeight", mondayBodyWeight).apply()
+        }
+
+    var tuesdayBodyWeight: String?
+        get() = prefs!!.getString("tuesdayBodyWeight", AppConstants.dailyPlanBodyWeight[AppConstants.TUESDAY])
+        set(tuesdayBodyWeight) {
+            prefs!!.edit().putString("tuesdayBodyWeight", tuesdayBodyWeight).apply()
+        }
+
+    var wednesdayBodyWeight: String?
+        get() = prefs!!.getString("wednesdayBodyWeight", AppConstants.dailyPlanBodyWeight[AppConstants.WEDNESDAY])
+        set(wednesdayBodyWeight) {
+            prefs!!.edit().putString("wednesdayBodyWeight", wednesdayBodyWeight).apply()
+        }
+
+    var thursdayBodyWeight: String?
+        get() = prefs!!.getString("thursdayBodyWeight", AppConstants.dailyPlanBodyWeight[AppConstants.THURSDAY])
+        set(thursdayBodyWeight) {
+            prefs!!.edit().putString("thursdayBodyWeight", thursdayBodyWeight).apply()
+        }
+
+    var fridayBodyWeight: String?
+        get() = prefs!!.getString("fridayBodyWeight", AppConstants.dailyPlanBodyWeight[AppConstants.FRIDAY])
+        set(fridayBodyWeight) {
+            prefs!!.edit().putString("fridayBodyWeight", fridayBodyWeight).apply()
+        }
+
+    var saturdayBodyWeight: String?
+        get() = prefs!!.getString("saturdayBodyWeight", AppConstants.dailyPlanBodyWeight[AppConstants.SATURDAY])
+        set(saturdayBodyWeight) {
+            prefs!!.edit().putString("saturdayBodyWeight", saturdayBodyWeight).apply()
+        }
+
+    var sundayBodyWeight: String?
+        get() = prefs!!.getString("sundayBodyWeight", AppConstants.dailyPlanBodyWeight[AppConstants.SUNDAY])
+        set(sundayBodyWeight) {
+            prefs!!.edit().putString("sundayBodyWeight", sundayBodyWeight).apply()
+        }
+
 }

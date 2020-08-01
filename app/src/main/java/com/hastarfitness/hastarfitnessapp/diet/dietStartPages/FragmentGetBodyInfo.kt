@@ -15,6 +15,7 @@ import com.mobsandgeeks.saripaar.annotation.*
 import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.fitnessCalculators.FitnessCalculators
+import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
 import kotlinx.android.synthetic.main.fragment_diet_get_body_info.*
 import kotlinx.android.synthetic.main.fragment_diet_get_body_info.cm_input
 import kotlinx.android.synthetic.main.fragment_diet_get_body_info.feet_inches_view
@@ -74,6 +75,11 @@ class FragmentGetBodyInfo : Fragment(), Validator.ValidationListener {
         inInput = rootView.findViewById(R.id.in_input)
         cmInput = rootView.findViewById(R.id.cm_input)
         ageInput = rootView.findViewById(R.id.age_input)
+
+        val session = Session(activity as DietStartPagesActivity)
+        wtInput.setText(session.weightInKg.toString())
+        cmInput.setText(session.heightCm.toString())
+        ageInput.setText(session.age.toString())
 
 
         val veryLittleButton = rootView.findViewById<Button>(R.id.veryLittle)

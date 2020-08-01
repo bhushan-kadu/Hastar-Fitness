@@ -32,6 +32,7 @@ class ActivityStartPages : AppCompatActivity() {
     var position = 0
     lateinit var viewPager: ViewPager2
     lateinit var ab: ActionBar
+    var dob = ""
 
 
     //values to be added to preferences
@@ -115,6 +116,7 @@ class ActivityStartPages : AppCompatActivity() {
                 R.string.title_activity_get_weight,
                 R.string.title_activity_get_goal_weight,
                 R.string.title_activity_get_activity_level,
+                R.string.What_is_weekly_diet_goal,
                 R.string.empty_string)
     }
 }

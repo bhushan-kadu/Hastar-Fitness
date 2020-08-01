@@ -184,10 +184,7 @@ class FragmentGetWeeklyGoal : Fragment() {
 
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-//        if(isVisibleToUser)setWeeklyGoalButtons()
-        super.setUserVisibleHint(isVisibleToUser)
-    }
+
 
     val fitnessCalculators = FitnessCalculators()
     private fun calculateCaloriesToConsume(tdee: Double, dietPref: String, weekGoal: String): Double {

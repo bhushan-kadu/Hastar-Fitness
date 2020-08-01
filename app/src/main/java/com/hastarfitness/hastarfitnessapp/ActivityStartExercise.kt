@@ -1170,7 +1170,6 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
 
 //        exercise_video_bitmap.visibility = View.INVISIBLE
         exercise_video.visibility = View.VISIBLE
-
         exercise_video.start()
     }
 
@@ -1566,26 +1565,39 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
 
         //pause timer depending on which timer is running
         //and if activity was in pause state
-        if (isActivityInPauseState) {
-            resetGif()
-            when {
-                isInitialTimer -> {
-                    initialTimer.pause()
-                }
-                else -> {
-                    mainTimer!!.cancel()
-                }
+//        if (isActivityInPauseState) {
+//            updateExerciseVideo()
+//            resetGif()
+//            when {
+//                isInitialTimer -> {
+//                    initialTimer.pause()
+//                }
+//                else -> {
+//                    mainTimer!!.cancel()
+//                }
+//            }
+//        } else {
+//            //restart timer depending on which timer is running
+//            //and if activity was in play state
+//            when {
+//                isInitialTimer -> {
+//                    initialTimer.resume()
+//                }
+//                else -> {
+//                    startMainTimer(lastTime)
+//                }
+//            }
+//        }
+
+        updatedPlayPauseClick()
+        updateExerciseVideo()
+        resetGif()
+        when {
+            isInitialTimer -> {
+                initialTimer.pause()
             }
-        } else {
-            //restart timer depending on which timer is running
-            //and if activity was in play state
-            when {
-                isInitialTimer -> {
-                    initialTimer.resume()
-                }
-                else -> {
-                    startMainTimer(lastTime)
-                }
+            else -> {
+                mainTimer!!.cancel()
             }
         }
 

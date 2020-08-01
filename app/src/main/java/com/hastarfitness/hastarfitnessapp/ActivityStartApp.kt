@@ -16,20 +16,33 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
+import com.hastarfitness.hastarfitnessapp.models.User
 import com.hastarfitness.hastarfitnessapp.startingPages.ActivityStartPages
+import com.hastarfitness.hastarfitnessapp.startingPages.AppStartLoadingScreen
 import kotlinx.android.synthetic.main.activity_start_app.*
 import java.io.File
 import java.io.FileOutputStream
+import java.lang.Exception
+import java.util.*
 
 class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var database: DatabaseReference
     val RC_SIGN_IN = 140
     val TAG = "firesbase authetication"
     lateinit var session: Session
@@ -53,12 +66,13 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
         // Initialize Firebase Auth
         auth = Firebase.auth
 
+        database = Firebase.database.reference
 
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         val account = GoogleSignIn.getLastSignedInAccount(this)
-        if (account != null) {
-            showToast(account.displayName.toString())
+        if ((account != null || session.isChildLoggedIn!!) && !session.isUserLoggedOut) {
+//            showToast(account!!.displayName.toString())
             setUserSignedIn()
         }
 
@@ -73,20 +87,128 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun signIn() {
-        progress_circular.visibility = View.VISIBLE
+        setLoading()
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
+    fun signInAnonymously() {
+        auth.signInAnonymously()
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInAnonymously:success")
+                        session.isChildLoggedIn = true
+                        setUserSignedIn()
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInAnonymously:failure", task.exception)
+                        showToast(task.exception!!.message.toString())
+                    }
+
+                    // ...
+                }
+    }
+
+    fun reSetLoading(){
+        progress_circular.visibility = View.INVISIBLE
+    }
+
+    fun setLoading(){
+        progress_circular.visibility = View.VISIBLE
+    }
+
     private fun setUserSignedIn() {
-        if (session.areStartPagesShown!!) {
+
+//        FirebaseInstanceId.getInstance().instanceId
+//                .addOnCompleteListener(OnCompleteListener { task ->
+//                    if (!task.isSuccessful) {
+//                        Log.w(TAG, "getInstanceId failed", task.exception)
+//                        return@OnCompleteListener
+//                    }
+//
+//                    // Get new Instance ID token
+//                    val token = task.result?.token
+//
+//                    // Log and toast
+//                    Log.d(TAG, token)
+//                    Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+//                })
+
+        session.isUserLoggedOut = false
+        if(session.areStartPagesShown!!){
             startActivity(Intent(this@ActivityStartApp, ActivityDashboard::class.java))
-        } else {
+        } else if(!session.isChildLoggedIn){
+            val reference:DatabaseReference = database.child("users").child(auth.currentUser!!.uid)
+            val postListener = object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Get Post object and use the values to update the UI
+                    val user = dataSnapshot.getValue<User>()
+                    if (user != null) {
+                        session.dateOfBirth = user.dob
+                        val birthYear = user.dob.split("-").last().toInt()
+                        val calInstance = Calendar.getInstance()
+                        val age = calInstance[Calendar.YEAR] - birthYear
+                        session.age = age
+                        session.gender = user.gender
+                        session.heightCm = user.height
+                        session.weightInKg = user.weight
+                        session.goalWeight = user.goalWeight
+                        session.weeklyActivity = user.weeklyActivity
+                        session.areStartPagesShown = true
+                        saveUserInformation()
+
+                        session.day = calInstance.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())
+                        session.day  = session.day!!.toLowerCase()
+                        val day = session.day!!
+
+                        session.todaysWorkoutType = AppConstants.dailyPlanBodyWeight[day]
+                        reSetLoading()
+                        startActivity(Intent(this@ActivityStartApp, AppStartLoadingScreen::class.java))
+                    } else {
+                        reSetLoading()
+                        startActivity(Intent(this@ActivityStartApp, ActivityStartPages::class.java))
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Getting Post failed, log a message
+                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+                    // ...
+                }
+            }
+
+            reference.addListenerForSingleValueEvent(postListener)
+        }else{
+            reSetLoading()
             startActivity(Intent(this@ActivityStartApp, ActivityStartPages::class.java))
         }
 
+
+
+//        if (session.areStartPagesShown!!) {
+//            startActivity(Intent(this@ActivityStartApp, ActivityDashboard::class.java))
+//        } else {
+//            startActivity(Intent(this@ActivityStartApp, ActivityStartPages::class.java))
+//        }
+
     }
 
+    private fun saveUserInformation() {
+
+        try {
+            val user = auth.currentUser!!
+            session.userName = user.displayName
+            session.photoUrl = user.photoUrl.toString()
+            session.userEmail = user.email.toString()
+        } catch (e: Exception) {
+            session.userName = "Child User"
+            session.userEmail = ""
+            val imageFilePath = "file:///android_asset/images/child.webp"
+            session.photoUrl = imageFilePath
+        }
+
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -112,7 +234,7 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(this) { task ->
-                    progress_circular.visibility = View.INVISIBLE
+
                     if (task.isSuccessful) {
                         setUserSignedIn()
                         // Sign in success, update UI with the signed-in user's information
@@ -130,17 +252,17 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
                     // ...
                 }
     }
-    private fun saveUserInformation(){
-        val user = auth.currentUser!!
-        session.userName = user.displayName
-        session.photoUrl = user.photoUrl.toString()
-        session.userEmail = user.email.toString()
-    }
+//    private fun saveUserInformation(){
+//        val user = auth.currentUser!!
+//        session.userName = user.displayName
+//        session.photoUrl = user.photoUrl.toString()
+//        session.userEmail = user.email.toString()
+//    }
 
     private fun saveFile(localFile: File, fileName: String) {
         val contextWrapper = ContextWrapper(applicationContext)
         val directory: File = contextWrapper.getDir(filesDir.name, Context.MODE_PRIVATE)
-        val file =  File(directory,fileName);
+        val file = File(directory, fileName);
         val fos = FileOutputStream(fileName, true); // save
         fos.write(localFile.readBytes());
         fos.close();
@@ -162,7 +284,7 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
 
         when (v.id) {
             R.id.sign_in_button -> signIn()
-            R.id.guestSignInBtn -> setUserSignedIn()
+            R.id.guestSignInBtn -> signInAnonymously()
         }
     }
 

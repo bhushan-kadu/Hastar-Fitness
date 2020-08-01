@@ -84,7 +84,7 @@ class SelectPlanForDailyWorkoutListAdapter(private val workoutPlans: List<Workou
         // Load the image into image view from assets folder
         Picasso.get()
                 .load(imageFilePath)
-                .placeholder(R.drawable.ic_placeholder_img)
+                .placeholder(R.drawable.ic_user_plan)
                 .into(holder.thumbnailImageView, object :Callback{
                     override fun onSuccess() {
 1
@@ -149,13 +149,26 @@ class SelectPlanForDailyWorkoutListAdapter(private val workoutPlans: List<Workou
                 exerciseFilterList = if (searchParam.isEmpty() || searchParam == "All Plans") {
                     exerciseOriginalList
                 } else if (searchParam == "My Plans") {
-                    val resultList = ArrayList<Exercise>()
-                    for (singleExercise in workoutPlans) {
-                        if (singleExercise.isUserPlan == 1) {
-                            resultList.add(exerciseOriginalList.find { it.id == singleExercise.id }!!)
-                        }
-                    }
-                    resultList
+//                    val resultList = ArrayList<Exercise>()
+//                    for (singleExercise in workoutPlans) {
+//                        if (singleExercise.isUserPlan == 1) {
+//                            resultList.add(exerciseOriginalList.find { it.id == singleExercise.id }!!)
+//                        }
+//                    }
+//                    resultList
+                    workoutPlans.filter { it.isUserPlan == 1 }.map {
+                        Exercise(
+                                it.name,
+                                it.type,
+                                it.desc,
+                                " ",
+                                it.intensity,
+                                it.id,
+                                0,
+                                0.0,
+                                0.0,
+                                it.isFav == 1)
+                    } as ArrayList<Exercise>
                 } else if (searchParam == "Fav Plans") {
                     val resultList = ArrayList<Exercise>()
                     for (singleExercise in exerciseOriginalList) {

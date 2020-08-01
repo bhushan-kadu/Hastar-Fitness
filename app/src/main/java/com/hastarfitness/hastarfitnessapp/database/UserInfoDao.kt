@@ -31,6 +31,9 @@ interface UserInfoDao {
     @Query("select * from CustomFoodsDbModel")
     fun getAllCustomFood():List<CustomFoodsDbModel>
 
+    @Query("select * from QuotesDbModel where id = :dayNo")
+    fun getQuoteByDayNo(dayNo:Int):QuotesDbModel
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllFoodNutrient(foodNutrientList:List<FoodNutrientDbModel>):List<Long>
 

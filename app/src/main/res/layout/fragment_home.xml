@@ -270,6 +270,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/quote_textView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cinzeldecorative_regular"

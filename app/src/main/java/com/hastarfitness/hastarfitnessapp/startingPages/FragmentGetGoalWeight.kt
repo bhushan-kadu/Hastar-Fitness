@@ -55,6 +55,14 @@ class FragmentGetGoalWeight : Fragment(), RulerValuePickerListener, View.OnClick
                 rulerValuePicker.currentValue.toDouble()
             }
             parentActivity.goalWeight = weight
+            val weightDifference = parentActivity.weight - parentActivity.goalWeight
+            parentActivity.session.dietPreference = if(weightDifference > 0){
+                AppConstants.WEIGHT_LOSS
+            }else if(weightDifference < 0){
+                AppConstants.GAIN_WEIGHT
+            }else {
+                AppConstants.MAINTAIN_WEIGHT
+            }
             viewPager.currentItem = viewPager.currentItem + 1
         }
     }

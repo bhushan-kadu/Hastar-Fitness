@@ -10,10 +10,9 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.hastarfitness.hastarfitnessapp.ActivityDashboard
-import com.hastarfitness.hastarfitnessapp.AppStartLoadingScreen
 import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
+import com.hastarfitness.hastarfitnessapp.fitnessCalculators.FitnessCalculators
 import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
 import java.lang.Exception
 import java.util.*
@@ -35,6 +34,7 @@ class FragmentAppInfoPage : Fragment() {
 
         startJourneyBtn.setOnClickListener {
             parentActivity.session.age = parentActivity.age
+            parentActivity.session.dateOfBirth = parentActivity.dob
             parentActivity.session.gender = parentActivity.gender
             parentActivity.session.heightCm = parentActivity.height
             parentActivity.session.weightInKg = parentActivity.weight
@@ -42,6 +42,7 @@ class FragmentAppInfoPage : Fragment() {
             parentActivity.session.weeklyActivity = parentActivity.weeklyActivity
             parentActivity.session.areStartPagesShown = true
             saveUserInformation()
+            setDietGoal()
 
             val session = Session(activity as ActivityStartPages)
             val calInstance = Calendar.getInstance()
@@ -55,6 +56,56 @@ class FragmentAppInfoPage : Fragment() {
         }
         return rootView
     }
+    val fitnessCalculators = FitnessCalculators()
+    fun setDietGoal(){
+        val bmr = fitnessCalculators.calculateBMRMetric(session.heightCm!!, session.weightInKg!!, session.age!!, session.gender == AppConstants.MALE)
+        val tdee = fitnessCalculators.calculateTDEE(bmr, session.weeklyActivity!!)
+        val caloriesToConsume = if (session.dietPreference == AppConstants.WEIGHT_LOSS
+                || session.dietPreference == AppConstants.GAIN_WEIGHT) {
+            calculateCaloriesToConsume(tdee, session.dietPreference!!, session.dietWeeklyGoal!!)
+        } else {
+            tdee
+        }
+
+        val macros = fitnessCalculators.macroCalc(caloriesToConsume.toInt(), 45, 25, 30)
+        session.goalProtein = macros[AppConstants.PROTEIN]
+        session.goalCarbs = macros[AppConstants.CARBS]
+        session.goalFat = macros[AppConstants.FAT]
+        session.goalCalories = tdee
+    }
+    private fun calculateCaloriesToConsume(tdee: Double, dietPref: String, weekGoal: String): Double {
+
+        return when (weekGoal) {
+            AppConstants.LOSE_WEIGHT_1000GM_PER_WEEK -> {
+                tdee - 1286//7716
+            }
+            AppConstants.LOSE_WEIGHT_750GM_PER_WEEK -> {
+                tdee - 827//5787
+            }
+            AppConstants.LOSE_WEIGHT_500GM_PER_WEEK -> {
+                tdee - 551//3858
+            }
+            AppConstants.LOSE_WEIGHT_250GM_PER_WEEK -> {
+                tdee - 267//1929
+            }
+            AppConstants.GAIN_WEIGHT_1000GM_PER_WEEK -> {
+                tdee + 1286//7716
+            }
+            AppConstants.GAIN_WEIGHT_750GM_PER_WEEK -> {
+                tdee + 827//5787
+            }
+            AppConstants.GAIN_WEIGHT_500GM_PER_WEEK -> {
+                tdee + 551//3858
+            }
+            AppConstants.GAIN_WEIGHT_250GM_PER_WEEK -> {
+                tdee + 267//1929
+            }
+            else -> {
+                -1.0
+            }
+        }
+    }
+
     private fun saveUserInformation(){
 
         try {
@@ -63,9 +114,9 @@ class FragmentAppInfoPage : Fragment() {
             session.photoUrl = user.photoUrl.toString()
             session.userEmail = user.email.toString()
         }catch (e:Exception){
-            session.userName = "Guest User"
-            session.userEmail = "guest"
-            val imageFilePath = "file:///android_asset/plansThumbnails/a.webp"
+            session.userName = "Child User"
+            session.userEmail = ""
+            val imageFilePath = "file:///android_asset/images/child.webp"
             session.photoUrl = imageFilePath
         }
 

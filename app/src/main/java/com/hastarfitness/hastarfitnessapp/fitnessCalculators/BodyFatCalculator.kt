@@ -69,12 +69,12 @@ class BodyFatCalculator : AppCompatActivity(), Validator.ValidationListener {
 
     @NotEmpty
     @DecimalMax(100.0, message = "Please Select maximum 100 in")
-    @DecimalMin(30.0, message = "Please Select minimum 30 in")
+    @DecimalMin(6.0, message = "Please Select minimum 30 in")
     lateinit var waistInput: TextInputEditText
 
     @NotEmpty
     @DecimalMax(150.0, message = "Please Select maximum 150 in")
-    @DecimalMin(30.0, message = "Please Select minimum 30 in")
+    @DecimalMin(20.0, message = "Please Select minimum 30 in")
     lateinit var hipInput: TextInputEditText
 
     @NotEmpty
@@ -153,7 +153,7 @@ class BodyFatCalculator : AppCompatActivity(), Validator.ValidationListener {
         var hip = 0.0
         var result = 0.0
         if (isCm) {
-            height = cmInput.text.toString().toDouble() * 0.393701
+            height = cmInput.text.toString().toDouble() / 2.54
         } else {
             height = ftInput.text.toString().toDouble() * 12 + inInput.text.toString().toDouble()
         }

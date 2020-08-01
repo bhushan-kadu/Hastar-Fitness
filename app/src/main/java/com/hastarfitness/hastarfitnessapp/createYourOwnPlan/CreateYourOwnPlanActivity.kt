@@ -36,6 +36,7 @@ class CreateYourOwnPlanActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var viewModel: ViewModel
     var workoutSubType = ""
+    var isCalledFromHome = false
     var workoutType = ""
     var intensity = ""
     var planId: Int? = null
@@ -139,16 +140,17 @@ class CreateYourOwnPlanActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun init() {
+        isCustomize = intent.getBooleanExtra(AppConstants.IS_CUSTOMIZE, false)
         try {
             //get this parameters if user calls this activity from customize plan
             intensity = intent.getStringExtra(AppConstants.INTENSITY)!!
             workoutSubType = intent.getStringExtra(AppConstants.WORKOUT_SUB_TYPE)!!
             workoutType = intent.getStringExtra(AppConstants.WORKOUT_TYPE)!!
-            isCustomize = intent.getBooleanExtra(AppConstants.IS_CUSTOMIZE, false)
         } catch (e: Exception) {
             //get this params if user is calling this activity from create new plan
             planId = intent.getIntExtra(AppConstants.WORKOUT_PLAN_ID, 0)
             workoutSubType = intent.getStringExtra(AppConstants.WORKOUT_TYPE)!!
+            isCalledFromHome = intent.getBooleanExtra(AppConstants.IS_CALLED_FROM_HOME, false)
         }
 
 
@@ -161,13 +163,17 @@ class CreateYourOwnPlanActivity : AppCompatActivity(), View.OnClickListener {
         //create and instantiate info dialogue that is going to used for saving custom plan
         infoDlg = DlgGetCustPlanInfoFrmUser(this)
         infoDlg.create()
+        if(isCalledFromHome){
+            infoDlg.workoutTypeSpinner.visibility = View.VISIBLE
+        }
         infoDlg.setOnDismissListener {
             if(infoDlg.isSave){
                 Toast.makeText(this, "saved", Toast.LENGTH_LONG).show()
                 val name = infoDlg.planNameEditText.text.toString().trim()
                 val desc = infoDlg.planDescEditText.text.toString().trim()
-                savePlan(name, desc)
-                startActivity(Intent(applicationContext, SelectPlanForDailyWorkoutActivity::class.java))
+                var type =""
+                if(isCalledFromHome) type = infoDlg.workoutTypeSpinner.selectedItem.toString()
+                 savePlan(name, desc, type.toLowerCase())
             }
         }
 
@@ -203,8 +209,13 @@ class CreateYourOwnPlanActivity : AppCompatActivity(), View.OnClickListener {
             //for saving plan
             R.id.save_plans -> {
                 if (isCustomize) {
-                    if(workoutType == AppConstants.BODY_WEIGHT) saveCustomizationsBodyWeight()
-                    else saveCustomizationsCardio()
+                    when (workoutType) {
+                        AppConstants.BODY_WEIGHT -> saveCustomizationsBodyWeight()
+                        AppConstants.CARDIO -> saveCustomizationsCardio()
+                        else -> {
+                            saveCustomizationCustomPlan()
+                        }
+                    }
                 } else {
                     infoDlg.show()
                 }
@@ -231,6 +242,35 @@ class CreateYourOwnPlanActivity : AppCompatActivity(), View.OnClickListener {
                 return super.onOptionsItemSelected(item);
         }
         return true
+    }
+    private fun saveCustomizationCustomPlan(){
+        val adapter = (workoutPlansRecyclerView.adapter as ExercisesListAdapter)
+        val values = adapter.exerciseFilterList
+        val planExerciseMappingList = values.map { exercise ->
+            PlanExercisesDbModel(0,
+                    exercise.id,
+                    planId!!)
+        }
+        var planName = ""
+        var planDesc = ""
+        var intensity = ""
+        var type = ""
+        var isFav = 0
+        viewModel.getPlanMappingsById(db, planId!!)
+
+        viewModel.planExercisesMappings.observe(this, Observer {
+            viewModel.deletePlanMappings(db, it)
+        })
+        viewModel.deletedRowInt.observe(this, Observer {
+            viewModel.insertCustomPlanMappings(db, planExerciseMappingList)
+        })
+
+        viewModel.insertedRowsListBodyWeight.observe(this, Observer {
+            Toast.makeText(this, "saved", Toast.LENGTH_LONG).show()
+            val returnIntent = Intent()
+            setResult(5, returnIntent)
+            finish()
+        })
     }
 
     /**
@@ -303,17 +343,24 @@ class CreateYourOwnPlanActivity : AppCompatActivity(), View.OnClickListener {
      *  @param name name of the plan
      *  @param desc description of the plan
      */
-    private fun savePlan(name: String, desc: String) {
+    private fun savePlan(name: String, desc: String, type: String) {
         val adapter = (workoutPlansRecyclerView.adapter as ExercisesListAdapter)
         var exerciseListToBeAdded = mutableListOf<PlanExercisesDbModel>()
         val values = adapter.exerciseFilterList
 
-        viewModel.insertCustomUserPlan(db, WorkoutPlansDbModel(0, name, desc, "none", workoutSubType, 1, 0))
+        if(type == ""){
+            viewModel.insertCustomUserPlan(db, WorkoutPlansDbModel(0, name, desc, "none", workoutSubType , 1, 0))
+        }else{
+            viewModel.insertCustomUserPlan(db, WorkoutPlansDbModel(0, name, desc, "none", type , 1, 0))
+        }
         viewModel.insertedRecId.observe(this, Observer {
             for (itr in values) {
                 exerciseListToBeAdded.add(PlanExercisesDbModel(0, itr.id, it.toInt()))
             }
             viewModel.insertCustomUserPlanExercises(db, exerciseListToBeAdded)
+        })
+        viewModel.insertedRowsList.observe(this, Observer {
+            startActivity(Intent(applicationContext, SelectPlanForDailyWorkoutActivity::class.java))
         })
     }
 

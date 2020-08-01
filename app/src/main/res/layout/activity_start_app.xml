@@ -18,6 +18,7 @@
         android:textStyle="bold" />
 
     <ProgressBar
+        android:translationZ="10dp"
         android:id="@+id/progress_circular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:layout_marginBottom="100dp"
         >
 
         <com.google.android.gms.common.SignInButton
@@ -50,17 +50,29 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="10dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15.0dip"
+            android:paddingTop="15.0dip"
+            android:paddingRight="15.0dip"
+            android:paddingBottom="15.0dip"
+            android:text="@string/if_you_do_not_have_minimum_age_requirement_for_google_account_click_on_below_button"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
         <Button
-            android:visibility="gone"
-            android:textColor="@color/gray"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            android:visibility="visible"
             android:id="@+id/guestSignInBtn"
-            android:text="@string/sign_in_as_a_guest"
+            android:text="Child Login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/ic_person"
+            android:layout_marginBottom="15dp"/>
 
 
     </LinearLayout>

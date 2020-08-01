@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -16,17 +18,21 @@ import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.database.AppDatabase
 import com.hastarfitness.hastarfitnessapp.database.WorkoutPlansDbModel
 import com.hastarfitness.hastarfitnessapp.selectBaseWorkoutPlan.WorkoutPlansListActivity
+import kotlinx.android.synthetic.main.activity_searched_and_custom_food_list.*
 import kotlinx.android.synthetic.main.activity_workoutplans_list.*
+import kotlinx.android.synthetic.main.activity_workoutplans_list.rootLinearLayout
+import kotlinx.android.synthetic.main.activity_workoutplans_list.search_bar
 
 /**
  *  activity to select base plan
  *
  *  @author Bhushan Kadu
  */
-val filterByNamesList = mutableListOf<String>("All Plans", "Upper Body", "Lower Body", "Core Strength", "Full Body")
+val filterByNamesListCustomPlans = mutableListOf<String>("All Plans", "Upper Body", "Lower Body", "Core Strength", "Full Body")
+val filterByNamesListFavouritePlans = mutableListOf<String>("All Plans", "Upper Body", "Lower Body", "Core Strength", "Full Body", "Favourites")
 class ViewPlansActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: ViewModel
+    lateinit var viewModel: ViewModel
     private var filterBy = "yoga"
     var intensity = "15 days"
 
@@ -38,6 +44,9 @@ class ViewPlansActivity : AppCompatActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        rootLinearLayout.requestFocus()
+
         //init class
         init()
 
@@ -46,7 +55,6 @@ class ViewPlansActivity : AppCompatActivity() {
         if(filterBy == AppConstants.FAVOURITE_PLANS){
             viewModel.getAllFavPlans(db)
         }else{
-            filterByNamesList.add("Favourites")
             //code runs in background thread
             viewModel.getAllUserPlans(db)
         }
@@ -61,11 +69,22 @@ class ViewPlansActivity : AppCompatActivity() {
                 layoutManager = LinearLayoutManager(context)
                 adapter = ViewPlansAdapter(workoutPlansList, this@ViewPlansActivity)
             }
+            if((workoutPlansRecyclerView.adapter as ViewPlansAdapter).exerciseFilterList.size == 0
+                    && filterBy == AppConstants.MY_PLANS){
+                placeHolder_layout_customPlans.visibility = View.VISIBLE
+            }else if((workoutPlansRecyclerView.adapter as ViewPlansAdapter).exerciseFilterList.size == 0
+                    && filterBy == AppConstants.FAVOURITE_PLANS){
+                placeHolder_layout_FavPlans.visibility = View.VISIBLE
+            }
 
             //setup filter recycler view
             filterWorkoutHorizontalRecyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = ViewPlansFilterAdapter(filterByNamesList, (workoutPlansRecyclerView.adapter as ViewPlansAdapter))
+                adapter = if(filterBy == AppConstants.FAVOURITE_PLANS){
+                    ViewPlansFilterAdapter(filterByNamesListFavouritePlans, (workoutPlansRecyclerView.adapter as ViewPlansAdapter))
+                }else{
+                    ViewPlansFilterAdapter(filterByNamesListCustomPlans, (workoutPlansRecyclerView.adapter as ViewPlansAdapter))
+                }
             }
 
             //search bar listener - setup search bar
@@ -81,12 +100,16 @@ class ViewPlansActivity : AppCompatActivity() {
             })
         })
 
-    }
+        createPlan_button.setOnClickListener {
+            creteNewPlan()
+        }
 
+    }
     fun init(){
         //get required intent
 //        workoutType = intent.getStringExtra(AppConstants.WORKOUT_TYPE)
         filterBy = intent.getStringExtra(AppConstants.FILTER_BY)
+
 
         if(filterBy == AppConstants.MY_PLANS){
             supportActionBar?.title = "My Custom Plans"
@@ -124,13 +147,14 @@ class ViewPlansActivity : AppCompatActivity() {
     private fun creteNewPlan() {
         val i = Intent(applicationContext, WorkoutPlansListActivity::class.java)
         i.putExtra(AppConstants.WORKOUT_TYPE, getWorkoutType())
+        i.putExtra(AppConstants.IS_CALLED_FROM_HOME, true)
         startActivity(i)
     }
 
     private fun getWorkoutType():String{
         val adapter = filterWorkoutHorizontalRecyclerView.adapter as ViewPlansFilterAdapter
         val selectedItemNumber = adapter.selectedItem
-        return filterByNamesList[selectedItemNumber]
+        return filterByNamesListFavouritePlans[selectedItemNumber]
     }
 
 

@@ -19,14 +19,15 @@ import com.hastarfitness.hastarfitnessapp.meditationNew.ShowMeditationTypesActiv
 import com.hastarfitness.hastarfitnessapp.selectPlanForDailyWorkout.SelectPlanForDailyWorkoutActivity
 import com.hastarfitness.hastarfitnessapp.viewPlansFavAndCustom.ViewPlansActivity
 import com.hastarfitness.hastarfitnessapp.yoga.ShowYogaTypesActivity
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.lang.String
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.util.*
 
 class HomeFragment : Fragment() {
-    private val homeViewModel: HomeViewModel? = null
-    private var viewModel: ViewModel? = null
-    private var db: AppDatabase? = null
+    private lateinit var viewModel: ViewModel
+    private lateinit var db: AppDatabase
     private var session: Session? = null
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -75,16 +76,32 @@ class HomeFragment : Fragment() {
         val userGoalTv = view.findViewById<TextView>(R.id.userGoal_textView)
         val todaysBodyPartTv = view.findViewById<TextView>(R.id.todaysBodyPart_button)
         val difference = session!!.goalWeight!! - session!!.weightInKg!!
-        if (difference < 0) {
-            session!!.dietPreference = AppConstants.GAIN_WEIGHT
-        } else if (difference > 0) {
-            session!!.dietPreference = AppConstants.WEIGHT_LOSS
-        } else {
-            session!!.dietPreference = AppConstants.MAINTAIN_WEIGHT
+        when {
+            difference < 0 -> {
+                session!!.dietPreference = AppConstants.GAIN_WEIGHT
+            }
+            difference > 0 -> {
+                session!!.dietPreference = AppConstants.WEIGHT_LOSS
+            }
+            else -> {
+                session!!.dietPreference = AppConstants.MAINTAIN_WEIGHT
+            }
         }
         userGoalTv.text = session!!.dietPreference!!.split("_").joinToString(" ").capitalize()
         todaysBodyPartTv.text = session!!.todaysWorkoutType!!.capitalize()
         return view
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val calInstance = Calendar.getInstance()
+        val dayNo = calInstance[Calendar.DAY_OF_MONTH]
+        viewModel.getQuoteByDayNo(db, dayNo)
+
+        viewModel.quote.observe(requireActivity(), Observer {
+            quote_textView.text = "\"${it.quote}\""
+        })
 
     }
 

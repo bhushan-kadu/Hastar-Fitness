@@ -27,6 +27,8 @@ class WorkoutPlansListActivity : AppCompatActivity() {
     var workoutType = "yoga"
     var intensity = "15 days"
 
+    var isCalledFromHome = false
+
     lateinit var db:AppDatabase
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,6 +92,7 @@ class WorkoutPlansListActivity : AppCompatActivity() {
     fun init(){
         //get required intent
         workoutType = intent.getStringExtra(AppConstants.WORKOUT_TYPE)
+        isCalledFromHome = intent.getBooleanExtra(AppConstants.IS_CALLED_FROM_HOME, false)
 
         //instantiate db
         instantialteDb()

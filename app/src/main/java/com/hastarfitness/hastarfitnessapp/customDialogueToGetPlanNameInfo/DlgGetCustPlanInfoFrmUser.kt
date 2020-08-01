@@ -2,26 +2,18 @@ package com.hastarfitness.hastarfitnessapp.customDialogueToGetPlanNameInfo
 
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
+import android.view.View
 import android.view.Window
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import com.google.android.material.textfield.TextInputEditText
+import android.widget.*
 import com.hastarfitness.hastarfitnessapp.R
-import com.hastarfitness.hastarfitnessapp.createYourOwnPlan.ExercisesListAdapter
-import com.hastarfitness.hastarfitnessapp.database.PlanExercisesDbModel
-import com.hastarfitness.hastarfitnessapp.database.WorkoutPlansDbModel
-import com.hastarfitness.hastarfitnessapp.selectPlanForDailyWorkout.SelectPlanForDailyWorkoutActivity
+import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.mobsandgeeks.saripaar.ValidationError
 import com.mobsandgeeks.saripaar.Validator
 import com.mobsandgeeks.saripaar.annotation.Length
-import com.mobsandgeeks.saripaar.annotation.Max
-import com.mobsandgeeks.saripaar.annotation.Min
 import com.mobsandgeeks.saripaar.annotation.NotEmpty
-import kotlinx.android.synthetic.main.activity_create_your_plan.*
+import com.mobsandgeeks.saripaar.annotation.Select
 import kotlinx.android.synthetic.main.dlg_get_custom_plan_info_dlg.*
+
 
 /**
  * custom dialogue class for getting custom plan info to save the plan from user
@@ -46,6 +38,11 @@ class DlgGetCustPlanInfoFrmUser(ctx: Context) : Dialog(ctx), Validator.Validatio
     lateinit var planDesc: EditText
     lateinit var validator: Validator
 
+    @Select(message = "Please Select Type")
+    lateinit var workoutTypeSpinner: Spinner
+
+
+
     /**
      * function to create the dialogue
      */
@@ -60,6 +57,25 @@ class DlgGetCustPlanInfoFrmUser(ctx: Context) : Dialog(ctx), Validator.Validatio
 
         cancelBtn = cancel_action
         okBtn = ok_action
+        workoutTypeSpinner = planType_spinner
+
+
+        val types: MutableList<String> = ArrayList()
+        types.add("Select Type")
+        types.add(AppConstants.FULL_BODY.capitalize())
+        types.add(AppConstants.UPPER_BODY.capitalize())
+        types.add(AppConstants.CORE_STRENGTH.capitalize())
+        types.add(AppConstants.LOWER_BODY.capitalize())
+
+
+        // Creating adapter for spinner
+        val dataAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, types)
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        // attaching data adapter to spinner
+        planType_spinner.adapter = dataAdapter
 
         okBtn.setOnClickListener {
             validator.validate()
@@ -67,10 +83,18 @@ class DlgGetCustPlanInfoFrmUser(ctx: Context) : Dialog(ctx), Validator.Validatio
     }
 
     override fun onValidationFailed(errors: MutableList<ValidationError>?) {
+
         for (error in errors!!) {
-                (error.view as EditText).error = error.getCollatedErrorMessage(context)
+            val view = error.view
+            if (view is EditText) {
+                view.error = error.getCollatedErrorMessage(context)
+            } else if (view is Spinner) {
+                (view.selectedView as TextView).error = error.getCollatedErrorMessage(context)
+            }
+
         }
     }
+
 
     override fun onValidationSucceeded() {
         savePlan()

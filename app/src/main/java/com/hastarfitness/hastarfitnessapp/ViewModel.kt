@@ -25,8 +25,11 @@ class ViewModel : ViewModel() {
   val fullPlanCardio = MutableLiveData<List<ExerciseView>>()
   val plansList = MutableLiveData<List<WorkoutPlansDbModel>>()
   val insertedRowInt = MutableLiveData<Int>()
+  val deletedRowInt = MutableLiveData<Int>()
   val insertedRowLong = MutableLiveData<Long>()
   val insertedRowsList = MutableLiveData<List<Long>>()
+  val insertedRowsListInt = MutableLiveData<List<Int>>()
+  val deletedRowsListInt = MutableLiveData<List<Int>>()
   val insertedRowsListBodyWeight = MutableLiveData<List<Long>>()
   val insertedRowsListCardio = MutableLiveData<List<Long>>()
   val deletedRows = MutableLiveData<Int>()
@@ -168,14 +171,14 @@ class ViewModel : ViewModel() {
   val insertedRecId = MutableLiveData<Long>()
   fun insertCustomUserPlan(db: AppDatabase, workoutPlansDbModel: WorkoutPlansDbModel) {
     viewModelScope.launch(Dispatchers.Default) {
-      val id = db.exerciseDao().insertCustomPlan(workoutPlansDbModel)
+      val id = db.exerciseDao().insertCustomPlanMappings(workoutPlansDbModel)
       insertedRecId.postValue(id)
     }
   }
 
   fun insertCustomUserPlanExercises(db: AppDatabase, planExercisesDbModelList: List<PlanExercisesDbModel>) {
     viewModelScope.launch(Dispatchers.Default) {
-      db.exerciseDao().insertCustomPlanExercises(planExercisesDbModelList)
+      insertedRowsList.postValue(db.exerciseDao().insertCustomPlanExercises(planExercisesDbModelList))
     }
   }
 
@@ -199,6 +202,34 @@ class ViewModel : ViewModel() {
                 it.mmet)
       }
       insertedRowsListBodyWeight.postValue(db.exerciseDao().insertFinalExercisesBodyWeight(finalExercisesDbModelList))
+    }
+  }
+
+  fun insertCustomPlanMappings(db: AppDatabase, planExerciseDbModel: List<PlanExercisesDbModel>) {
+    viewModelScope.launch(Dispatchers.Default) {
+      insertedRowsListBodyWeight.postValue(db.exerciseDao().insertCustomPlanMappings(planExerciseDbModel))
+    }
+  }
+  fun deletePlanById(db: AppDatabase, planId: Int) {
+    viewModelScope.launch(Dispatchers.Default) {
+      deletedRowInt.postValue(db.exerciseDao().deletePlanById(planId))
+    }
+  }
+  fun deletePlan(db: AppDatabase, workoutPlansDbModel: WorkoutPlansDbModel) {
+    viewModelScope.launch(Dispatchers.Default) {
+      deletedRowInt.postValue(db.exerciseDao().deletePlan(workoutPlansDbModel))
+    }
+  }
+
+  var planExercisesMappings = MutableLiveData<List<PlanExercisesDbModel>>()
+  fun getPlanMappingsById(db: AppDatabase, planId: Int) {
+    viewModelScope.launch(Dispatchers.Default) {
+      planExercisesMappings.postValue(db.exerciseDao().getPlanMappingsById(planId))
+    }
+  }
+  fun deletePlanMappings(db: AppDatabase, planExerciseDbModel: List<PlanExercisesDbModel>) {
+    viewModelScope.launch(Dispatchers.Default) {
+      deletedRowInt.postValue(db.exerciseDao().deletePlanMappings(planExerciseDbModel))
     }
   }
 
@@ -340,6 +371,13 @@ class ViewModel : ViewModel() {
 //      db.exerciseDao().dropExerciseView(SimpleSQLiteQuery("drop VIEW ExerciseView"))
       db.exerciseDao().createViewExerciseView(SimpleSQLiteQuery("CREATE VIEW IF NOT EXISTS ExerciseView AS select * from PlanExercisesDbModel join ExerciseDbModel on PlanExercisesDbModel.exerciseId = ExerciseDbModel.id"))
 
+    }
+  }
+
+  val quote = MutableLiveData<QuotesDbModel>()
+  fun getQuoteByDayNo(db: AppDatabase, dayNo:Int) {
+    viewModelScope.launch(Dispatchers.Default) {
+      quote.postValue(db.userInfoDao().getQuoteByDayNo(dayNo))
     }
   }
 

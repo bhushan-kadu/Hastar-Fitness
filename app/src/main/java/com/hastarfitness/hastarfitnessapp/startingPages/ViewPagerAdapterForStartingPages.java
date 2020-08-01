@@ -36,7 +36,8 @@ public class ViewPagerAdapterForStartingPages extends FragmentStateAdapter {
             case 3: return new FragmentGetWeight();
             case 4: return new FragmentGetGoalWeight();
             case 5: return new FragmentGetActivityLevel();
-            case 6: return new FragmentAppInfoPage();
+            case 6: return new FragmentGetWeeklyGoal();
+            case 7: return new FragmentAppInfoPage();
         }
         return null;
     }
@@ -44,7 +45,7 @@ public class ViewPagerAdapterForStartingPages extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        // Show 6 total pages.
-        return 7;
+        // Show 8 total pages.
+        return 8;
     }
 }

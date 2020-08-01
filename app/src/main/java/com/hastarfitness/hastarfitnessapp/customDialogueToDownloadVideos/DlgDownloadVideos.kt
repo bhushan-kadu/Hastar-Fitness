@@ -52,9 +52,7 @@ class DlgDownloadVideos(val ctx: Context, var exerciseNamesList: MutableList<Str
 
         progress_horizontal.setOnProgressChangedListener { view, progress, isPrimaryProgress, isSecondaryProgress ->
             if(progress == remFiles.size.toFloat()){
-                progress_circular.visibility = View.GONE
-                start_button.visibility = View.VISIBLE
-                cancelBtn.visibility = View.GONE
+                setDownloadCompletedUI()
 
                 isDownloaded = true
             }
@@ -70,9 +68,20 @@ class DlgDownloadVideos(val ctx: Context, var exerciseNamesList: MutableList<Str
 
         downloadBtn.setOnClickListener {
             downloadMultipleFiles(storageRef, remFiles)
-            progress_circular.visibility = View.VISIBLE
-            it.visibility = View.GONE
+            setDownloadRunningUI()
         }
+    }
+
+    fun setDownloadRunningUI(){
+        progress_circular.visibility = View.VISIBLE
+        downloadBtn.visibility = View.GONE
+        dialogMessage.text = "Downloading Plan..."
+    }
+    fun setDownloadCompletedUI(){
+        progress_circular.visibility = View.GONE
+        start_button.visibility = View.VISIBLE
+        cancelBtn.visibility = View.GONE
+        dialogMessage.text = "Download Completed Succesfully"
     }
 
 

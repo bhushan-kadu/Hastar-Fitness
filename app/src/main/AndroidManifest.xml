@@ -10,18 +10,33 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_hastar_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_hastar_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:fullBackupContent="true">
-        <activity android:name=".DownloadVideos">
 
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/dot_one" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <service
+            android:name=".services.MyCloudMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".DownloadVideos">
         </activity>
         <activity android:name=".LoginActivity"/>
-        <activity android:name=".AppStartLoadingScreen"
+        <activity android:name=".startingPages.AppStartLoadingScreen"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".diet.FoodSelectedActivity"
@@ -38,7 +53,7 @@
             android:name=".profile.UserProfileActivity"
             android:parentActivityName=".ActivityDashboard"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AppSettingsActivity" />
+        <activity android:name=".settings.AppSettingsActivity" />
         <activity
             android:name=".diet.dietStartPages.DietStartPagesActivity"
             android:theme="@style/AppTheme.NoActionBar"

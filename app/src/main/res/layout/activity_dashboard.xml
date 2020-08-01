@@ -55,7 +55,28 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@menu/dashboard_side_nav_drawer_menu"
-        app:headerLayout="@layout/navbar_left_header"/>
+        app:headerLayout="@layout/navbar_left_header">
+        <LinearLayout
+            android:background="?selectableItemBackground"
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:drawablePadding="30dp"
+            android:drawableLeft="@drawable/ic_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|top"
+            android:text="Log out" />
+        </LinearLayout>
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
 

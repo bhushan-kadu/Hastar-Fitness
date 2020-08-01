@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "01f9e400e74fd49b17f8f6f41cdf30bf",
+    "identityHash": "787b7c25513aa1f1cdbbcda35779f5e7",
     "entities": [
       {
         "tableName": "ExerciseDbModel",
@@ -218,7 +218,7 @@
       },
       {
         "tableName": "PlanExercisesDbModel",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exerciseId` INTEGER NOT NULL, `planId` INTEGER NOT NULL, FOREIGN KEY(`exerciseId`) REFERENCES `ExerciseDbModel`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`planId`) REFERENCES `WorkoutPlansDbModel`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `exerciseId` INTEGER NOT NULL, `planId` INTEGER NOT NULL, FOREIGN KEY(`exerciseId`) REFERENCES `ExerciseDbModel`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`planId`) REFERENCES `WorkoutPlansDbModel`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -249,7 +249,7 @@
         "foreignKeys": [
           {
             "table": "ExerciseDbModel",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "exerciseId"
@@ -260,7 +260,7 @@
           },
           {
             "table": "WorkoutPlansDbModel",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "planId"
@@ -800,6 +800,32 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "QuotesDbModel",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `quote` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quote",
+            "columnName": "quote",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [
@@ -810,7 +836,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '01f9e400e74fd49b17f8f6f41cdf30bf')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '787b7c25513aa1f1cdbbcda35779f5e7')"
     ]
   }
 }

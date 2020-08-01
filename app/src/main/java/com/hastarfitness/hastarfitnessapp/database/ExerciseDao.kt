@@ -1,9 +1,6 @@
 package com.hastarfitness.hastarfitnessapp.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.RawQuery
+import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 
 @Dao
@@ -68,7 +65,7 @@ interface ExerciseDao {
     suspend fun getAllFavPlans(): List<WorkoutPlansDbModel>
 
     @Insert
-    suspend fun insertCustomPlan(workoutPlansDbModel: WorkoutPlansDbModel):Long
+    suspend fun insertCustomPlanMappings(workoutPlansDbModel: WorkoutPlansDbModel):Long
 
     @Insert
     suspend fun insertCustomPlanExercises(planExercisesDbModel: List<PlanExercisesDbModel>):List<Long>
@@ -76,11 +73,26 @@ interface ExerciseDao {
     @Query("update WorkoutPlansDbModel set isFav = :isFav WHERE id = :planId  ")
     suspend fun makePlanFavById(planId:Int, isFav:Int):Int
 
+    @Query("delete from WorkoutPlansDbModel WHERE id = :planId  ")
+    fun deletePlanById(planId: Int):Int
+    @Delete
+    fun deletePlan(workoutPlansDbModel: WorkoutPlansDbModel):Int
+
+    @Delete
+    fun deletePlanMappings(planExercisesDbModel: List<PlanExercisesDbModel>):Int
+
     @Insert
      fun insertFinalExercisesBodyWeight(finalBodyWeightExercisesDbModel: List<FinalBodyWeightExercisesDbModel>):List<Long>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+     fun insertCustomPlanMappings(planExerciseDbModelList: List<PlanExercisesDbModel>):List<Long>
+
+
     @Insert
     fun insertFinalExercisesCardio(finalWorkoutExercisesDbModel: List<FinalCardioExercisesDbModel>):List<Long>
+
+    @Query("select * from PlanExercisesDbModel where planId = :planId ")
+    suspend fun getPlanMappingsById(planId: Int):List<PlanExercisesDbModel>
 
     @Query("delete from FinalBodyWeightExercisesDbModel ")
     suspend fun deleteExercisesFromFinalBodyWeightExTable():Int

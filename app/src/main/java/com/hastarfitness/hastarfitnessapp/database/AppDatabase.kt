@@ -23,7 +23,8 @@ import androidx.room.TypeConverters
     CustomFoodsDbModel::class,
     FoodNutrientDbModel::class,
     LastSearchedFoods::class,
-    UserFoodConsumedDataDbModel::class],
+    UserFoodConsumedDataDbModel::class,
+    QuotesDbModel::class],
         views = [ExerciseView::class],
         version = 1)
 @TypeConverters(Converters::class)
