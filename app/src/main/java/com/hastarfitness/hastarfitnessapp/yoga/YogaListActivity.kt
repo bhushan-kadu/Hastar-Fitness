@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.hastarfitness.hastarfitnessapp.R
@@ -37,7 +37,7 @@ class YogaListActivity : AppCompatActivity() {
         var yogaExerciseList = listOf<YogaExerciseDbModel>()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(ViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
         //code runs in background thread
         viewModel.getYogaExercises(db, workoutType, intensity)

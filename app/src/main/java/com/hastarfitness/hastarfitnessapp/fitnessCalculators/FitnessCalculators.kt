@@ -175,9 +175,10 @@ class FitnessCalculators {
                      waistMeasure: Double,
                      hipMeasure: Double,
                      neakMeasure: Double): Double {
-        return 163.205 * log10(waistMeasure + hipMeasure - neakMeasure) - 97.684 * log10(height) + 36.76
-    }
+//        return 163.205 * log10(waistMeasure + hipMeasure - neakMeasure) - 97.684 * log10(height) + 36.76
 
+      return  (163.205 * log10(waistMeasure + hipMeasure - neakMeasure)) - (97.684 * log10(height)) - 78.387
+    }
     /**
      *  calculate Body fat of men - Imperial values
      *

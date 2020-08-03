@@ -2,6 +2,7 @@ package com.hastarfitness.hastarfitnessapp.settings
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +26,8 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
         setContentView(R.layout.activity_settings)
 
         supportActionBar!!.title = "Settings"
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val session = Session(this)
         val calInstance = Calendar.getInstance()
@@ -114,6 +117,12 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
         val dayTextViewId = getResId(day,  R.id::class.java)
         val dayTextView = findViewById<TextView>(dayTextViewId)
         dayTextView.setTextColor(ContextCompat.getColor(this, R.color.green))
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return true
     }
 
     var stringArrayList: ArrayList<String> = ArrayList()

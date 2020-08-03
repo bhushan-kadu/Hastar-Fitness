@@ -22,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -115,7 +115,7 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         instantiateDb()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(ViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
         //init session variable
         session = Session(this)

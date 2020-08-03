@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.hastarfitness.hastarfitnessapp.models.Exercise
@@ -31,7 +31,8 @@ import kotlin.collections.ArrayList
  * @author Bhushan Kadu
  */
 class SelectPlanForDailyWorkoutListAdapter(private val workoutPlans: List<WorkoutPlansDbModel>, val activity: SelectPlanForDailyWorkoutActivity) : RecyclerView.Adapter<SelectPlanForDailyWorkoutListAdapter.ViewHolder>(), Filterable {
-    var viewModel: ViewModel = ViewModelProviders.of(activity).get(ViewModel()::class.java)
+    var viewModel: ViewModel = ViewModelProvider(activity).get(ViewModel::class.java)
+
     var db: AppDatabase = Room.databaseBuilder(activity,
             AppDatabase::class.java, "HasterDb.db")
             .build()

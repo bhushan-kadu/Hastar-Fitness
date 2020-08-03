@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -79,7 +79,7 @@ class AppStartLoadingScreen : AppCompatActivity() {
     }
 
     private fun instantiateDb() {
-        val viewModel = ViewModelProviders.of(this).get(ViewModel::class.java)
+        val viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         val db = Room.databaseBuilder(this, AppDatabase::class.java, "HasterDb.db")
                 .createFromAsset("databases/HasterDb.db")
                 .addCallback(object : RoomDatabase.Callback() {

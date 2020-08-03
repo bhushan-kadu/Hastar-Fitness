@@ -16,7 +16,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -85,7 +85,8 @@ class ActivityDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     private fun instantiateDb() {
-        val viewModel = ViewModelProviders.of(this).get(ViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
+        val viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         val db = Room.databaseBuilder(this, AppDatabase::class.java, "HasterDb.db")
                 .build()
         try {

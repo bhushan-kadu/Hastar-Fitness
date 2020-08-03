@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.room.Room
 import com.google.android.material.snackbar.Snackbar
@@ -284,7 +285,7 @@ class FoodSelectedActivity : AppCompatActivity(), Validator.ValidationListener {
         instantiateDb()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(DietViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(DietViewModel::class.java)
 
 
         isCustomFood = intent.getBooleanExtra(AppConstants.IS_CUSTOM_FOOD, false)

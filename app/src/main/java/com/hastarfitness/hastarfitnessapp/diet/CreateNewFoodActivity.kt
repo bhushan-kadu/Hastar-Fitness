@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.google.android.material.textfield.TextInputEditText
 import com.mobsandgeeks.saripaar.annotation.DecimalMax
@@ -98,7 +98,7 @@ class CreateNewFoodActivity : AppCompatActivity(), Validator.ValidationListener 
         instantialteDb()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(ViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
     }
 
     private fun instantialteDb() {

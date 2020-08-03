@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
@@ -104,9 +104,9 @@ class FitnessDataFragment : Fragment() {
             temporaryCardView.visibility = View.GONE
             val fitCalc = FitnessCalculators()
             val bodyFat = if(session.gender == AppConstants.MALE) {
-                fitCalc.bodyFatMen(session.heightCm!!, session.weistInches!!, session.neakInches!!)
+                fitCalc.bodyFatMen(session.heightCm!!/2.54, session.weistInches!!, session.neakInches!!)
             }else{
-                fitCalc.bodyFatWomen(session.heightCm!!, session.weistInches!!,session.hipInches!!, session.neakInches!!)
+                fitCalc.bodyFatWomen(session.heightCm!!/2.54, session.weistInches!!,session.hipInches!!, session.neakInches!!)
             }
             val bmi = fitCalc.calculateBMIMetric(session.heightCm!!, session.weightInKg!!)
 
@@ -179,7 +179,7 @@ class FitnessDataFragment : Fragment() {
         instantiateDb()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(ViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
         //init dialogue
         wtDlg = DlgGiveWeight(this@FitnessDataFragment)

@@ -10,7 +10,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
 import com.hastarfitness.hastarfitnessapp.ActivityDashboard
@@ -299,7 +299,7 @@ class DietFragment : Fragment() {
         instantiateDb()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(DietViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(DietViewModel::class.java)
 
 
 

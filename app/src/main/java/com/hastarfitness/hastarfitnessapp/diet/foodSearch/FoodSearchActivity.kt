@@ -7,7 +7,7 @@ import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.google.android.material.snackbar.Snackbar
@@ -121,7 +121,7 @@ class FoodSearchActivity : AppCompatActivity() {
         instantiateDb()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(DietViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(DietViewModel::class.java)
         mealType = intent.getStringExtra(AppConstants.MEAL_TYPE)!!
 
         internetSnackbar = Snackbar.make(rootLl, "Internet Disconnected", Snackbar.LENGTH_LONG)

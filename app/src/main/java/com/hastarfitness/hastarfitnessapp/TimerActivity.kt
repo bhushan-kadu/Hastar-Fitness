@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.customDialogueToDownloadVideos.DlgDownloadVideos
@@ -118,7 +118,7 @@ class TimerActivity : AppCompatActivity(), View.OnClickListener {
         typeOfIntensity = intent.getStringExtra(AppConstants.INTENSITY)
         typeOfWorkout = intent.getStringExtra(AppConstants.WORKOUT_TYPE)
         typeOfWorkoutSubType = intent.getStringExtra(AppConstants.WORKOUT_SUB_TYPE)
-        viewModel = ViewModelProviders.of(this).get(ViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         instantiateDb()
         collectWorkoutData()
 

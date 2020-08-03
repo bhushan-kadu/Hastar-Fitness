@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -65,7 +65,7 @@ class FragmentMyFoods : Fragment() {
         instantialteDb()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(ViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
     }
 
     private fun instantialteDb() {

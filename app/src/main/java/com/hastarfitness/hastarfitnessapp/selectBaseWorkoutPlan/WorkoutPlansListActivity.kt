@@ -5,7 +5,7 @@ import android.view.MenuItem
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.hastarfitness.hastarfitnessapp.R
@@ -98,7 +98,7 @@ class WorkoutPlansListActivity : AppCompatActivity() {
         instantialteDb()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(ViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){

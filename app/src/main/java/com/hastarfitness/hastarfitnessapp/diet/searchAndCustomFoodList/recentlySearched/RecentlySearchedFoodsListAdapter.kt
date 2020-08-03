@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
@@ -42,7 +42,7 @@ class RecentlySearchedFoodsListAdapter(private val foodList: List<LastSearchedFo
         instantiateDb()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(fragmentLastSearchedFood.requireActivity()).get(DietViewModel()::class.java)
+        viewModel = ViewModelProvider(fragmentLastSearchedFood.requireActivity()).get(DietViewModel::class.java)
     }
 
     private fun instantiateDb() {

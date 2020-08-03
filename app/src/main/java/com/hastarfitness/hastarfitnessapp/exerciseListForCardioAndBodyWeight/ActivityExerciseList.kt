@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -23,7 +23,6 @@ import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.TimerActivity
 import com.hastarfitness.hastarfitnessapp.ViewModel
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
-import com.hastarfitness.hastarfitnessapp.customDialogueToDownloadVideos.DlgDownloadVideos
 import com.hastarfitness.hastarfitnessapp.models.Exercise
 import com.hastarfitness.hastarfitnessapp.customDialogueToShowExerciseInfo.DlgShowExerciseInfo
 import com.hastarfitness.hastarfitnessapp.database.AppDatabase
@@ -277,8 +276,7 @@ class ListFragment(val intensity: String, val workoutType: String, var dlg: DlgS
         var exerciseList = listOf<ExerciseDbModel>()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(requireActivity()).get(ViewModel()::class.java)
-
+        viewModel = ViewModelProvider(requireActivity()).get(ViewModel::class.java)
         //code runs in background thread
         viewModel.setup(db, workoutType, null)
 

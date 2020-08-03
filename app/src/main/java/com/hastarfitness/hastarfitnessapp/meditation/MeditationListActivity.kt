@@ -3,7 +3,7 @@ package com.hastarfitness.hastarfitnessapp.meditation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.hastarfitness.hastarfitnessapp.R
@@ -35,7 +35,7 @@ class MeditationListActivity : AppCompatActivity() {
         var meditationExerciseList = listOf<MeditationDbModelNew>()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(ViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
         //code runs in background thread
         viewModel.getMeditations(db, meditationType)
@@ -67,7 +67,7 @@ class MeditationListActivity : AppCompatActivity() {
         val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "HasterDb.db")
                 .createFromAsset("databases/HasterDb.db")
                 .build()
-        val viewModel = ViewModelProviders.of(this).get(ViewModel::class.java)
+        val viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         viewModel.getAll(db)
         viewModel.getRest(db, AppConstants.BODY_WEIGHT, AppConstants.BEGINNER)
         viewModel.exercise

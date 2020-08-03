@@ -20,7 +20,7 @@ android {
         applicationId "com.hastarfitness.hastarfitnessapp"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 7
+        versionCode 10
         versionName "1.0"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -34,7 +34,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

@@ -9,7 +9,7 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -41,7 +41,7 @@ class ExerciseListActivity : AppCompatActivity() {
             override fun onChildViewAttachedToWindow(view: View) {
                 view.setOnClickListener {
                     val holder = getChildViewHolder(view)
-                    onClickListener.onItemClicked(holder.adapterPosition, view)
+                    onClickListener.onItemClicked(holder.absoluteAdapterPosition, view)
                 }
             }
         })
@@ -109,7 +109,7 @@ class ExerciseListActivity : AppCompatActivity() {
         instantialteDb()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(ViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
 
         //create dialogue
         dialog= DlgShowExerciseInfo(this, listOf<ExerciseDbModel>())

@@ -9,7 +9,7 @@ import android.view.WindowManager
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.hastarfitness.hastarfitnessapp.R
@@ -28,8 +28,8 @@ import kotlinx.android.synthetic.main.activity_workoutplans_list.search_bar
  *
  *  @author Bhushan Kadu
  */
-val filterByNamesListCustomPlans = mutableListOf<String>("All Plans", "Upper Body", "Lower Body", "Core Strength", "Full Body")
-val filterByNamesListFavouritePlans = mutableListOf<String>("All Plans", "Upper Body", "Lower Body", "Core Strength", "Full Body", "Favourites")
+val filterByNamesListCustomPlans = mutableListOf<String>("All Plans", "Upper Body", "Lower Body", "Core Strength", "Full Body", "Favourites")
+val filterByNamesListFavouritePlans = mutableListOf<String>("All Plans", "Upper Body", "Lower Body", "Core Strength", "Full Body")
 class ViewPlansActivity : AppCompatActivity() {
 
     lateinit var viewModel: ViewModel
@@ -122,7 +122,7 @@ class ViewPlansActivity : AppCompatActivity() {
         instantiateDb()
 
         //setup ViewModel
-        viewModel = ViewModelProviders.of(this).get(ViewModel()::class.java)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
