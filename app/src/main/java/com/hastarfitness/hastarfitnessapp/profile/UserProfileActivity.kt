@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.OnTouchListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.hastarfitness.hastarfitnessapp.ActivityDashboard
@@ -17,33 +18,38 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class UserProfileActivity : AppCompatActivity() {
-    private lateinit var myViewPager: MyViewPager
-    private lateinit var session: Session
+    private  var myViewPager: MyViewPager? = null
+    private var session: Session? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //init class
-        initialize()
+        try{
+            //init class
+            initialize()
 
-        //set refer friend btn
-        referFriend_btn.setOnClickListener { shareApp() }
+            //set refer friend btn
+            referFriend_btn.setOnClickListener { shareApp() }
 
-        //set streak number
-        setStreakNo()
+//            //set streak number
+            setStreakNo()
+//
+//            //display user data
+            displayUser()
+        }catch (e:Exception){
+            Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+        }
 
-        //display user data
-        displayUser()
 
     }
 
     private fun displayUser() {
-        val userGender = session.gender
-        val userName = session.userName
-        val photoUrl = session.photoUrl
-        val userEmail = session.userEmail
+        val userGender = session!!.gender
+        val userName = session!!.userName
+        val photoUrl = session!!.photoUrl
+        val userEmail = session!!.userEmail
         if (userGender == AppConstants.MALE) {
             Picasso.get()
                     .load(photoUrl)
@@ -62,8 +68,8 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
     private fun setStreakNo() {
-        streak_no_textView.text = session.streakNo.toString()
-        when (session.streakNo) {
+        streak_no_textView.text = session!!.streakNo.toString()
+        when (session!!.streakNo) {
             in 10..20 -> emoji_imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_ten_to_twenty_emoji))
             in 20..30 -> emoji_imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_twenty_to_thirty_emoji))
             in 30..40 -> emoji_imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_thirty_to_fourty_emoji))
@@ -86,7 +92,7 @@ class UserProfileActivity : AppCompatActivity() {
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager)
         viewPager.setOnTouchListener(OnTouchListener { v, event -> true })
         viewPager.setOnTouchListener(OnTouchListener { v, event -> true })
-        myViewPager.disableScroll(true)
+        myViewPager!!.disableScroll(true)
     }
 
 

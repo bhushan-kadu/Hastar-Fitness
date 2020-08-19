@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/diet_gradient_background"
+    android:background="#EFFDF4"
     tools:context=".ActivitySplashScreen">
 
     <androidx.constraintlayout.widget.Guideline
@@ -12,10 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.6" />
 
 
 
+    <LinearLayout
+        app:layout_constraintBottom_toBottomOf="@id/guideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="300dp"
@@ -24,14 +29,24 @@
         android:scaleType="fitCenter"
         android:src="@drawable/banner_without_ames"
         app:layout_constraintBottom_toBottomOf="@id/guideline" />
+        <TextView
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/cinzeldecorative_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SUMMON THE BEAST WITHIN"/>
+    </LinearLayout>
 
     <ImageView
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="100dp"
         android:scaleType="fitCenter"
         android:src="@drawable/banner_akshay"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideline" />
 
 

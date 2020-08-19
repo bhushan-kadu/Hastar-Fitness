@@ -10,13 +10,15 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_hastar_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_hastar_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:fullBackupContent="true">
+        android:theme="@style/AppTheme">
+        <activity android:name=".AboutUs"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -33,11 +35,11 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".DownloadVideos">
-        </activity>
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".startingPages.AppStartLoadingScreen"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".DownloadVideos"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".startingPages.AppStartLoadingScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".diet.FoodSelectedActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -57,7 +59,7 @@
         <activity
             android:name=".diet.dietStartPages.DietStartPagesActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateVisible"/>
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".fitnessCalculators.MacroCalculator"
             android:launchMode="singleTop" />
@@ -85,9 +87,7 @@
         <activity android:name=".fitnessCalculators.BMICalculator" />
         <activity android:name=".meditation.ShowMeditationTypes" />
         <activity android:name=".meditation.AudioActivity" />
-        <activity android:name=".videoPlaybackTesting.VideoPlaybackTestActivity" >
-
-        </activity>
+        <activity android:name=".videoPlaybackTesting.VideoPlaybackTestActivity"></activity>
         <activity
             android:name=".yoga.ShowYogaDescAndVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -132,9 +132,7 @@
         <activity
             android:name=".ActivityDashboard"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

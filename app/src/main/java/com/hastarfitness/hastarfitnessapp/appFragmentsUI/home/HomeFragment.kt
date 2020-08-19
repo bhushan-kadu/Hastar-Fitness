@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -76,6 +77,17 @@ class HomeFragment : Fragment() {
         val userGoalTv = view.findViewById<TextView>(R.id.userGoal_textView)
         val todaysBodyPartTv = view.findViewById<TextView>(R.id.todaysBodyPart_button)
         val difference = session!!.goalWeight!! - session!!.weightInKg!!
+
+
+        val userGreetLl = view.findViewById<LinearLayout>(R.id.userGreeting_layout)
+        val userNameTv = view.findViewById<TextView>(R.id.userName_textView)
+        userNameTv.text = if(session!!.userName != "" || session!!.userName!!.toLowerCase() != "guest user"){
+            session!!.userName!!.split(" ")[0]
+        }else{
+            userGreetLl.visibility = View.GONE
+            ""
+        }
+
         when {
             difference < 0 -> {
                 session!!.dietPreference = AppConstants.GAIN_WEIGHT

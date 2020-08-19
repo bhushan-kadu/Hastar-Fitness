@@ -67,7 +67,6 @@
 
         <TextView
             android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:drawablePadding="30dp"
             android:drawableLeft="@drawable/ic_logout"
             android:layout_width="match_parent"

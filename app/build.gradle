@@ -16,12 +16,11 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        multiDexEnabled true
         applicationId "com.hastarfitness.hastarfitnessapp"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 10
-        versionName "1.0"
+        versionCode 12
+        versionName "1.2"
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation":
@@ -36,6 +35,12 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+        debug{
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
     }
     compileOptions {
@@ -123,8 +128,6 @@ dependencies {
     //for multimap
     implementation("com.google.guava:guava:29.0-jre")
 
-    //multi dex files
-    implementation 'androidx.multidex:multidex:2.0.0'
 
     //single row calender
     implementation 'devs.mulham.horizontalcalendar:horizontalcalendar:1.3.4'

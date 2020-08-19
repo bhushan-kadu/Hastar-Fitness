@@ -103,9 +103,9 @@ class MacroCalculator : AppCompatActivity(), Validator.ValidationListener {
                     fatRatio = 40
                 }
                 "keto diet" -> {
-                    proteinRatio = 5
-                    carbsRatio = 35
-                    fatRatio = 60
+                    proteinRatio = 35
+                    carbsRatio = 10
+                    fatRatio = 55
                 }
             }
 

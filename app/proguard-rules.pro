@@ -19,3 +19,20 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#noinspection ShrinkerUnresolvedReference
+-dontwarn com.github.mikephil.**
+-keep public class com.github.mikephil.** {
+     public protected *;
+}
+
+# Saripaar
+-keep class com.mobsandgeeks.saripaar.** {*;}
+-keep @com.mobsandgeeks.saripaar.annotation.ValidateUsing class * {*;}
+
+-keep class  com.hastarfitness.hastarfitnessapp.diet.** { *; }
+-keep class  com.hastarfitness.hastarfitnessapp.models.** { *; }
+-keep class  com.hastarfitness.hastarfitnessapp.database.** { *; }
+-keep class  com.hastarfitness.hastarfitnessapp.customDialogueToGetPlanNameInfo.** { *; }
+-keep class  com.hastarfitness.hastarfitnessapp.profile.customDialogTakeBodyData.** { *; }
+-keep class  com.hastarfitness.hastarfitnessapp.profile.customDialogTakeWeight.** { *; }

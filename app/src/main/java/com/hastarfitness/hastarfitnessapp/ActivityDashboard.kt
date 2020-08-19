@@ -66,7 +66,7 @@ class ActivityDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSe
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_library, R.id.navigation_tools, R.id.navigation_diet)
-                .setDrawerLayout(drawer)
+                .setOpenableLayout(drawer)
                 .build()
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
@@ -166,9 +166,15 @@ class ActivityDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.rate ->{
                 rateApp()
             }
+            R.id.about_us ->{
+                startActivity(Intent(this@ActivityDashboard, AboutUs::class.java))
+                return true
+            }
+
         }
         return true
     }
+
 
     private fun logoutUser() {
         val session = Session(this)

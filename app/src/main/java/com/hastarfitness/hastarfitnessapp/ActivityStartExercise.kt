@@ -711,6 +711,10 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         } catch (e: IOException) {
             e.printStackTrace();
         }
+
+        mediaPlayer.setOnCompletionListener {
+            it.release()
+        }
     }
 
 

@@ -38,6 +38,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
 import java.util.*
+import kotlin.collections.HashMap
 
 class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
     private lateinit var auth: FirebaseAuth
@@ -143,18 +144,23 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
             val postListener = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Get Post object and use the values to update the UI
-                    val user = dataSnapshot.getValue<User>()
+//                    val user = dataSnapshot.getValue<User>()
+                    val user: HashMap<String, String>? = try {
+                        (dataSnapshot.value as HashMap<String, String>)
+                    }catch (e:Exception){
+                        null
+                    }
                     if (user != null) {
-                        session.dateOfBirth = user.dob
-                        val birthYear = user.dob.split("-").last().toInt()
+                        session.dateOfBirth = user[AppConstants.DOB]
+                        val birthYear = user[AppConstants.DOB]!!.split("-").last().toInt()
                         val calInstance = Calendar.getInstance()
                         val age = calInstance[Calendar.YEAR] - birthYear
                         session.age = age
-                        session.gender = user.gender
-                        session.heightCm = user.height
-                        session.weightInKg = user.weight
-                        session.goalWeight = user.goalWeight
-                        session.weeklyActivity = user.weeklyActivity
+                        session.gender = user[AppConstants.GENDER]
+                        session.heightCm = user[AppConstants.HEIGHT_CM]!!.toDouble()
+                        session.weightInKg = user[AppConstants.WEIGHT_KG]!!.toDouble()
+                        session.goalWeight = user[AppConstants.GOAL_WEIGHT_KG]!!.toDouble()
+                        session.weeklyActivity = user[AppConstants.WEEKLY_ACTIVITY]
                         session.areStartPagesShown = true
                         saveUserInformation()
 

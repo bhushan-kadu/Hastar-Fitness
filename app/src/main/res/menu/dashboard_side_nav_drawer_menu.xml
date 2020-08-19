@@ -16,6 +16,11 @@
         android:icon="@drawable/ic_rate"
         android:title="@string/rate"/>
 
+    <item
+        android:id="@+id/about_us"
+        android:icon="@drawable/ic_about_us"
+        android:title="@string/about_us"/>
+
 
 
 </menu>

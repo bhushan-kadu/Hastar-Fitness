@@ -9,6 +9,31 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/userGreeting_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15.0dip"
+            android:paddingTop="15.0dip"
+            android:paddingBottom="3.0dip"
+            android:text="Welcome, "
+            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/userName_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="15.0dip"
+                android:paddingBottom="3.0dip"
+                android:text="Bhushan"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

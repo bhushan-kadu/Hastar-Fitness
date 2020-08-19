@@ -138,6 +138,19 @@ object AppConstants {
 
 
 
+    //user data
+    const val FULL_NAME = "full_name"
+    const val EMAIL = "email"
+    const val GENDER = "gender"
+    const val DOB = "dob"
+    const val WEIGHT_KG = "weight_kg"
+    const val GOAL_WEIGHT_KG = "goalWeight_kg"
+    const val HEIGHT_CM = "height_cm"
+    const val WEEKLY_ACTIVITY = "weeklyActivity"
+    const val DIET_PREFERENCE = "DietPreference"
+    const val WEEKLY_GOAL = "weeklyDietGoal"
+    const val CREATED_AT = "created_at"
+    const val UPDATED_AT = "updated_at"
 
 
 
