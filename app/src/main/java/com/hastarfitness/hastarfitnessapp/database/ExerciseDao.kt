@@ -24,6 +24,12 @@ interface ExerciseDao {
     @Query("SELECT * FROM RestTimeModel WHERE lower(type) like :exerciseType and lower(intensity) like :exerciseIntensity")
     fun getRestByType(exerciseType:String, exerciseIntensity:String): RestTimeModel
 
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    fun updateRest(restTimeModel: RestTimeModel):Long
+
+    @Query("update RestTimeModel set restTime = :restTime where intensity like :intensity and type like :workoutType")
+    fun updateRest(restTime:Int, intensity: String, workoutType:String):Int
+
     @Query("SELECT * FROM YogaExerciseDbModel WHERE type like :type and intensity like :intensity")
     fun getYogaExerByType(type:String, intensity:String): List<YogaExerciseDbModel>
 

@@ -33,8 +33,8 @@ class FragmentAppInfoPage : Fragment() {
         auth = Firebase.auth
 
         startJourneyBtn.setOnClickListener {
-            parentActivity.session.age = parentActivity.age
-            parentActivity.session.dateOfBirth = parentActivity.dob
+//            parentActivity.session.age = parentActivity.age
+//            parentActivity.session.dateOfBirth = parentActivity.dob
             parentActivity.session.gender = parentActivity.gender
             parentActivity.session.heightCm = parentActivity.height
             parentActivity.session.weightInKg = parentActivity.weight

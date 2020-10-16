@@ -1,6 +1,8 @@
 package com.hastarfitness.hastarfitnessapp;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
@@ -20,6 +22,8 @@ public class ActivitySplashScreen extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();//hides the current activity action bar
         setContentView(R.layout.activity_splash_screen);
+
+
 
         //back press event from MainActivity should close the application
         if (getIntent().getBooleanExtra(AppConstants.EXIT, false))

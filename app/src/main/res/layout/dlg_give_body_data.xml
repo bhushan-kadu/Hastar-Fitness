@@ -164,7 +164,7 @@
                     android:id="@+id/feetInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="heignt (feet)"
+                    android:hint="@string/height_feet"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -180,7 +180,7 @@
                     android:id="@+id/inInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="heignt (inches)"
+                    android:hint="@string/height_inches"
                     android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

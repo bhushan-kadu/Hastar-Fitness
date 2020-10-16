@@ -34,6 +34,8 @@ import com.hastarfitness.hastarfitnessapp.meditationNew.ShowMeditationTypesActiv
 import com.hastarfitness.hastarfitnessapp.profile.UserProfileActivity
 import com.hastarfitness.hastarfitnessapp.settings.AppSettingsActivity
 import com.hastarfitness.hastarfitnessapp.yoga.ShowYogaTypesActivity
+import kotlinx.android.synthetic.main.activity_dashboard.*
+import java.util.*
 
 /**
  * Main Activity where all the App Fragments are to be shown
@@ -43,14 +45,36 @@ import com.hastarfitness.hastarfitnessapp.yoga.ShowYogaTypesActivity
 class ActivityDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     lateinit var navView: NavigationView
     lateinit var drawer: DrawerLayout
+    private lateinit var session: Session
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         val switcherId = intent.getIntExtra(AppConstants.SWITCH_FRAGMENT, R.id.navigation_home)
+        session = Session(this)
 
+
+        val calInstance = Calendar.getInstance()
+        val day  = calInstance.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())!!.toLowerCase()
+        session.day = day
+
+        if(day != session.day){
+            session.isDayChanged = true
+        }
+
+        session.todaysWorkoutType = when (day) {
+            AppConstants.MONDAY -> session.mondayBodyWeight
+            AppConstants.TUESDAY -> session.tuesdayBodyWeight
+            AppConstants.WEDNESDAY -> session.wednesdayBodyWeight
+            AppConstants.THURSDAY -> session.thursdayBodyWeight
+            AppConstants.FRIDAY -> session.fridayBodyWeight
+            AppConstants.SATURDAY -> session.saturdayBodyWeight
+            AppConstants.SUNDAY -> session.sundayBodyWeight
+            else -> ""
+        }
 
         //Prepopulate database from db file
         instantiateDb()
+
 
         //find the required components
         val navViewBottom = findViewById<BottomNavigationView>(R.id.nav_view)
@@ -70,6 +94,17 @@ class ActivityDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 .build()
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            title = when (destination.id) {
+                R.id.navigation_home -> "Hello, "+session.userName!!.split(" ")[0]
+                R.id.navigation_library -> getString(R.string.library)
+                R.id.navigation_tools -> getString(R.string.title_tools)
+                R.id.navigation_diet -> getString(R.string.diet)
+                else -> ""
+            }
+            destination.label = title
+        }
 
         //setup bottom and left navigation view to the navigationUI
         NavigationUI.setupWithNavController(navViewBottom, navController)

@@ -92,7 +92,7 @@ class ActivityExerciseList : AppCompatActivity(), View.OnClickListener {
     fun init() {
         instantialteDb()
         //get the required values from intent
-        typeOfWorkout = intent.getStringExtra(AppConstants.WORKOUT_TYPE)
+        typeOfWorkout = intent.getStringExtra(AppConstants.WORKOUT_TYPE)!!
         typeOfWorkoutSubtype = intent.getStringExtra(AppConstants.WORKOUT_SUB_TYPE)
 
     }

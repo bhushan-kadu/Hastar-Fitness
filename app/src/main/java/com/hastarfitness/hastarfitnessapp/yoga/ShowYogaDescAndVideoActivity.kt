@@ -43,10 +43,6 @@ class ShowYogaDescAndVideoActivity : YouTubeBaseActivity() {
         initialize()
 
 
-
-
-
-
         mOnInitializedListener = object : YouTubePlayer.OnInitializedListener {
             override fun onInitializationSuccess(p0: YouTubePlayer.Provider?, p1: YouTubePlayer?, wasRestored: Boolean) {
 
@@ -98,6 +94,30 @@ class ShowYogaDescAndVideoActivity : YouTubeBaseActivity() {
                 play_button.setOnClickListener {
                     this@ShowYogaDescAndVideoActivity.playPauseBtnClick()
                 }
+                //set click listerns for back and next as video gets initialized
+                next_button.setOnClickListener {
+
+                    if (position != yogaExercise.size - 1) {
+                        position++
+                        setView()
+                    } else {
+                        Toast.makeText(applicationContext, "last item", Toast.LENGTH_LONG).show()
+                    }
+
+
+                    ytPlayer.loadVideo(exerciseUrlHash)
+                }
+                back_button.setOnClickListener {
+                    if (position != 0) {
+                        position--
+                        setView()
+                    } else {
+                        Toast.makeText(applicationContext, "first item", Toast.LENGTH_LONG).show()
+                    }
+
+
+                    ytPlayer.loadVideo(exerciseUrlHash)
+                }
             }
 
             override fun onInitializationFailure(p0: YouTubePlayer.Provider?, p1: YouTubeInitializationResult?) {
@@ -107,29 +127,7 @@ class ShowYogaDescAndVideoActivity : YouTubeBaseActivity() {
         youtube_player_view.initialize(YoutubeConfig().getApiKey(), mOnInitializedListener)
 
 
-        next_button.setOnClickListener {
 
-            if (position != yogaExercise.size - 1) {
-                position++
-                setView()
-            } else {
-                Toast.makeText(this, "last item", Toast.LENGTH_LONG).show()
-            }
-
-
-            ytPlayer.loadVideo(exerciseUrlHash)
-        }
-        back_button.setOnClickListener {
-            if (position != 0) {
-                position--
-                setView()
-            } else {
-                Toast.makeText(this, "first item", Toast.LENGTH_LONG).show()
-            }
-
-
-            ytPlayer.loadVideo(exerciseUrlHash)
-        }
     }
     fun setLoading(){
         preview_imageView.visibility = View.VISIBLE

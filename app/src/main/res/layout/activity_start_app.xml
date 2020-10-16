@@ -4,52 +4,144 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgroundi_image_main"
     tools:context=".ActivityStartApp">
 
-    <TextView
-        android:layout_width="fill_parent"
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="15.0dip"
-        android:paddingTop="15.0dip"
-        android:paddingBottom="15.0dip"
-        android:text="Sign In  Page"
-        android:textColor="@android:color/black"
-        android:textSize="20.0sp"
-        android:textStyle="bold" />
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
 
     <ProgressBar
-        android:translationZ="10dp"
         android:id="@+id/progress_circular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:translationZ="10dp"
         android:visibility="invisible" />
 
+    <RelativeLayout
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@+id/appBarLayout"
+        android:id="@+id/calenderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/banner"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/logo_panther1"/>
+        <ImageView
+            android:src="@drawable/ic_app_name"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/app_name_tv"
+            android:layout_below="@id/banner"
+            android:layout_width="200dp"
+            android:layout_height="50dp" />
+        <TextView
+            android:textSize="16sp"
+            android:id="@+id/app_desc_tv"
+            android:gravity="center"
+            android:layout_below="@id/app_name_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="-10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:text="Your companion for your physical and mental fitness journey"/>
+
+
+        <TextView
+            android:gravity="center"
+            android:layout_below="@id/app_desc_tv"
+            android:id="@+id/title_of_page_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="-15dp"
+            android:text="@string/select_birth_date"/>
+
+
+
+        <DatePicker
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/title_of_page_tv"
+            android:id="@+id/datePicker1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner" />
+        <Button
+
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/alreadyAcc_Btn"
+            android:id="@+id/continue_Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:padding="18dp"
+            android:text="Get started"
+            android:textSize="14sp" />
+        <Button
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:textAllCaps="false"
+            android:id="@+id/alreadyAcc_Btn"
+            android:textColor="@android:color/holo_blue_light"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have a account? Login" />
+    </RelativeLayout>
+
     <ImageView
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:id="@+id/textView"
+        android:id="@+id/logo_ImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="250dp"
-        android:src="@drawable/banner" />
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:src="@drawable/banner"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:layout_marginBottom="15dp"
+            android:visibility="gone" />
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -60,19 +152,19 @@
             android:text="@string/if_you_do_not_have_minimum_age_requirement_for_google_account_click_on_below_button"
             android:textColor="@color/gray"
             android:textSize="13sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <Button
-            android:visibility="visible"
             android:id="@+id/guestSignInBtn"
-            android:text="Child Login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:drawableRight="@drawable/ic_person"
             android:padding="10dp"
-            android:drawablePadding="5dp"
-            android:drawableLeft="@drawable/ic_person"
-            android:layout_marginBottom="15dp"/>
+            android:text="Child Login"
+            android:visibility="gone" />
 
 
     </LinearLayout>

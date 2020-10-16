@@ -97,11 +97,15 @@ class ViewModel : ViewModel() {
   fun getRest(db: AppDatabase, type: String, intensity: String) {
     viewModelScope.launch(Dispatchers.Default) {
 
-
       restTime.postValue(db.exerciseDao().getRestByType(type, intensity))
       //type, intensity
 
+    }
+  }
 
+  fun updateRest(db: AppDatabase, restTimeModel: RestTimeModel){
+    viewModelScope.launch(Dispatchers.Default) {
+      insertedRowInt.postValue(db.exerciseDao().updateRest(restTimeModel.restTime, restTimeModel.intensity, restTimeModel.type))
     }
   }
 

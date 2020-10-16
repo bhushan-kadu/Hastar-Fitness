@@ -65,14 +65,14 @@ class FinalExerciseListActivity : AppCompatActivity() {
             isSuggestedPlan = intent.getBooleanExtra(AppConstants.IS_SUGGESTED_PLAN, false)
 
             if (isSuggestedPlan) {
-                workoutSubType = intent.getStringExtra(AppConstants.WORKOUT_SUB_TYPE)
+                workoutSubType = intent.getStringExtra(AppConstants.WORKOUT_SUB_TYPE)!!
             } else {
                 planId = intent.getIntExtra(AppConstants.WORKOUT_PLAN_ID, -1)
             }
 
-            workoutType = intent.getStringExtra(AppConstants.WORKOUT_TYPE)
+            workoutType = intent.getStringExtra(AppConstants.WORKOUT_TYPE)!!
             if(workoutType == AppConstants.BODY_WEIGHT) {
-                intensity = intent.getStringExtra(AppConstants.INTENSITY)
+                intensity = intent.getStringExtra(AppConstants.INTENSITY)!!
             }
             totalWorkoutTime = intent.getIntExtra(AppConstants.WORKOUT_TIME_IN_MINUTES, 10)
 

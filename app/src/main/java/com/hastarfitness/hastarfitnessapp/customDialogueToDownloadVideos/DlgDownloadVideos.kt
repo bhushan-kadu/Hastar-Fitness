@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.View
 import android.view.Window
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
@@ -21,7 +22,7 @@ import java.io.File
  */
 class DlgDownloadVideos(val ctx: Context, var exerciseNamesList: MutableList<String>) : Dialog(ctx) {
 
-    private lateinit var cancelBtn: Button
+    private lateinit var cancelBtn: ImageView
     private lateinit var downloadBtn: Button
     var isDownloaded = false
 

@@ -52,4 +52,7 @@ interface UserInfoDao {
     @Query("select * from UserFoodConsumedDataDbModel where date = :date")
     fun getAllFoodConsumedByDate(date:Date):List<UserFoodConsumedDataDbModel>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrUpdateStepForTheDate(stepCount: StepCountModel):Long
+
 }

@@ -54,7 +54,7 @@ class MeditationListActivity : AppCompatActivity() {
     }
 
     fun init(){
-        meditationType = intent.getStringExtra(AppConstants.MEDITATION_TYPE)
+        meditationType = intent.getStringExtra(AppConstants.MEDITATION_TYPE)!!
 
         instantialteDb()
 

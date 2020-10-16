@@ -6,17 +6,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
@@ -25,12 +27,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
-import com.hastarfitness.hastarfitnessapp.models.User
 import com.hastarfitness.hastarfitnessapp.startingPages.ActivityStartPages
 import com.hastarfitness.hastarfitnessapp.startingPages.AppStartLoadingScreen
 import kotlinx.android.synthetic.main.activity_start_app.*
@@ -49,10 +48,15 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
     lateinit var session: Session
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        supportActionBar!!.hide()
+//        requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+//        supportActionBar!!.hide
+
         setContentView(R.layout.activity_start_app)
+
+        //manually set actionbar
+        setSupportActionBar(toolbar)
+        supportActionBar!!.title = ""
 
         initialize()
         // Configure Google Sign In
@@ -79,6 +83,8 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
 
         sign_in_button.setOnClickListener(this);
         guestSignInBtn.setOnClickListener(this);
+        continue_Btn.setOnClickListener(this);
+        alreadyAcc_Btn.setOnClickListener(this);
 
     }
 
@@ -94,6 +100,7 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
     }
 
     fun signInAnonymously() {
+        setLoading()
         auth.signInAnonymously()
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -111,11 +118,11 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
                 }
     }
 
-    fun reSetLoading(){
+    fun reSetLoading() {
         progress_circular.visibility = View.INVISIBLE
     }
 
-    fun setLoading(){
+    fun setLoading() {
         progress_circular.visibility = View.VISIBLE
     }
 
@@ -137,40 +144,47 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
 //                })
 
         session.isUserLoggedOut = false
-        if(session.areStartPagesShown!!){
+        if (session.areStartPagesShown!!) {
             startActivity(Intent(this@ActivityStartApp, ActivityDashboard::class.java))
-        } else if(!session.isChildLoggedIn){
-            val reference:DatabaseReference = database.child("users").child(auth.currentUser!!.uid)
+        } else if (!session.isChildLoggedIn) {
+            val reference: DatabaseReference = database.child("users").child(auth.currentUser!!.uid)
             val postListener = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Get Post object and use the values to update the UI
 //                    val user = dataSnapshot.getValue<User>()
                     val user: HashMap<String, String>? = try {
                         (dataSnapshot.value as HashMap<String, String>)
-                    }catch (e:Exception){
+                    } catch (e: Exception) {
                         null
                     }
                     if (user != null) {
-                        session.dateOfBirth = user[AppConstants.DOB]
-                        val birthYear = user[AppConstants.DOB]!!.split("-").last().toInt()
-                        val calInstance = Calendar.getInstance()
-                        val age = calInstance[Calendar.YEAR] - birthYear
-                        session.age = age
-                        session.gender = user[AppConstants.GENDER]
-                        session.heightCm = user[AppConstants.HEIGHT_CM]!!.toDouble()
-                        session.weightInKg = user[AppConstants.WEIGHT_KG]!!.toDouble()
-                        session.goalWeight = user[AppConstants.GOAL_WEIGHT_KG]!!.toDouble()
-                        session.weeklyActivity = user[AppConstants.WEEKLY_ACTIVITY]
-                        session.areStartPagesShown = true
-                        saveUserInformation()
+                        try {
+                            session.dateOfBirth = user[AppConstants.DOB]
+                            val birthYear = user[AppConstants.DOB]!!.split("-").last().toInt()
+                            val calInstance = Calendar.getInstance()
+                            val age = calInstance[Calendar.YEAR] - birthYear
+                            session.age = age
+                            session.gender = user[AppConstants.GENDER]
+                            session.heightCm = user[AppConstants.HEIGHT_CM]!!.toDouble()
+                            session.weightInKg = user[AppConstants.WEIGHT_KG]!!.toDouble()
+                            session.goalWeight = user[AppConstants.GOAL_WEIGHT_KG]!!.toDouble()
+                            session.weeklyActivity = user[AppConstants.WEEKLY_ACTIVITY]
+                            session.areStartPagesShown = true
+                            saveUserInformation()
 
-                        session.day = calInstance.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())
-                        session.day  = session.day!!.toLowerCase()
-                        val day = session.day!!
+                            session.day = calInstance.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())
+                            session.day = session.day!!.toLowerCase()
+                            val day = session.day!!
 
-                        session.todaysWorkoutType = AppConstants.dailyPlanBodyWeight[day]
-                        reSetLoading()
-                        startActivity(Intent(this@ActivityStartApp, AppStartLoadingScreen::class.java))
+                            session.todaysWorkoutType = AppConstants.dailyPlanBodyWeight[day]
+                            reSetLoading()
+                            startActivity(Intent(this@ActivityStartApp, AppStartLoadingScreen::class.java))
+
+                        } catch (e: Exception) {
+                            reSetLoading()
+                            startActivity(Intent(this@ActivityStartApp, ActivityStartPages::class.java))
+
+                        }
                     } else {
                         reSetLoading()
                         startActivity(Intent(this@ActivityStartApp, ActivityStartPages::class.java))
@@ -185,11 +199,10 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
             }
 
             reference.addListenerForSingleValueEvent(postListener)
-        }else{
+        } else {
             reSetLoading()
             startActivity(Intent(this@ActivityStartApp, ActivityStartPages::class.java))
         }
-
 
 
 //        if (session.areStartPagesShown!!) {
@@ -275,7 +288,7 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     override fun onStart() {
@@ -291,20 +304,87 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
             R.id.sign_in_button -> signIn()
             R.id.guestSignInBtn -> signInAnonymously()
+            R.id.alreadyAcc_Btn -> {
+                supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+                supportActionBar!!.title = getString(R.string.sign_in_page)
+
+                calenderLayout.visibility = View.GONE
+                logo_ImageView.visibility = View.VISIBLE
+
+                sign_in_button.visibility = View.VISIBLE
+
+                isLayoutSignIn = true
+            }
+            R.id.continue_Btn -> {
+                isLayoutSignIn = true
+
+                val curYear = Calendar.getInstance()[Calendar.YEAR]
+                val birthYear = datePicker1.year
+                val remYear = curYear - birthYear
+
+                supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+                supportActionBar!!.title = getString(R.string.sign_in_page)
+
+                calenderLayout.visibility = View.GONE
+                logo_ImageView.visibility = View.VISIBLE
+
+                session.age = remYear
+                session.dateOfBirth = "${datePicker1.dayOfMonth}-${datePicker1.month}-${datePicker1.year}"
+
+
+
+                if (remYear <= 13) {
+                    guestSignInBtn.visibility = View.VISIBLE
+                } else {
+                    sign_in_button.visibility = View.VISIBLE
+                }
+            }
         }
+    }
+
+    private fun displaySignInLayout() {
+        guestSignInBtn.visibility = View.GONE
+        sign_in_button.visibility = View.GONE
+        calenderLayout.visibility = View.VISIBLE
+        logo_ImageView.visibility = View.GONE
+        progress_circular.visibility = View.GONE
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+        supportActionBar!!.title = ""
+
+    }
+
+
+    var isLayoutSignIn = false
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                displaySignInLayout()
+            }
+        }
+        return true
     }
 
     private var doubleBackToExitPressedOnce = false
     override fun onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            val intent = Intent(this@ActivityStartApp, ActivitySplashScreen::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            intent.putExtra(AppConstants.EXIT, true)
-            startActivity(intent)
-            return
+
+        if (progress_circular.visibility == View.VISIBLE) {
+            progress_circular.visibility = View.INVISIBLE
+        } else {
+            if (isLayoutSignIn) {
+                displaySignInLayout()
+            } else {
+                if (doubleBackToExitPressedOnce) {
+                    val intent = Intent(this@ActivityStartApp, ActivitySplashScreen::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    intent.putExtra(AppConstants.EXIT, true)
+                    startActivity(intent)
+                }
+                doubleBackToExitPressedOnce = true
+                Toast.makeText(this, getString(R.string.app_close_message), Toast.LENGTH_SHORT).show()
+                Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+            }
         }
-        doubleBackToExitPressedOnce = true
-        Toast.makeText(this, getString(R.string.app_close_message), Toast.LENGTH_SHORT).show()
-        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+
+
     }
 }

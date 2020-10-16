@@ -16,6 +16,7 @@ import android.os.SystemClock
 import android.util.Log.v
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -28,8 +29,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.countDownTimerWithPause.CountDownTimerWithPause
+import com.hastarfitness.hastarfitnessapp.customDialogueToSetRestTime.DlgSetRestTime
 import com.hastarfitness.hastarfitnessapp.database.AppDatabase
 import com.hastarfitness.hastarfitnessapp.database.ExerciseDbModel
+import com.hastarfitness.hastarfitnessapp.database.RestTimeModel
 import com.hastarfitness.hastarfitnessapp.database.UserDailyDataDbModel
 import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
 import com.hastarfitness.hastarfitnessapp.selectPlanForDailyWorkout.SelectPlanForDailyWorkoutActivity
@@ -59,7 +62,7 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
     lateinit var restTimer: CountDownTimerWithPause
     lateinit var initialTimer: CountDownTimerWithPause
     lateinit var finalTimer: CountDownTimerWithPause
-    private var mainTimer: CountDownTimer? = null
+    private lateinit var mainTimer: CountDownTimer
     private lateinit var workoutList: ArrayList<ExerciseDbModel>
     var currentExercise = 0
     private var isActivityInPauseState = false
@@ -82,6 +85,12 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var viewModel: ViewModel
     lateinit var db: AppDatabase
+
+    private lateinit var dlgSetRestTime:DlgSetRestTime
+    lateinit var restTimeModel: RestTimeModel
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -201,6 +210,51 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         initialTimer.resume()
 
 
+
+        dlgSetRestTime = DlgSetRestTime(this@ActivityStartExercise, 10)//temp
+        dlgSetRestTime.create()
+
+        dlgSetRestTime.setOnShowListener {
+            dlgSetRestTime.isSaved = false
+        }
+
+        dlgSetRestTime.setOnDismissListener {
+            if(dlgSetRestTime.isSaved){
+                val changedRestTime = dlgSetRestTime.restTime
+                viewModel.updateRest(db, RestTimeModel(restTimeModel.id, restTimeModel.type, restTimeModel.intensity, restTimeModel.numberOfExerciseAfter,  changedRestTime))
+//                restTime_textView.text = "$changedRestTime Sec"
+            }
+
+        }
+
+        viewModel.getRest(db, AppConstants.BODY_WEIGHT, session.intensity!!.toLowerCase())
+
+        viewModel.restTime.observe(this, androidx.lifecycle.Observer { it ->
+            restTimeModel = it
+
+//            restTime_Seekbar.setProgress(it.restTime.toFloat())
+
+            dlgSetRestTime.restTime = it.restTime
+
+//            restTime_textView.text = "${restTimeModel.restTime} Sec"
+        })
+
+        settings_button.setOnClickListener {
+            dlgSetRestTime.show()
+        }
+
+        val volumeOnDrawable = ContextCompat.getDrawable(this, R.drawable.ic_volume)
+        val volumeOffDrawable = ContextCompat.getDrawable(this, R.drawable.ic_volume_off)
+
+        volume_button.setOnClickListener {
+            val newDrawable = if((it as ImageView).drawable == volumeOnDrawable){
+                volumeOffDrawable
+            }else{
+                volumeOnDrawable
+            }
+            it.setImageDrawable(newDrawable)
+
+        }
     }
 
     /**
@@ -219,73 +273,7 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         seekbar_exercises_completed_indicator.progress = currentExercise
     }
 
-    //back button click
-//    fun backClick() {
-//
-//        //check if current exercise is first one
-//        if (currentExercise != 0) {
-//            //reduce the current interval i.e. exercise count
-//            currentInterval--
-//
-//            //if rest time do this
-//            //here time to be added to workout time is calculated and added
-//            if (isRestTime) {
-//
-//                val timerElapsedTime = ((restTimer.timePassed() + 999) / 1000) * 1000
-//                addRestTime(timerElapsedTime)
-//                setTimeTextAndCircularProgressText(restTime)
-//
-//            } else {//if normal timer then do this
-//
-//                val timerElapsedTime = ((timer.timePassed() + 999) / 1000) * 1000
-//                addWorkoutTime(timerElapsedTime)
-//                setTimeTextAndCircularProgressText(timerInitialTime)
-//            }
-//
-//
-//
-//            setTimeTextAndCircularProgressText(timerInitialTime)
-//
-//            timer.cancel()
-//            if (isRestTime) {
-//                restTimer.cancel()
-//                if (!isActivityInPauseState) setGif()
-//            }
-//
-//            if (currentInterval % restInterval == 0 && currentInterval != 0 && currentExercise != 0) {
-//
-//
-//                setTimeTextAndCircularProgressText(timerInitialTime)
-//                //initialize rest timer
-//                setCircularTimerMaxProgress(restTime)
-//                setTimeTextAndCircularProgressText(restTime)
-//                isRestTime = true
-//                resetGif()
-//                startRestTimer()
-//                if (!isActivityInPauseState) {
-//                    changeRestColorScheme()
-//                    restTimer.resume()
-//                }
-//            } else {
-//                currentExercise--
-//                //set current exercise title
-//                setExerciseTitle()
-//
-//                isRestTime = false
-//                setCircularTimerMaxProgress(timerInitialTime)
-//                setTimeTextAndCircularProgressText(timerInitialTime)
-//                startTimer()
-//                if (!isActivityInPauseState) {
-//                    changeNormalColorScheme()
-//                    timer.resume()
-//                }
-//            }
-//        } else {
-//            Toast.makeText(this, "This is first Exercise", Toast.LENGTH_SHORT).show()
-//        }
-//
-//
-//    }
+
 
     private fun addWorkoutTime(time: Long) {
         totalWorkoutTime += (time + timerInitialTime)
@@ -294,143 +282,6 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
     private fun addRestTime(time: Long) {
         totalWorkoutTime += (time + restTime)
     }
-
-    //next button click
-//    private fun nextClick() {
-//
-//        //if initial timer then start initialize and start normal timer for first exercise
-//        if (isInitialTimer) {
-//            //disable initial timer
-//            isInitialTimer = false
-//            initialTimer.cancel()
-//
-//            //set normal color scheme
-//            changeNormalColorScheme()
-//
-//            //initialize normal timer
-//            setCircularTimerMaxProgress(timerInitialTime)
-//            setTimeTextAndCircularProgressText(timerInitialTime)
-//            startTimer()
-//            //if activity is not in pause state then resume timer
-//            if (!isActivityInPauseState) {
-//                changeNormalColorScheme()
-//                timer.resume()
-//            }
-//        } else {
-//            //check if current exercise if last one
-//            if (noOfExerciseSlots != currentExercise) {
-//
-//                //increment the exercise count i.e. interval
-//                currentInterval++
-//
-//                //if it is rest time do this
-//                if (isRestTime) {
-//
-//                    //set rest color scheme
-//                    changeRestColorScheme()
-//
-//                    //calculate elapsed time to decrement from workout time
-//                    val timerElapsedTime = ((restTimer.timePassed() + 999) / 1000) * 1000
-//                    val timerRemainingTime = (restTime + 450) - timerElapsedTime
-//                    //reduce time
-//                    reduceTotalWorkoutTime(timerRemainingTime)
-//                    //set all text
-//                    setTimeTextAndCircularProgressText(restTime)
-//
-//                    restTimer.cancel()
-//                    if (!isActivityInPauseState) setGif()
-//
-//                } else {//else it is normal timer do this
-//                    //calculate elapsed time to decrement from workout time
-//
-//                    //set normal color scheme
-//                    changeNormalColorScheme()
-//
-//                    val timerElapsedTime = ((timer.timePassed() + 999) / 1000) * 1000
-//                    val timerRemainingTime = timerInitialTime - timerElapsedTime
-//                    //reduce time
-//                    reduceTotalWorkoutTime(timerRemainingTime)
-//                    //set all text
-//                    setTimeTextAndCircularProgressText(timerInitialTime)
-//                    timer.cancel()
-//                }
-//
-//                //check if current interval belongs to rest time
-//                if (currentInterval % restInterval == 0 && currentExercise != noOfExerciseSlots - 1) {
-//
-//                    //set rest color scheme
-//                    changeRestColorScheme()
-//
-//                    //set rest time true
-//                    isRestTime = true
-//                    resetGif() //stop gif as it is rest time
-//
-//
-//                    //set all text
-//                    setTimeTextAndCircularProgressText(timerInitialTime)
-//
-//                    //initialize rest timer
-//                    setCircularTimerMaxProgress(restTime)
-//                    setTimeTextAndCircularProgressText(restTime)
-//                    startRestTimer()
-//                    if (!isActivityInPauseState) {
-//                        changeRestColorScheme()
-//                        restTimer.resume()
-////                        currentExercise++
-//                        //set current exercise title as e.g. next up - Chest Expander
-//                        setExerciseTitle()
-//                        incrementSeekbarExercisesCompletedIndicator()
-//                    }
-//                } else {//if not rest time interval then do this
-//
-//                    //set normal color scheme
-//                    changeNormalColorScheme()
-//
-//                    //set rest time to false
-//                    isRestTime = false
-//
-//                    //increment exercise count
-//                    currentExercise++
-//                    setSeekbarExercisesCompletedIndicator()
-//
-//                    //set current exercise title
-////                setExerciseTitle()
-//                    //update current exercise title as e.g. Chest Expander
-//                    updateExerciseTitle()
-//
-//                    if (totalWorkoutTime < timerInitialTime) {
-//                        //initialize normal timer
-//                        setCircularTimerMaxProgress(totalWorkoutTime)
-//                        setTimeTextAndCircularProgressText(totalWorkoutTime)
-////                    Toast.makeText(this, "finished", Toast.LENGTH_SHORT).show()
-//
-//                        isFinalTimer = true
-//                        startFinalTimer(totalWorkoutTime)
-//                        //if activity is not in pause state then resume timer
-//                        if (!isActivityInPauseState) {
-//                            changeNormalColorScheme()
-//                            finalTimer.resume()
-//                        }
-//
-//                    } else {
-//                        //initialize normal timer
-//                        setCircularTimerMaxProgress(timerInitialTime)
-//                        setTimeTextAndCircularProgressText(timerInitialTime)
-//                        startTimer()
-//                        //if activity is not in pause state then resume timer
-//                        if (!isActivityInPauseState) {
-//                            changeNormalColorScheme()
-//                            timer.resume()
-//                        }
-//                    }
-//                }
-//
-//            } else {
-//                Toast.makeText(this, "This is last Exercise", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//
-//    }
 
 
     fun reduceTotalWorkoutTime(time: Long) {
@@ -744,8 +595,7 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
             if (currentExercise < noOfExerciseSlots - 1) {
 //        mainTimer!!.pause()
                 try {
-                    mainTimer!!.cancel()
-                    mainTimer = null
+                    mainTimer.cancel()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -828,7 +678,7 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
             isActivityInPauseState = true
             if (isInitialTimer) {
                 initialTimer.pause()
-            } else mainTimer!!.cancel()
+            } else mainTimer.cancel()
         }
     }
 

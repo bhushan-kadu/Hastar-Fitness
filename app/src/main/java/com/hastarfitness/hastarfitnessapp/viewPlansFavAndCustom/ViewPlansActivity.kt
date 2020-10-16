@@ -108,7 +108,7 @@ class ViewPlansActivity : AppCompatActivity() {
     fun init(){
         //get required intent
 //        workoutType = intent.getStringExtra(AppConstants.WORKOUT_TYPE)
-        filterBy = intent.getStringExtra(AppConstants.FILTER_BY)
+        filterBy = intent.getStringExtra(AppConstants.FILTER_BY)!!
 
 
         if(filterBy == AppConstants.MY_PLANS){

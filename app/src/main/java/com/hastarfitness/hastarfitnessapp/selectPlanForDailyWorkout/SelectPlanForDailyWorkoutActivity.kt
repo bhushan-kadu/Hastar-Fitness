@@ -24,6 +24,8 @@ import com.hastarfitness.hastarfitnessapp.finalExerciseListBeforeStartingWorkout
 import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
 import com.hastarfitness.hastarfitnessapp.selectBaseWorkoutPlan.WorkoutPlansListActivity
 import kotlinx.android.synthetic.main.activity_select_plan_for_daily_workout.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Activity for user to select any plan (App suggested or Predefined plans)
@@ -77,39 +79,39 @@ class SelectPlanForDailyWorkoutActivity : AppCompatActivity(), View.OnClickListe
         //populate a temporary table which would have today's exercises to be performed
         //only if the day is changed
         if (session.isDayChanged!!) {
-            session.day = day
             generateFinalExerciseTable()
         }
 
 
 
         lightCardio_radio.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
+            if (isChecked) {
                 selectSingleRadio(buttonView.id)
                 cardioSubType = AppConstants.LIGHT_CARDIO
             }
         }
         hiit_radio.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
+            if (isChecked) {
                 selectSingleRadio(buttonView.id)
                 cardioSubType = AppConstants.HIIT
             }
         }
         plyometrics_radio.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
+            if (isChecked) {
                 selectSingleRadio(buttonView.id)
                 cardioSubType = AppConstants.PLYOMETRICS
             }
         }
         jointFriendly_radio.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
+            if (isChecked) {
                 selectSingleRadio(buttonView.id)
                 cardioSubType = AppConstants.JOINT_FRIENDLY
             }
         }
 
     }
-    private fun selectSingleRadio(checkedId:Int){
+
+    private fun selectSingleRadio(checkedId: Int) {
         lightCardio_radio.isChecked = false
         hiit_radio.isChecked = false
         plyometrics_radio.isChecked = false
@@ -122,17 +124,22 @@ class SelectPlanForDailyWorkoutActivity : AppCompatActivity(), View.OnClickListe
         session = Session(this)
         try {
             //this applies if activity is called from homeFragment
+//            val calInstance = Calendar.getInstance()
+//            day = calInstance.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())!!
+//            day = day.toLowerCase()
             day = session.day!!
-            session.todaysWorkoutType = when (day) {
-                AppConstants.MONDAY -> session.mondayBodyWeight
-                AppConstants.TUESDAY -> session.tuesdayBodyWeight
-                AppConstants.WEDNESDAY -> session.wednesdayBodyWeight
-                AppConstants.THURSDAY -> session.thursdayBodyWeight
-                AppConstants.FRIDAY -> session.fridayBodyWeight
-                AppConstants.SATURDAY -> session.saturdayBodyWeight
-                AppConstants.SUNDAY -> session.sundayBodyWeight
-                else -> ""
-            }
+
+
+//            session.todaysWorkoutType = when (day) {
+//                AppConstants.MONDAY -> session.mondayBodyWeight
+//                AppConstants.TUESDAY -> session.tuesdayBodyWeight
+//                AppConstants.WEDNESDAY -> session.wednesdayBodyWeight
+//                AppConstants.THURSDAY -> session.thursdayBodyWeight
+//                AppConstants.FRIDAY -> session.fridayBodyWeight
+//                AppConstants.SATURDAY -> session.saturdayBodyWeight
+//                AppConstants.SUNDAY -> session.sundayBodyWeight
+//                else -> ""
+//            }
             workoutType = session.todaysWorkoutType!!
             intensity = session.intensity!!
             isCardioEnabled = session.isCardioEnabled!!
@@ -173,7 +180,6 @@ class SelectPlanForDailyWorkoutActivity : AppCompatActivity(), View.OnClickListe
 
         //setup ViewModel
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
-
 
 
     }
@@ -349,7 +355,7 @@ class SelectPlanForDailyWorkoutActivity : AppCompatActivity(), View.OnClickListe
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.add_plan -> {
                 creteNewPlan()
             }

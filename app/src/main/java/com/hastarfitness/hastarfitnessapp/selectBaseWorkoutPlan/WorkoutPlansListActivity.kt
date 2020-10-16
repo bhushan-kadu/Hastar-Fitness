@@ -91,7 +91,7 @@ class WorkoutPlansListActivity : AppCompatActivity() {
     var isUserPlans = false
     fun init(){
         //get required intent
-        workoutType = intent.getStringExtra(AppConstants.WORKOUT_TYPE)
+        workoutType = intent.getStringExtra(AppConstants.WORKOUT_TYPE)!!
         isCalledFromHome = intent.getBooleanExtra(AppConstants.IS_CALLED_FROM_HOME, false)
 
         //instantiate db

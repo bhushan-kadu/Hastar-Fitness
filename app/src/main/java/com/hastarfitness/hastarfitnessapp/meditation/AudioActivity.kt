@@ -175,7 +175,7 @@ class AudioActivity : AppCompatActivity() {
 
     }
     fun init(){
-        meditationData = intent.getParcelableExtra(AppConstants.MEDITATION_DATA)
+        meditationData = intent.getParcelableExtra(AppConstants.MEDITATION_DATA)!!
 
         title_text.text = meditationData.type
         desc_text.text = meditationData.desc

@@ -63,8 +63,8 @@ class YogaListActivity : AppCompatActivity() {
     }
 
     fun init() {
-        intensity = intent.getStringExtra(AppConstants.YOGA_TYPE)
-        workoutType = intent.getStringExtra(AppConstants.WORKOUT_TYPE)
+        intensity = intent.getStringExtra(AppConstants.YOGA_TYPE)!!
+        workoutType = intent.getStringExtra(AppConstants.WORKOUT_TYPE)!!
         instantiateDb()
     }
 

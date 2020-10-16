@@ -4,6 +4,10 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
         <!-- Customize your theme here. -->
 <!--        <item name="colorPrimary">@color/babyBlue</item>-->
+
+        <item name="android:navigationBarColor">@android:color/white</item>
+
+
         <item name="colorPrimary">#0B86E6</item>
         <item name="colorPrimaryDark">#3C3C3C</item>
 
@@ -36,8 +40,16 @@
         <item name="colorPrimary">@android:color/transparent</item>
     </style>
 
+    <style name="Actionbar.Transparent.WithBlackText" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="colorPrimary">@android:color/transparent</item>
+    </style>
 
-    <style name="AppTheme.NoActionBar">
+
+
+
+<style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

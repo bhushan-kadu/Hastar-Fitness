@@ -5,6 +5,7 @@
 
     <dist:module dist:instant="true" />
 
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,8 +18,14 @@
         android:roundIcon="@mipmap/ic_hastar_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AboutUs"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <service
+            android:name=".pedometer.MyPedometerService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity
+            android:name=".AboutUs"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -35,7 +42,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".DownloadVideos"></activity>
+        <activity android:name=".DownloadVideos" />
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".startingPages.AppStartLoadingScreen"
@@ -87,7 +94,7 @@
         <activity android:name=".fitnessCalculators.BMICalculator" />
         <activity android:name=".meditation.ShowMeditationTypes" />
         <activity android:name=".meditation.AudioActivity" />
-        <activity android:name=".videoPlaybackTesting.VideoPlaybackTestActivity"></activity>
+        <activity android:name=".videoPlaybackTesting.VideoPlaybackTestActivity" />
         <activity
             android:name=".yoga.ShowYogaDescAndVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -104,7 +111,9 @@
             android:name=".ActivityStartExercise"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Testingactivity" />
+        <activity android:name=".TestingActivity">
+
+        </activity>
         <activity android:name=".TimerActivity" />
         <activity
             android:name=".exerciseListForCardioAndBodyWeight.ActivityExerciseList"
@@ -121,7 +130,9 @@
             android:name=".ActivityAlreadyHaveAcc"
             android:label="@string/title_activity_already_acc"
             android:theme="@android:style/Theme.Holo.Dialog" />
-        <activity android:name=".ActivityStartApp" />
+        <activity
+            android:name=".ActivityStartApp"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ActivitySplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -132,7 +143,7 @@
         <activity
             android:name=".ActivityDashboard"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

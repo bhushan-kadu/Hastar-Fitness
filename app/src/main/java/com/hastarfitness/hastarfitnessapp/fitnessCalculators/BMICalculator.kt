@@ -134,7 +134,7 @@ class BMICalculator : AppCompatActivity(), Validator.ValidationListener {
 
         val bmi = fitnessCalculators.calculateBMIMetric(height, weight)
 
-        bmi_result_textView.text = "Your BMI is ${round(bmi)}"
+        bmi_result_textView.text = "Your BMI is ${roundingFormat.format(bmi)}"
 
         showSeekbar(bmi)
 

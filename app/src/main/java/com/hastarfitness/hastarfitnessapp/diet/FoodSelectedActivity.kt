@@ -138,6 +138,7 @@ class FoodSelectedActivity : AppCompatActivity(), Validator.ValidationListener {
         today.set(Calendar.SECOND, 0)
         today.set(Calendar.MILLISECOND, 0)
 
+
         val energy = kcal_textView.text.split("kcal")[0].toDouble()
         val protein = protein_textView.text.split("gm")[0].toDouble()
         val fat = fat_textView.text.split("gm")[0].toDouble()

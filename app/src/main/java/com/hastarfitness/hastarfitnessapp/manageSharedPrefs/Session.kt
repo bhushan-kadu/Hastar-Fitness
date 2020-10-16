@@ -84,8 +84,8 @@ class Session(val activity: Activity) {
     val days = listOf<String>("sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday")
     var day: String?
         get() = prefs!!.getString("day", days[Calendar.getInstance()[Calendar.DAY_OF_WEEK] - 1])
-        set(mobile) {
-            prefs!!.edit().putString("day", mobile).apply()
+        set(day) {
+            prefs!!.edit().putString("day", day).apply()
         }
 
     var name: String?
@@ -249,7 +249,7 @@ class Session(val activity: Activity) {
     var goalCarbs: Double?
         get() = prefs!!.getString("goalCarbs", "-1")!!.toDouble()
         set(goalCarbs) {
-            prefs!!.edit().putString("goalCarbs", goalProtein.toString()).apply()
+            prefs!!.edit().putString("goalCarbs", goalCarbs.toString()).apply()
         }
 
     var dietPreference: String?
@@ -305,6 +305,14 @@ class Session(val activity: Activity) {
         get() = prefs!!.getString("sundayBodyWeight", AppConstants.dailyPlanBodyWeight[AppConstants.SUNDAY])
         set(sundayBodyWeight) {
             prefs!!.edit().putString("sundayBodyWeight", sundayBodyWeight).apply()
+        }
+
+
+    //rest times
+    var restTime: Int
+        get() = prefs!!.getInt("restTime", 0)
+        set(restTime) {
+            prefs!!.edit().putInt("restTime", restTime).apply()
         }
 
 }

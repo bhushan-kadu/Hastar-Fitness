@@ -65,7 +65,7 @@ class MeditationListActivity : AppCompatActivity() {
     }
 
     fun init() {
-        intensity = intent.getStringExtra(AppConstants.YOGA_TYPE)
+        intensity = intent.getStringExtra(AppConstants.YOGA_TYPE)!!
         instantiateDb()
     }
 

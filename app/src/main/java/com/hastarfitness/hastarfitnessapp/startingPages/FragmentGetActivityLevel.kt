@@ -9,7 +9,8 @@ import androidx.fragment.app.Fragment
 import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 
-class FragmentGetActivityLevel : Fragment() {
+class FragmentGetActivityLevel : Fragment(), View.OnClickListener {
+    private lateinit var parentActivity:ActivityStartPages
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -21,7 +22,8 @@ class FragmentGetActivityLevel : Fragment() {
         val sixToSevenButton = rootView.findViewById<Button>(R.id.sixToSeven)
         val veryHardButton = rootView.findViewById<Button>(R.id.veryHard)
 
-        val parentActivity = activity as ActivityStartPages
+        parentActivity = activity as ActivityStartPages
+
         veryLittleButton.setOnClickListener {
             parentActivity.weeklyActivity = AppConstants.LITTLE_OR_NO_EXERCISE
             parentActivity.viewPager.currentItem = parentActivity.viewPager.currentItem + 1
@@ -43,5 +45,15 @@ class FragmentGetActivityLevel : Fragment() {
             parentActivity.viewPager.currentItem = parentActivity.viewPager.currentItem + 1
         }
         return rootView
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.sixToSeven -> {
+                parentActivity.weeklyActivity = AppConstants.HARD_EXERCISE
+            parentActivity.viewPager.currentItem = parentActivity.viewPager.currentItem + 1
+
+            }
+        }
     }
 }

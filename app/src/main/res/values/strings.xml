@@ -121,7 +121,7 @@
     <string name="highest_weight">Highest Weight</string>
     <string name="lowest_weight">Lowest Weight</string>
     <string name="average_weight">Average Weight</string>
-    <string name="to_enable_or_disable_cardio">To Enable or disable cardio</string>
+    <string name="to_enable_or_disable_cardio">Enable or disable cardio</string>
     <string name="select_day_of_your_choice">Select Day of your Choice</string>
     <string name="select_intensity">Select Intensity</string>
     <string name="save_preferences">Save Preferences</string>
@@ -192,24 +192,32 @@
     <string name="click_here_to_set_diet">click here to set diet</string>
     <string name="default_web_client_id">965913102895-ohskq5s4j2q9naulo53guc1nnvnqgnnt.apps.googleusercontent.com</string>
     <string name="select_birth_date">Select Birth-date</string>
+    <string name="your_birth_date">Your Date of Birth</string>
     <string name="download_plan">Download Plan</string>
     <string name="please_download_plan_before_starting_workout">Please Download Plan Before Starting Workout</string>
     <string name="select_base_plan">Select Base Plan</string>
     <string name="plyometrics">Plyometrics</string>
     <string name="joint_friendly">Joint Friendly</string>
     <string name="click_on_below_button_to_setup_your_diet_for_first_time">click on below button to setup your diet for first time</string>
-    <string name="loading_app_for_the_first_time">Loading App for the first time</string>
+    <string name="loading_app_for_the_first_time">Just a moment while we build your Daily Plan</string>
     <string name="loginSuccessful">Login successful as </string>
     <string name="loginFailed">Login failed </string>
     <string name="sign_in_as_a_guest">sign in as a guest</string>
     <string name="if_you_do_not_have_minimum_age_requirement_for_google_account_click_on_below_button">If You do not have minimum age requirement for google account, use child login below</string>
-    <string name="What_is_weekly_diet_goal">Whs is your weekly diet Goal?</string>
+    <string name="What_is_weekly_diet_goal">What is your weekly diet Goal?</string>
     <string name="no_custom_plans_created_yet">No custom plans created yet</string>
     <string name="create_plan">create plan</string>
     <string name="you_don_t_have_any_favourite_plans_yet">You Don\'t have any favourite plans yet</string>
     <string name="share">Share</string>
     <string name="rate">Rate</string>
     <string name="about_us">About Us</string>
+    <string name="submit_a_bug_report">Submit a bug report</string>
+    <string name="neck_in">neck(in)</string>
+    <string name="height_feet">height (feet)</string>
+    <string name="height_inches">height (inches)</string>
+    <string name="diet">Diet</string>
+    <string name="submit_bug">Submit a Bug</string>
+    <string name="sign_in_page">Sign In</string>
 
 
 </resources>

@@ -115,8 +115,8 @@ class TimerActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun init() {
-        typeOfIntensity = intent.getStringExtra(AppConstants.INTENSITY)
-        typeOfWorkout = intent.getStringExtra(AppConstants.WORKOUT_TYPE)
+        typeOfIntensity = intent.getStringExtra(AppConstants.INTENSITY)!!
+        typeOfWorkout = intent.getStringExtra(AppConstants.WORKOUT_TYPE)!!
         typeOfWorkoutSubType = intent.getStringExtra(AppConstants.WORKOUT_SUB_TYPE)
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         instantiateDb()

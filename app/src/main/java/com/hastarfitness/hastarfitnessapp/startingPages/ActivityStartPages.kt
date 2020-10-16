@@ -111,7 +111,6 @@ class ActivityStartPages : AppCompatActivity() {
 
     companion object {
         private val TAB_TITLES = intArrayOf(R.string.title_activity_get_gender,
-                R.string.enter_age_text,
                 R.string.title_activity_get_height,
                 R.string.title_activity_get_weight,
                 R.string.title_activity_get_goal_weight,

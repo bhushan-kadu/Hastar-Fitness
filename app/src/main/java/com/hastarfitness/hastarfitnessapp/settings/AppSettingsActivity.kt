@@ -1,35 +1,100 @@
 package com.hastarfitness.hastarfitnessapp.settings
 
 import android.content.Intent
+import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.hastarfitness.hastarfitnessapp.ActivityDashboard
 import com.hastarfitness.hastarfitnessapp.R
+import com.hastarfitness.hastarfitnessapp.ViewModel
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
+import com.hastarfitness.hastarfitnessapp.customDialogueToSetRestTime.DlgSetRestTime
+import com.hastarfitness.hastarfitnessapp.database.AppDatabase
+import com.hastarfitness.hastarfitnessapp.database.RestTimeModel
 import com.hastarfitness.hastarfitnessapp.diet.dietStartPages.DietStartPagesActivity
 import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.lang.reflect.Field
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AppSettingsActivity : AppCompatActivity(), StartDragListener {
     var day = ""
+    private lateinit var viewModel: ViewModel
+    lateinit var db: AppDatabase
+    lateinit var restTimeModel: RestTimeModel
+    private lateinit var dlgSetRestTime:DlgSetRestTime
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        initialize()
 
         supportActionBar!!.title = "Settings"
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val session = Session(this)
+
+
+//        get the rest time from session if present else get from db
+
+
+        dlgSetRestTime = DlgSetRestTime(this@AppSettingsActivity, 10)//temp
+        dlgSetRestTime.create()
+
+        dlgSetRestTime.setOnShowListener {
+            dlgSetRestTime.isSaved = false
+        }
+
+        dlgSetRestTime.setOnDismissListener {
+            if(dlgSetRestTime.isSaved){
+                val changedRestTime = dlgSetRestTime.restTime
+                viewModel.updateRest(db, RestTimeModel(restTimeModel.id, restTimeModel.type, restTimeModel.intensity, restTimeModel.numberOfExerciseAfter,  changedRestTime))
+                restTime_textView.text = "$changedRestTime Sec"
+            }
+
+        }
+        val workoutType = session.todaysWorkoutType!!
+        val intensity = session.intensity!!
+        viewModel.getRest(db, AppConstants.BODY_WEIGHT, intensity.toLowerCase())
+
+        viewModel.restTime.observe(this, Observer { it ->
+            restTimeModel = it
+
+//            restTime_Seekbar.setProgress(it.restTime.toFloat())
+
+            dlgSetRestTime.restTime = it.restTime
+
+            restTime_textView.text = "${restTimeModel.restTime} Sec"
+        })
+
+
+
+        openRestChangeDialogue_Btn.setOnClickListener {
+            dlgSetRestTime.show()
+        }
+
+
+
+
         val calInstance = Calendar.getInstance()
         day = calInstance.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())!!.toLowerCase()
 
@@ -56,8 +121,8 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
             val intensityString = intensityRadioBtn.tag.toString()
 
 
-            session.isCardioEnabled = isCardioEnabledCbx.isChecked
-            session.intensity = intensityString
+
+
 
             for (child in 0 until settings_recyclerView.childCount) {
                 val viewGroup = ((settings_recyclerView.getChildAt(child) as ViewGroup).getChildAt(0) as ViewGroup)
@@ -112,15 +177,82 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
         set_diet_btn.setOnClickListener {
             startActivity(Intent(this, DietStartPagesActivity::class.java))
         }
+
+        isCardioEnabled.setOnCheckedChangeListener { compoundButton, b ->
+            session.isCardioEnabled = b
+        }
+
+
+        exerciseIntensityRadio.setOnCheckedChangeListener { radioGroup, i ->
+            val radioBtn = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+            when(radioBtn.text.toString().toLowerCase()){
+                AppConstants.BEGINNER ->{
+                    viewModel.getRest(db, AppConstants.BODY_WEIGHT, AppConstants.BEGINNER)
+                    session.intensity = AppConstants.BEGINNER
+                }
+                AppConstants.INTERMEDIATE ->{
+                    viewModel.getRest(db, AppConstants.BODY_WEIGHT, AppConstants.INTERMEDIATE)
+                    session.intensity = AppConstants.INTERMEDIATE
+
+                }
+                AppConstants.ADVANCED ->{
+                    viewModel.getRest(db, AppConstants.BODY_WEIGHT, AppConstants.ADVANCED)
+                    session.intensity = AppConstants.ADVANCED
+
+                }
+            }
+        }
+
     }
-    private fun setDayColor(day:String){
-        val dayTextViewId = getResId(day,  R.id::class.java)
+
+    private fun initialize() {
+        instantiateDb()
+
+        //setup ViewModel
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
+    }
+
+    private fun instantiateDb() {
+        db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "HasterDb.db")
+                .build()
+    }
+
+    private fun openBugReportPageInBrowser() {
+        val database: DatabaseReference = Firebase.database.reference
+        val ref = database.child("urls").child("feedback")
+
+        val valueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val url = dataSnapshot.value.toString()
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(browserIntent)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                databaseError
+                // ...
+            }
+        }
+        ref.addValueEventListener(valueEventListener)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.setting_activity_menu, menu)
+        return true
+    }
+
+    private fun setDayColor(day: String) {
+        val dayTextViewId = getResId(day, R.id::class.java)
         val dayTextView = findViewById<TextView>(dayTextViewId)
-        dayTextView.setTextColor(ContextCompat.getColor(this, R.color.green))
+        dayTextView.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        dayTextView.typeface = Typeface.DEFAULT_BOLD
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> onBackPressed()
+            R.id.submit_bug -> openBugReportPageInBrowser()
         }
         return true
     }

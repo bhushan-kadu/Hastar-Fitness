@@ -279,9 +279,9 @@ class FitnessDataFragment : Fragment() {
     private fun setCurrentWeight(weight: Float) {
         weight_textView.text = roundingFormat.format(weight) + " Kg"
     }
-    private fun setLowHighAverageWeight(weightLow: Float, weightHigh: Float, weightAverage: Double) {
-        highest_weight_textView.text = roundingFormat.format(weightHigh) + "Kg"
-        lowest_weight_textView.text = roundingFormat.format(weightLow) + "Kg"
+    private fun setLowHighAverageWeight(weightMax: Float, weightMin: Float, weightAverage: Double) {
+        highest_weight_textView.text = roundingFormat.format(weightMax) + "Kg"
+        lowest_weight_textView.text = roundingFormat.format(weightMin) + "Kg"
         average_weight_textView.text = roundingFormat.format(weightAverage) + "Kg"
     }
 

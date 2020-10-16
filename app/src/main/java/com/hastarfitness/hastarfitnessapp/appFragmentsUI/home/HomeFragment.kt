@@ -1,7 +1,10 @@
 package com.hastarfitness.hastarfitnessapp.appFragmentsUI.home
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +14,24 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import com.hastarfitness.hastarfitnessapp.ActivityDashboard
 import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.ViewModel
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.database.AppDatabase
+import com.hastarfitness.hastarfitnessapp.database.StepCountModel
 import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
 import com.hastarfitness.hastarfitnessapp.meditationNew.ShowMeditationTypesActivity
+import com.hastarfitness.hastarfitnessapp.pedometer.MyPedometerService
+import com.hastarfitness.hastarfitnessapp.pedometer.PedometerViewModel
+import com.hastarfitness.hastarfitnessapp.pedometer.StepTakenMessage
 import com.hastarfitness.hastarfitnessapp.selectPlanForDailyWorkout.SelectPlanForDailyWorkoutActivity
 import com.hastarfitness.hastarfitnessapp.viewPlansFavAndCustom.ViewPlansActivity
 import com.hastarfitness.hastarfitnessapp.yoga.ShowYogaTypesActivity
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.lang.String
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -29,9 +40,10 @@ import java.util.*
 class HomeFragment : Fragment() {
     private lateinit var viewModel: ViewModel
     private lateinit var db: AppDatabase
-    private var session: Session? = null
+    private lateinit var session: Session
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         initialize()
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         view.findViewById<View>(R.id.start_workout).setOnClickListener { v: View? ->
@@ -115,10 +127,23 @@ class HomeFragment : Fragment() {
             quote_textView.text = "\"${it.quote}\""
         })
 
+        //set pedometer
+        spfPedometer = requireActivity().getSharedPreferences("pedometer", Context.MODE_PRIVATE)
+        val stepsGoal =  spfPedometer.getInt("steps_goal_everyday", 6000)
+        steps_seekArc.max = stepsGoal
+        stepsGoal_textView.text = stepsGoal.toString()
+
     }
 
     var roundingFormat: DecimalFormat? = null
+    lateinit var viewModelPedometer: PedometerViewModel
+    lateinit var spfPedometer:SharedPreferences
     fun initialize() {
+
+        //start pedometer service calling this again has same effect
+        requireActivity().startService(Intent(requireContext(), MyPedometerService::class.java))
+
+
 
         //setup session
         session = Session(requireActivity())
@@ -130,6 +155,7 @@ class HomeFragment : Fragment() {
 
 //        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
+        viewModelPedometer = ViewModelProvider(this).get(PedometerViewModel::class.java)
 
         //init format
         roundingFormat = DecimalFormat("#.##")
@@ -146,5 +172,51 @@ class HomeFragment : Fragment() {
     private fun instantiateDb() {
         db = Room.databaseBuilder(requireContext(), AppDatabase::class.java, "HasterDb.db")
                 .build()
+    }
+
+    private fun getTodaysDate(): Date {
+        val today = Calendar.getInstance()
+        today.set(Calendar.HOUR_OF_DAY, 0)
+        today.set(Calendar.MINUTE, 0)
+        today.set(Calendar.SECOND, 0)
+        today.set(Calendar.MILLISECOND, 0)
+
+        return today.time
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: StepTakenMessage?) {
+        val steps = event!!.todaysSteps
+        Log.v("steps", steps.toString())
+        step_count.text = steps.toString()
+
+        steps_seekArc.progress = steps
+        val stepsGoal = spfPedometer.getInt("steps_goal_everyday", 6000)
+        val stepsRemain = stepsGoal - steps
+        stepRemain_textView.text = if(stepsRemain >= 0){
+            stepsRemain.toString()
+        }else{
+            0.toString()
+        }
+
+        viewModelPedometer.insertOrUpdateStepForTheDate(db, StepCountModel(getTodaysDate(), steps))
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val spf = requireActivity().getSharedPreferences("pedometer", Context.MODE_PRIVATE)
+        step_count.text = spf.getInt("my_last_saved_step_value", 0).toString()
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 }
