@@ -254,36 +254,36 @@
                 <RelativeLayout
                     android:id="@+id/relativeLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="250sp">
+                    android:layout_height="300dp">
 
                     <ImageView
                         android:id="@+id/exercise_bitmap"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/pushup"
                         android:visibility="gone" />
 
                     <ImageView
                         android:id="@+id/exercise_gif"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:visibility="gone" />
 
                     <RelativeLayout
-                        android:layout_width="250sp"
-                        android:layout_height="250sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true">
 
                         <VideoView
                             android:id="@+id/exercise_video"
-                            android:layout_width="250sp"
-                            android:layout_height="250sp"
+                            android:layout_width="300dp"
+                            android:layout_height="300dp"
                             android:layout_centerHorizontal="true" />
 
                         <ImageView
                             android:id="@+id/exercise_video_bitmap"
-                            android:layout_width="250sp"
-                            android:layout_height="250sp"
+                            android:layout_width="300dp"
+                            android:layout_height="300dp"
                             android:layout_centerHorizontal="true"
                             android:visibility="visible" />
                     </RelativeLayout>

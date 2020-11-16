@@ -358,7 +358,7 @@
                 android:padding="30dp"
                 app:arcWidth="10dp"
                 app:enabled="false"
-                app:progress="30"
+                app:progress="0"
                 app:progressColor="#FBA235"
                 app:progressWidth="10dp"
                 app:rotation="0"

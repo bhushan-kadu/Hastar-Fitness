@@ -315,4 +315,12 @@ class Session(val activity: Activity) {
             prefs!!.edit().putInt("restTime", restTime).apply()
         }
 
+
+    //volume and controls
+    var isVolumeOn: Boolean?
+        get() = prefs!!.getBoolean("isVolumeOn", true)
+        set(isVolumeOn) {
+            prefs!!.edit().putBoolean("isVolumeOn", isVolumeOn!!).apply()
+        }
+
 }

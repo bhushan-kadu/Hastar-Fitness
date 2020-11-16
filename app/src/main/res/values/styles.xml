@@ -5,9 +5,6 @@
         <!-- Customize your theme here. -->
 <!--        <item name="colorPrimary">@color/babyBlue</item>-->
 
-        <item name="android:navigationBarColor">@android:color/white</item>
-
-
         <item name="colorPrimary">#0B86E6</item>
         <item name="colorPrimaryDark">#3C3C3C</item>
 

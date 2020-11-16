@@ -170,28 +170,6 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         videoUri = applicationContext.filesDir.toString() + "/" + workoutList[currentExercise].name + ".mp4"
 
 
-//        //initialize normal timer
-//        startTimer()
-//
-//        //initialize rest timer
-//        startRestTimer()
-//
-//        //initialize circular timer
-//        setCircularTimerMaxProgress(timerInitialTime)
-//
-//        //Initialize all texts
-//        setTimeTextAndCircularProgressText(timerInitialTime)
-//
-//        //set current exercise title
-//        updateExerciseTitle()
-//
-//
-//        //initialize seek bar for exercises completed indicator
-//        seekbar_exercises_completed_indicator.max = exerciseList.size
-//        seekbar_exercises_completed_indicator.progress = 0
-//
-//
-//
 
         //setup Indicator
         seekbar_exercises_completed_indicator.max = noOfExerciseSlots
@@ -246,10 +224,19 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         val volumeOnDrawable = ContextCompat.getDrawable(this, R.drawable.ic_volume)
         val volumeOffDrawable = ContextCompat.getDrawable(this, R.drawable.ic_volume_off)
 
+        //this is for first time set image manually
+        volume_button.setImageDrawable(if(session.isVolumeOn!!){
+            volumeOnDrawable
+        }else{
+            volumeOffDrawable
+        })
+
         volume_button.setOnClickListener {
             val newDrawable = if((it as ImageView).drawable == volumeOnDrawable){
+                session.isVolumeOn = false
                 volumeOffDrawable
             }else{
+                session.isVolumeOn = true
                 volumeOnDrawable
             }
             it.setImageDrawable(newDrawable)
@@ -851,40 +838,6 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    //start normal timer
-//    private fun startTimer() {
-//
-//        timer = object : CountDownTimerWithPause(timerInitialTime + 200, 1000, false) {
-//            override fun onFinish() {
-//                when {
-//                    //else if total workout time is big enough for a exercise start normal exercise timer
-//                    totalWorkoutTime >= timerInitialTime -> {
-//                        nextClick()
-//                    }
-//                    workoutList.size == currentExercise -> {
-//                        setCircularTimerMaxProgress(totalWorkoutTime)
-//                        setTimeTextAndCircularProgressText(totalWorkoutTime)
-//                        startFinalTimer(totalWorkoutTime)
-//                        changeNormalColorScheme()
-//                        finalTimer.resume()
-//                    }
-//                    else -> {
-//                        Toast.makeText(this@ActivityStartExercise, "Finished", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
-//
-//            override fun onTick(millisUntilFinished: Long) {
-//                //reduce total workout time on tick
-//                reduceTotalWorkoutTime(1000)
-//                //update all texts on tick
-//                setTimeTextAndCircularProgressText(((millisUntilFinished / 1000) - 1) * 1000)
-//
-//                setPerExerciseTime()
-//
-//            }
-//        }.create()
-//    }
 
     /**
      * sets how much time is taken for particular exercise
@@ -906,70 +859,12 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    //start rest timer
-//    private fun startRestTimer() {
-//
-//        restTimer = object : CountDownTimerWithPause(restTime + 900, 1000, false) {
-//            override fun onFinish() {
-//                //set rest time false as timer finished
-//                isRestTime = false
-//
-//
-////
-////                //initialize normal timer
-////                setCircularTimerMaxProgress(timerInitialTime)
-////                setTimeTextAndCircularProgressText(timerInitialTime)
-////                //else start normal timer
-////                startTimer()
-////                changeNormalColorScheme()
-////                timer.resume()
-//                nextClick()
-//            }
-//
-//            override fun onTick(millisUntilFinished: Long) {
-//                //reduce total workout time on tick
-//                reduceTotalWorkoutTime(1000)
-//                //update all texts on tick
-//
-//                when (val actualMillisUntilFinished = ((millisUntilFinished / 1000) - 1) * 1000) {
-//                    1000.toLong() -> {
-//                        remaining_clock_time.text = "Ready"
-//                        circular_timer.progress = (actualMillisUntilFinished / 1000).toInt()
-//                    }
-//                    0.toLong() -> {
-//                        remaining_clock_time.text = "Go!"
-//                        circular_timer.progress = (actualMillisUntilFinished / 1000).toInt()
-//                    }
-//                    3000.toLong() -> {
-//                        //start the gif
-//                        setGif()
-//                        setTimeTextAndCircularProgressText(actualMillisUntilFinished)
-//                    }
-//                    else -> {
-//                        setTimeTextAndCircularProgressText(actualMillisUntilFinished)
-//                    }
-//                }
-//            }
-//        }.create()
-//    }
 
     //start rest timer
     private fun startInitialTimer() {
 
         initialTimer = object : CountDownTimerWithPause(initialTime, 1000, false) {
             override fun onFinish() {
-
-//                isInitialTimer = false
-//                remaining_clock_time.text = "Go!"
-//                circular_timer.progress = (0).toInt()
-//                //toggle play pause state
-//
-//                changeNormalColorScheme()
-//                setCircularTimerMaxProgress(timerInitialTime)
-//                //Initialize all texts
-//                setTimeTextAndCircularProgressText(timerInitialTime)
-//                timer.resume()
-//                nextClick()
                 isInitialTimer = false
 
                 changeNormalColorScheme()
@@ -1019,21 +914,12 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
 
     private fun setGif() {
         //make bitmap invisible and gif visible
-//        exercise_bitmap.visibility = View.INVISIBLE
-//        exercise_gif.visibility = View.VISIBLE
-
-//        exercise_video_bitmap.visibility = View.INVISIBLE
         exercise_video.visibility = View.VISIBLE
         exercise_video.start()
     }
 
     private fun resetGif() {
         //make gif invisible and bitmap visible
-//        exercise_bitmap.visibility = View.VISIBLE
-//        exercise_gif.visibility = View.INVISIBLE
-
-//        exercise_video_bitmap.visibility = View.VISIBLE
-//        exercise_video.visibility = View.INVISIBLE
         exercise_video.pause()
     }
 
@@ -1044,21 +930,10 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         val options: RequestOptions = RequestOptions().frame(interval)
         Glide.with(applicationContext).asDrawable()
                 .load(videoUri)
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .skipMemoryCache(true)
                 .apply(options)
                 .placeholder(ContextCompat.getDrawable(this, R.color.white))
                 .into(exercise_video_bitmap)
 
-
-//        Picasso.get()
-//                .load(Uri.parse(videoUri))
-//                .placeholder(ContextCompat.getDrawable(this, R.color.white)!!)
-//                .into(exercise_video_bitmap)
-
-//        Glide.with(this).asGif()
-//                .load(Uri.parse(path))
-//                .into(exercise_gif)
 
         playVideo("pushups")
 
@@ -1071,7 +946,6 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
 
         exercise_video.setVideoURI(uri)
 
-//        exercise_video.start()
 
         exercise_video.setOnPreparedListener { mp ->
             mp.isLooping = true
@@ -1264,52 +1138,6 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
 
     }
 
-//    override fun onPause() {
-//        if (!isExitedByUser) {
-//            //pause timer on app dismiss
-//            when {
-//                isInitialTimer -> {
-//                    initialTimer.pause()
-//                }
-//                isFinalTimer -> {
-//                    finalTimer.pause()
-//                }
-//                else -> {
-//                    timer.pause()
-//                }
-//            }
-//
-//            //Creates a new launcher intent, equivalent to the intent generated by
-//            //clicking the icon on the home screen.
-//            val intent = Intent(this, ActivityStartExercise::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//            intent.action = Intent.ACTION_MAIN
-//            intent.addCategory(Intent.CATEGORY_LAUNCHER)
-//
-//            val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
-//
-//            val builder = NotificationCompat.Builder(this, AppConstants.CHANNEL_ID)
-//                    .setSmallIcon(R.drawable.dot_one)
-//                    .setContentTitle("Hastar Fitness")
-//                    .setContentText("go to your ongoing workout")
-//                    .setContentIntent(pendingIntent)
-//                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-//                    .setOngoing(true)//to make notification un-swipable
-//
-//
-//            //this method is for oreo and above
-//            // - doesn't affect lower apis
-//            createNotificationChannel()
-//
-//            //show notification by this code
-//            with(NotificationManagerCompat.from(this)) {
-//                // notificationId is a unique int for each notification that you must define
-//                notify(AppConstants.APP_WORKOUT_RESTART_NOTIFICATION, builder.build())
-//            }
-//        }
-//
-//        super.onPause()
-//    }
 
     override fun onPause() {
 
@@ -1372,45 +1200,7 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    //override fun onRestart() {
-//
-//    //disable notification
-//    val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//    notificationManager.cancel(AppConstants.APP_WORKOUT_RESTART_NOTIFICATION); // Notification ID to cancel
-//
-//    //pause timer depending on which timer is running
-//    //and if activity was in pause state
-//    if (isActivityInPauseState) {
-//        resetGif()
-//        when {
-//            isInitialTimer -> {
-//                initialTimer.pause()
-//            }
-//            isFinalTimer -> {
-//                finalTimer.pause()
-//            }
-//            else -> {
-//                timer.pause()
-//            }
-//        }
-//    } else {
-//        //restart timer depending on which timer is running
-//        //and if activity was in play state
-//        when {
-//            isInitialTimer -> {
-//                initialTimer.resume()
-//            }
-//            isFinalTimer -> {
-//                finalTimer.resume()
-//            }
-//            else -> {
-//                timer.resume()
-//            }
-//        }
-//    }
-//
-//    super.onRestart()
-//}
+    
     override fun onRestart() {
 
         //disable notification
@@ -1419,29 +1209,6 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
 
         //pause timer depending on which timer is running
         //and if activity was in pause state
-//        if (isActivityInPauseState) {
-//            updateExerciseVideo()
-//            resetGif()
-//            when {
-//                isInitialTimer -> {
-//                    initialTimer.pause()
-//                }
-//                else -> {
-//                    mainTimer!!.cancel()
-//                }
-//            }
-//        } else {
-//            //restart timer depending on which timer is running
-//            //and if activity was in play state
-//            when {
-//                isInitialTimer -> {
-//                    initialTimer.resume()
-//                }
-//                else -> {
-//                    startMainTimer(lastTime)
-//                }
-//            }
-//        }
 
         updatedPlayPauseClick()
         updateExerciseVideo()
