@@ -29,7 +29,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.countDownTimerWithPause.CountDownTimerWithPause
-import com.hastarfitness.hastarfitnessapp.customDialogueToSetRestTime.DlgSetRestTime
+import com.hastarfitness.hastarfitnessapp.settings.DlgSetRestTime
 import com.hastarfitness.hastarfitnessapp.database.AppDatabase
 import com.hastarfitness.hastarfitnessapp.database.ExerciseDbModel
 import com.hastarfitness.hastarfitnessapp.database.RestTimeModel
@@ -86,7 +86,7 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
     private lateinit var viewModel: ViewModel
     lateinit var db: AppDatabase
 
-    private lateinit var dlgSetRestTime:DlgSetRestTime
+    private lateinit var dlgSetRestTime: DlgSetRestTime
     lateinit var restTimeModel: RestTimeModel
 
 
@@ -230,6 +230,8 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
         }else{
             volumeOffDrawable
         })
+
+
 
         volume_button.setOnClickListener {
             val newDrawable = if((it as ImageView).drawable == volumeOnDrawable){
@@ -539,19 +541,21 @@ class ActivityStartExercise : AppCompatActivity(), View.OnClickListener {
     }
 
     fun startAudio(audioName: String) {
-        val mediaPlayer = MediaPlayer();
-        val afd: AssetFileDescriptor
-        try {
-            afd = assets.openFd(audioName);
-            mediaPlayer.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-        } catch (e: IOException) {
-            e.printStackTrace();
-        }
+        if (session.isVolumeOn!!){
+            val mediaPlayer = MediaPlayer();
+            val afd: AssetFileDescriptor
+            try {
+                afd = assets.openFd(audioName);
+                mediaPlayer.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length);
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+            } catch (e: IOException) {
+                e.printStackTrace();
+            }
 
-        mediaPlayer.setOnCompletionListener {
-            it.release()
+            mediaPlayer.setOnCompletionListener {
+                it.release()
+            }
         }
     }
 

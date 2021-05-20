@@ -1,12 +1,11 @@
-package com.hastarfitness.hastarfitnessapp.customDialogueToSetRestTime
+package com.hastarfitness.hastarfitnessapp.settings
 
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
-import android.os.Bundle
 import android.os.Handler
 import android.view.MotionEvent
 import android.view.Window
+import android.widget.Toast
 import com.hastarfitness.hastarfitnessapp.R
 import kotlinx.android.synthetic.main.dlg_set_rest_time.*
 
@@ -15,7 +14,7 @@ import kotlinx.android.synthetic.main.dlg_set_rest_time.*
  *
  * @author Bhushan Kadu
  */
-class DlgSetRestTime(ctx: Context, var restTime: Int) : Dialog(ctx) {
+class DlgSetRestTime(var ctx: Context, var restTime: Int) : Dialog(ctx) {
 
 
     var mAutoIncrement = false;
@@ -92,6 +91,7 @@ class DlgSetRestTime(ctx: Context, var restTime: Int) : Dialog(ctx) {
 
             isSaved = true
             restTime = restNumber_textView.text.toString().toInt()
+            Toast.makeText(ctx, "Rest Time Saved Successfully", Toast.LENGTH_LONG).show()
             dismiss()
         }
 

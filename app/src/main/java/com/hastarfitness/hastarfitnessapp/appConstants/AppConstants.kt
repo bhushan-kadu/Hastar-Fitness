@@ -5,7 +5,7 @@ import java.util.*
 /**
  * This class saves all app constants needed for for running the app
  *
- * @author Bhushan Kadu
+ * @author Bhushan Kadus
  */
 object AppConstants {
     const val BODY_WEIGHT = "body weight"
@@ -151,6 +151,7 @@ object AppConstants {
     const val WEEKLY_GOAL = "weeklyDietGoal"
     const val CREATED_AT = "created_at"
     const val UPDATED_AT = "updated_at"
+    const val NOT_SET = "not_set"
 
 
 

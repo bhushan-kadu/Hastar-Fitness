@@ -185,7 +185,7 @@
 
             <LinearLayout
                 android:id="@+id/openRestChangeDialogue_Btn"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:background="@drawable/diet_unselected_faint_border"
@@ -193,13 +193,63 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textAlignment="center"
+                    android:layout_weight="1"
                     android:id="@+id/restTime_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:text="180 Sec"
+                    android:text="1000 Sec"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_arrow_down" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:text="Pedometer Goal"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/pedometerGoal_button"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/diet_unselected_faint_border"
+                android:foreground="?selectableItemBackground"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:id="@+id/pedometerGoal_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="15000"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
 

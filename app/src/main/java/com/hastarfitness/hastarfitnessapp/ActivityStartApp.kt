@@ -96,10 +96,11 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
     private fun signIn() {
         setLoading()
         val signInIntent = googleSignInClient.signInIntent
+        googleSignInClient.signOut()
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    fun signInAnonymously() {
+    private fun signInAnonymously() {
         setLoading()
         auth.signInAnonymously()
                 .addOnCompleteListener(this) { task ->
@@ -127,21 +128,6 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setUserSignedIn() {
-
-//        FirebaseInstanceId.getInstance().instanceId
-//                .addOnCompleteListener(OnCompleteListener { task ->
-//                    if (!task.isSuccessful) {
-//                        Log.w(TAG, "getInstanceId failed", task.exception)
-//                        return@OnCompleteListener
-//                    }
-//
-//                    // Get new Instance ID token
-//                    val token = task.result?.token
-//
-//                    // Log and toast
-//                    Log.d(TAG, token)
-//                    Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
-//                })
 
         session.isUserLoggedOut = false
         if (session.areStartPagesShown!!) {
@@ -204,12 +190,6 @@ class ActivityStartApp : AppCompatActivity(), View.OnClickListener {
             startActivity(Intent(this@ActivityStartApp, ActivityStartPages::class.java))
         }
 
-
-//        if (session.areStartPagesShown!!) {
-//            startActivity(Intent(this@ActivityStartApp, ActivityDashboard::class.java))
-//        } else {
-//            startActivity(Intent(this@ActivityStartApp, ActivityStartPages::class.java))
-//        }
 
     }
 

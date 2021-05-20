@@ -31,13 +31,13 @@ public class ViewPagerAdapterForStartingPages extends FragmentStateAdapter {
         switch(position) {
 
             case 0: return new FragmentGetGender();
-//            case 1: return new FragmentGetAge();
-            case 1: return new FragmentGetHeight();
-            case 2: return new FragmentGetWeight();
-            case 3: return new FragmentGetGoalWeight();
-            case 4: return new FragmentGetActivityLevel();
-            case 5: return new FragmentGetWeeklyGoal();
-            case 6: return new FragmentAppInfoPage();
+            case 1: return new FragmentGetAge();
+            case 2: return new FragmentGetHeight();
+            case 3: return new FragmentGetWeight();
+            case 4: return new FragmentGetGoalWeight();
+            case 5: return new FragmentGetActivityLevel();
+            case 6: return new FragmentGetWeeklyGoal();
+            case 7: return new FragmentAppInfoPage();
         }
         return null;
     }
@@ -46,6 +46,6 @@ public class ViewPagerAdapterForStartingPages extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         // Show 7 total pages.
-        return 7;
+        return 8;
     }
 }

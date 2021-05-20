@@ -378,6 +378,15 @@ class ViewModel : ViewModel() {
     }
   }
 
+  val steps = MutableLiveData<PedometerDataModel>();
+  fun getSteps(db: AppDatabase) {
+    viewModelScope.launch(Dispatchers.Default) {
+
+      steps.postValue(db.exerciseDao().getSteps())
+
+    }
+  }
+
   val quote = MutableLiveData<QuotesDbModel>()
   fun getQuoteByDayNo(db: AppDatabase, dayNo:Int) {
     viewModelScope.launch(Dispatchers.Default) {

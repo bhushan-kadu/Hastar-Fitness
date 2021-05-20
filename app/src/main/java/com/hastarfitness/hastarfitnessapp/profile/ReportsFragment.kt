@@ -60,11 +60,6 @@ class ReportsFragment : Fragment() {
         calenderWidget.setOnDateChangedListener { widget, date, selected ->
             date
         }
-
-
-        // From Date to YearMonth
-
-
     }
 
 
@@ -91,7 +86,7 @@ class ReportsFragment : Fragment() {
 
 //       //setup calender
         calenderWidget.state().edit()
-                .setMinimumDate(CalendarDay.from(startDate[Calendar.YEAR], startDate[Calendar.MONTH], startDate[Calendar.DAY_OF_MONTH]))
+                .setMinimumDate(CalendarDay.from(startDate[Calendar.YEAR], startDate[Calendar.MONTH] + 1, startDate[Calendar.DAY_OF_MONTH]))
                 .setMaximumDate(CalendarDay.today())
 //                .setMaximumDate(CalendarDay.from(2020, 6, 28))
                 .commit();
@@ -99,10 +94,6 @@ class ReportsFragment : Fragment() {
         calenderWidget.currentDate = CalendarDay.today()
 
         barChart.xAxis.valueFormatter = LabelFormatter("Day")
-
-
-        //setup bar chart
-//        setBarChart(null)
 
     }
 

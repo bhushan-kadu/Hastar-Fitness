@@ -25,7 +25,8 @@ import androidx.room.TypeConverters
     LastSearchedFoods::class,
     UserFoodConsumedDataDbModel::class,
     QuotesDbModel::class,
-    StepCountModel::class],
+    StepCountModel::class,
+    PedometerDataModel::class],
         views = [ExerciseView::class],
         version = 1)
 @TypeConverters(Converters::class)

@@ -119,6 +119,11 @@ interface ExerciseDao {
     @Query("select * from FinalBodyWeightExercisesDbModel ")
     fun selectExercisesFromFinalBodyWeightExerciseDbModelByType():List<FinalBodyWeightExercisesDbModel>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertSteps(data: PedometerDataModel) :Long
+    @Query("Select * from PedometerDataModel where id=1")
+    fun getSteps():PedometerDataModel
+
 
     @RawQuery()
     fun createViewExerciseView(query: SupportSQLiteQuery):Any

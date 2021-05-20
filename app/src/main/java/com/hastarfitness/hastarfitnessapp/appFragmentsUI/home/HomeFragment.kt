@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.util.Log.v
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import com.hastarfitness.hastarfitnessapp.ViewModel
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
 import com.hastarfitness.hastarfitnessapp.database.AppDatabase
 import com.hastarfitness.hastarfitnessapp.database.StepCountModel
+import com.hastarfitness.hastarfitnessapp.database.UserDailyDataDbModel
 import com.hastarfitness.hastarfitnessapp.manageSharedPrefs.Session
 import com.hastarfitness.hastarfitnessapp.meditationNew.ShowMeditationTypesActivity
 import com.hastarfitness.hastarfitnessapp.pedometer.MyPedometerService
@@ -93,9 +95,9 @@ class HomeFragment : Fragment() {
 
         val userGreetLl = view.findViewById<LinearLayout>(R.id.userGreeting_layout)
         val userNameTv = view.findViewById<TextView>(R.id.userName_textView)
-        userNameTv.text = if(session!!.userName != "" || session!!.userName!!.toLowerCase() != "guest user"){
+        userNameTv.text = if (session!!.userName != "" || session!!.userName!!.toLowerCase() != "guest user") {
             session!!.userName!!.split(" ")[0]
-        }else{
+        } else {
             userGreetLl.visibility = View.GONE
             ""
         }
@@ -129,20 +131,21 @@ class HomeFragment : Fragment() {
 
         //set pedometer
         spfPedometer = requireActivity().getSharedPreferences("pedometer", Context.MODE_PRIVATE)
-        val stepsGoal =  spfPedometer.getInt("steps_goal_everyday", 6000)
+        val stepsGoal = spfPedometer.getInt("steps_goal_everyday", 6000)
         steps_seekArc.max = stepsGoal
         stepsGoal_textView.text = stepsGoal.toString()
+
+        setStepsToUi()
 
     }
 
     var roundingFormat: DecimalFormat? = null
     lateinit var viewModelPedometer: PedometerViewModel
-    lateinit var spfPedometer:SharedPreferences
+    lateinit var spfPedometer: SharedPreferences
     fun initialize() {
 
         //start pedometer service calling this again has same effect
-        requireActivity().startService(Intent(requireContext(), MyPedometerService::class.java))
-
+       requireActivity().startService(Intent(requireContext(), MyPedometerService::class.java))
 
 
         //setup session
@@ -161,10 +164,17 @@ class HomeFragment : Fragment() {
         roundingFormat = DecimalFormat("#.##")
         roundingFormat!!.roundingMode = RoundingMode.CEILING
 
-        //set streak number
+
     }
 
-    private fun setStreakNo() {}
+    fun setStepsToUi() {
+
+        val steps = spfPedometer.getInt("my_last_saved_step_value", 0)
+        step_count.text = steps.toString()
+
+        spfPedometer.edit().putInt("steps_to_be_added", 0).apply()
+    }
+
 
     /**
      * instantiates the db variable
@@ -172,6 +182,28 @@ class HomeFragment : Fragment() {
     private fun instantiateDb() {
         db = Room.databaseBuilder(requireContext(), AppDatabase::class.java, "HasterDb.db")
                 .build()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: StepTakenMessage?) {
+        val steps = event!!.todaysSteps
+        step_count.text = steps.toString()
+
+        steps_seekArc.progress = steps
+        val stepsGoal = spfPedometer.getInt("steps_goal_everyday", 6000)
+        val stepsRemain = stepsGoal - steps
+        stepRemain_textView.text = if (stepsRemain >= 0) {
+            stepsRemain.toString()
+        } else {
+            0.toString()
+        }
+
+        caloriesBurned = 0.04 * event.stepsToBeAdded
+        saveCalculatedValuesToDb()
+
+        viewModelPedometer.insertOrUpdateStepForTheDate(db, StepCountModel(getTodaysDate(), steps))
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
+
     }
 
     private fun getTodaysDate(): Date {
@@ -184,22 +216,41 @@ class HomeFragment : Fragment() {
         return today.time
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: StepTakenMessage?) {
-        val steps = event!!.todaysSteps
-        Log.v("steps", steps.toString())
-        step_count.text = steps.toString()
 
-        steps_seekArc.progress = steps
-        val stepsGoal = spfPedometer.getInt("steps_goal_everyday", 6000)
-        val stepsRemain = stepsGoal - steps
-        stepRemain_textView.text = if(stepsRemain >= 0){
-            stepsRemain.toString()
-        }else{
-            0.toString()
-        }
+    private var caloriesBurned = 0.0
+    private fun saveCalculatedValuesToDb() {
 
-        viewModelPedometer.insertOrUpdateStepForTheDate(db, StepCountModel(getTodaysDate(), steps))
+        viewModel.getTodaysUserData(db)
+        viewModel.todayData.observe(requireActivity(), androidx.lifecycle.Observer {
+            val today = Calendar.getInstance()
+            today.set(Calendar.HOUR_OF_DAY, 0)
+            today.set(Calendar.MINUTE, 0)
+            today.set(Calendar.SECOND, 0)
+            today.set(Calendar.MILLISECOND, 0)
+            val noOfWorkouts = 0
+            val todayDataDbModel = it
+            if (todayDataDbModel == null) {
+                //if todays row is not created create new row for today
+                val todayData = UserDailyDataDbModel(today.time, caloriesBurned, noOfWorkouts, 0.0, 0)
+                viewModel.insertUserTodayData(db, todayData)
+            } else {
+                //else update the existing todays row
+                val totalWorkoutNo = noOfWorkouts + todayDataDbModel.noOfWorkout
+                val totalCaloriesBurned = caloriesBurned + todayDataDbModel.calories
+                val date = todayDataDbModel.date
+                val totalTime = 0.0
+                val todayData = UserDailyDataDbModel(date, totalCaloriesBurned, totalWorkoutNo, totalTime, 0)
+                viewModel.updateUserTodayData(db, todayData)
+            }
+        })
+
+        viewModel.insertedRowLong.observe(requireActivity(), androidx.lifecycle.Observer {
+            it
+        })
+
+        viewModel.insertedRowInt.observe(requireActivity(), androidx.lifecycle.Observer {
+            it
+        })
 
     }
 
@@ -209,11 +260,11 @@ class HomeFragment : Fragment() {
         step_count.text = spf.getInt("my_last_saved_step_value", 0).toString()
     }
 
-
     override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
     }
+
 
     override fun onStop() {
         super.onStop()

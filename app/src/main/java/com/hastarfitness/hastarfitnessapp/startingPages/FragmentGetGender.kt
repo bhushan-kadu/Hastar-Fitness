@@ -22,11 +22,19 @@ class FragmentGetGender : Fragment() {
 
         maleButton.setOnClickListener {
             parentActivity.gender = AppConstants.MALE
-            parentActivity.viewPager.setCurrentItem(parentActivity.viewPager.currentItem + 1, true)
+            var skipPage = 1
+            if(parentActivity.session.dateOfBirth != AppConstants.NOT_SET){
+                skipPage = 2
+            }
+            parentActivity.viewPager.setCurrentItem(parentActivity.viewPager.currentItem + skipPage, true)
         }
         femaleButton.setOnClickListener {
+            var skipPage = 1
+            if(parentActivity.session.dateOfBirth != AppConstants.NOT_SET){
+                skipPage = 2
+            }
             parentActivity.gender = AppConstants.FEMALE
-            parentActivity.viewPager.setCurrentItem(parentActivity.viewPager.currentItem + 1, true)
+            parentActivity.viewPager.setCurrentItem(parentActivity.viewPager.currentItem + skipPage, true)
         }
 //        otherButton.setOnClickListener {
 //            parentActivity.gender = AppConstants.OTHER_GENDER

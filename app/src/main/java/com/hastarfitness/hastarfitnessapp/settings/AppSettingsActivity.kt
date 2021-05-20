@@ -1,5 +1,6 @@
 package com.hastarfitness.hastarfitnessapp.settings
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
@@ -26,7 +27,6 @@ import com.hastarfitness.hastarfitnessapp.ActivityDashboard
 import com.hastarfitness.hastarfitnessapp.R
 import com.hastarfitness.hastarfitnessapp.ViewModel
 import com.hastarfitness.hastarfitnessapp.appConstants.AppConstants
-import com.hastarfitness.hastarfitnessapp.customDialogueToSetRestTime.DlgSetRestTime
 import com.hastarfitness.hastarfitnessapp.database.AppDatabase
 import com.hastarfitness.hastarfitnessapp.database.RestTimeModel
 import com.hastarfitness.hastarfitnessapp.diet.dietStartPages.DietStartPagesActivity
@@ -41,7 +41,8 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
     private lateinit var viewModel: ViewModel
     lateinit var db: AppDatabase
     lateinit var restTimeModel: RestTimeModel
-    private lateinit var dlgSetRestTime:DlgSetRestTime
+    private lateinit var dlgSetRestTime: DlgSetRestTime
+    private lateinit var dlgSetWalkingGoal: DlgSetWalkingGoal
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -52,6 +53,11 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val session = Session(this)
+        val spf = getSharedPreferences("pedometer", Context.MODE_PRIVATE)
+        val stepsGoal = spf.getInt("steps_goal_everyday", 6000)
+        pedometerGoal_textView.text = stepsGoal.toString()
+
+
 
 
 //        get the rest time from session if present else get from db
@@ -60,15 +66,27 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
         dlgSetRestTime = DlgSetRestTime(this@AppSettingsActivity, 10)//temp
         dlgSetRestTime.create()
 
+        dlgSetWalkingGoal = DlgSetWalkingGoal(this@AppSettingsActivity, stepsGoal)//temp
+        dlgSetWalkingGoal.create()
+
         dlgSetRestTime.setOnShowListener {
             dlgSetRestTime.isSaved = false
         }
 
         dlgSetRestTime.setOnDismissListener {
-            if(dlgSetRestTime.isSaved){
+            if (dlgSetRestTime.isSaved) {
                 val changedRestTime = dlgSetRestTime.restTime
-                viewModel.updateRest(db, RestTimeModel(restTimeModel.id, restTimeModel.type, restTimeModel.intensity, restTimeModel.numberOfExerciseAfter,  changedRestTime))
+                viewModel.updateRest(db, RestTimeModel(restTimeModel.id, restTimeModel.type, restTimeModel.intensity, restTimeModel.numberOfExerciseAfter, changedRestTime))
                 restTime_textView.text = "$changedRestTime Sec"
+            }
+
+        }
+
+        dlgSetWalkingGoal.setOnDismissListener {
+            if (dlgSetWalkingGoal.isSaved) {
+                val stepGoal = dlgSetWalkingGoal.stepsGoal
+                spf.edit().putInt("steps_goal_everyday", stepGoal).apply()
+                pedometerGoal_textView.text = stepGoal.toString()
             }
 
         }
@@ -91,8 +109,9 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
         openRestChangeDialogue_Btn.setOnClickListener {
             dlgSetRestTime.show()
         }
-
-
+        pedometerGoal_button.setOnClickListener {
+            dlgSetWalkingGoal.show()
+        }
 
 
         val calInstance = Calendar.getInstance()
@@ -119,10 +138,6 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
             val intensityRadioBtnId: Int = intensityRadioGrp.checkedRadioButtonId
             val intensityRadioBtn = findViewById<RadioButton>(intensityRadioBtnId)
             val intensityString = intensityRadioBtn.tag.toString()
-
-
-
-
 
             for (child in 0 until settings_recyclerView.childCount) {
                 val viewGroup = ((settings_recyclerView.getChildAt(child) as ViewGroup).getChildAt(0) as ViewGroup)
@@ -185,17 +200,17 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
 
         exerciseIntensityRadio.setOnCheckedChangeListener { radioGroup, i ->
             val radioBtn = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
-            when(radioBtn.text.toString().toLowerCase()){
-                AppConstants.BEGINNER ->{
+            when (radioBtn.text.toString().toLowerCase()) {
+                AppConstants.BEGINNER -> {
                     viewModel.getRest(db, AppConstants.BODY_WEIGHT, AppConstants.BEGINNER)
                     session.intensity = AppConstants.BEGINNER
                 }
-                AppConstants.INTERMEDIATE ->{
+                AppConstants.INTERMEDIATE -> {
                     viewModel.getRest(db, AppConstants.BODY_WEIGHT, AppConstants.INTERMEDIATE)
                     session.intensity = AppConstants.INTERMEDIATE
 
                 }
-                AppConstants.ADVANCED ->{
+                AppConstants.ADVANCED -> {
                     viewModel.getRest(db, AppConstants.BODY_WEIGHT, AppConstants.ADVANCED)
                     session.intensity = AppConstants.ADVANCED
 
@@ -215,6 +230,10 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
     private fun instantiateDb() {
         db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "HasterDb.db")
                 .build()
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this, ActivityDashboard::class.java))
     }
 
     private fun openBugReportPageInBrowser() {
@@ -294,4 +313,6 @@ class AppSettingsActivity : AppCompatActivity(), StartDragListener {
             touchHelper.startDrag(viewHolder)
         };
     }
+
+
 }

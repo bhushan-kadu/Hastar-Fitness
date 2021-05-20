@@ -151,7 +151,7 @@ class Session(val activity: Activity) {
         }
 
     var dateOfBirth: String?
-        get() = prefs!!.getString("dateOfBirth", "not set")
+        get() = prefs!!.getString("dateOfBirth", AppConstants.NOT_SET)
         set(dateOfBirth) {
             prefs!!.edit().putString("dateOfBirth", dateOfBirth!!).apply()
         }
