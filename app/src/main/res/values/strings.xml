@@ -218,6 +218,10 @@
     <string name="diet">Diet</string>
     <string name="submit_bug">Submit a Bug</string>
     <string name="sign_in_page">Sign In</string>
+    <string name="your_steps_will_be_shown_here_soon">Your Steps Will be Shown here soon!</string>
+    <string name="steps_to_go">steps to go</string>
+    <string name="goal_of">Goal of</string>
+    <string name="steps_completed">steps completed!</string>
 
 
 </resources>

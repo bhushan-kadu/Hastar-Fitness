@@ -1,9 +1,7 @@
 package com.hastarfitness.hastarfitnessapp.pedometer
 
 import android.app.*
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener2
@@ -24,6 +22,7 @@ import com.hastarfitness.hastarfitnessapp.Util
 import com.hastarfitness.hastarfitnessapp.database.AppDatabase
 import org.greenrobot.eventbus.EventBus
 import kotlin.math.min
+import com.hastarfitness.hastarfitnessapp.broadcastReceivers.ShutdownReceiver
 
 
 class MyPedometerService : Service(), SensorEventListener2, LifecycleObserver {
@@ -32,8 +31,10 @@ class MyPedometerService : Service(), SensorEventListener2, LifecycleObserver {
         return null
     }
     lateinit var db:AppDatabase
+    private val shutdownReceiver: BroadcastReceiver = ShutdownReceiver()
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         registerSensorListener()
+        registerBroadcastReceiver();
         db = Room.databaseBuilder(this, AppDatabase::class.java, "HasterDb.db")
                 .build()
 
@@ -49,6 +50,7 @@ class MyPedometerService : Service(), SensorEventListener2, LifecycleObserver {
         } else {
             am.set(AlarmManager.RTC, nextUpdate, pi)
         }
+        startForeground(1, getNotification(goal=0, steps = 0))
 
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
@@ -136,7 +138,7 @@ class MyPedometerService : Service(), SensorEventListener2, LifecycleObserver {
     private fun getNotification(goal: Int, steps: Int):Notification{
         val pendingIntent: PendingIntent =
                 Intent(this, ActivityDashboard::class.java).let { notificationIntent ->
-                    PendingIntent.getActivity(this, 0, notificationIntent, 0)
+                    PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
                 }
         val builder = NotificationCompat.Builder(this, THIS)
                 .setSmallIcon(R.drawable.notification_logo)
@@ -147,9 +149,15 @@ class MyPedometerService : Service(), SensorEventListener2, LifecycleObserver {
                 .setOngoing(true)
         createNotificationChannel()
 
-        builder.setProgress(goal, steps, false)
-                .setContentText(if((goal - steps) > 0) "${goal-steps} steps to go" else "Goal of $goal steps completed!")
+        if(steps > 0 && goal >0) {
+            builder.setProgress(goal, steps, false)
+                .setContentText(if ((goal - steps) > 0) "${goal - steps} steps to go" else "Goal of $goal steps completed!")
+
                 .setContentTitle("$steps steps")
+        }else{
+            builder.setContentTitle("Pedometer is counting")
+                .setContentText(getString(R.string.your_steps_will_be_shown_here_soon))
+        }
         return builder.build()
     }
     private var THIS ="saknda";
@@ -173,7 +181,11 @@ class MyPedometerService : Service(), SensorEventListener2, LifecycleObserver {
             notificationManager.createNotificationChannel(channel1)
         }
     }
-
+    private fun registerBroadcastReceiver() {
+        val filter = IntentFilter()
+        filter.addAction(Intent.ACTION_SHUTDOWN)
+        registerReceiver(shutdownReceiver, filter)
+    }
 
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
@@ -194,15 +206,14 @@ class MyPedometerService : Service(), SensorEventListener2, LifecycleObserver {
 
     }
 
-
-
     override fun onDestroy() {
         super.onDestroy()
         //Your Runnable
         v("steps", "service destroyed")
         try {
+            unregisterReceiver(shutdownReceiver)
             val sm = getSystemService(SENSOR_SERVICE) as SensorManager
-//            sm.unregisterListener(this)
+            sm.unregisterListener(this)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }

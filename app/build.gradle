@@ -86,7 +86,7 @@ dependencies {
     // Firebase Authentication (Kotlin)
     implementation 'com.google.firebase:firebase-auth-ktx:19.3.2'
 
-    def room_version = "2.2.5"
+    def room_version = "2.4.0-alpha02"
     // check latest version from docs
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
