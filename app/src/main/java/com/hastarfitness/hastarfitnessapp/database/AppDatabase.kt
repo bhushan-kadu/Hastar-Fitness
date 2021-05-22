@@ -1,5 +1,6 @@
 package com.hastarfitness.hastarfitnessapp.database
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -28,7 +29,10 @@ import androidx.room.TypeConverters
     StepCountModel::class,
     PedometerDataModel::class],
         views = [ExerciseView::class],
-        version = 1)
+        version = 1,
+    autoMigrations = [
+        AutoMigration (from = 1, to = 2 )
+    ])
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
