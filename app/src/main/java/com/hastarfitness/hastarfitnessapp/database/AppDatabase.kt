@@ -29,7 +29,7 @@ import androidx.room.TypeConverters
     StepCountModel::class,
     PedometerDataModel::class],
         views = [ExerciseView::class],
-        version = 1,
+        version = 2,
     autoMigrations = [
         AutoMigration (from = 1, to = 2 )
     ])
