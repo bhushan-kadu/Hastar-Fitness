@@ -1,6 +1,6 @@
 # Hastar-Fitness
 
-Website - https://hastarfitness.github.io/AppWebsite/<br/>
+Website - https://hastarfitness.com/<br/>
 Description - Hastar Fitness provide you with customized workout plans.<br/>
                             Deliverable are Body Weight, Cardio, Yoga and Meditation. All workouts customizable according to your body specifics.<br/>
                             This is an all-rounder app, which keeps track of your body weight, daily calories burn and a separate BMI calculator.<br/>
